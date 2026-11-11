@@ -20,7 +20,8 @@
       "Source quantities reflect field-measured billing backup, not a verified completion or acceptance certificate.",
       "Source workbook contains unit prices and payment amounts; excluded from this public technical record.",
       "4E and 4F are measured together as 4E/4F; do not double-count.",
-      "Change-order entries are quantity-over-contract rows, not additional independent measured work."
+      "Change-order entries are quantity-over-contract rows, not additional independent measured work.",
+      "Each building has the same base schedule quantities for trade items; 4E/4F is 5 CF + 8 CF combined."
     ]
   },
   "scope": [
@@ -363,5 +364,28 @@
       "overage": 52,
       "unit": "SF"
     }
-  ]
+  ],
+  "contractQuantitiesPerBuilding": {
+    "4A": 30,
+    "4B": 50,
+    "4C": 10,
+    "4D": 40,
+    "4E/4F": 13,
+    "4G": 30,
+    "4H": 12,
+    "4I": 40,
+    "4J": 50,
+    "4K": 20,
+    "4L": 2,
+    "4M": 200,
+    "4N": 200,
+    "4O": 200,
+    "4P": 10,
+    "4Q": 6,
+    "4R": 10,
+    "4S": 100,
+    "4T": 10,
+    "4U": 40,
+    "4V": 40
+  }
 }
