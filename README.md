@@ -64,3 +64,19 @@ The PDF is written to `docs/Barcelona_Gardens_Typical_Elevations.pdf`.
 - **Life-safety devices:** from the typical diagram in the MTD phasing plan, which is not to scale.
 
 This is a reference tool for coordination. It does not replace the signed NV5 drawings.
+
+
+## Field Records / Pay Application #3 (November 2026 enhancement)
+
+The application includes an **interactive, mobile-friendly Field Records** bottom sheet connected to the existing NV5 repair marks in 3D, plan and elevation views. Select any mark and choose **Edit field record** to record an observed condition, SOW line item, actual field quantity (with units), field status, observer, date, notes and guided verification steps. Updates recolor corresponding 3D/plan markers immediately on the current device.
+
+**Records > Pay App #3** contains a frozen **technical** extract of the provided Excel workbook, with measured quantities through **October 24, 2026**, for the period ending October 31, 2026. Four building tabs and 26 SOW codes are supported. Use the **Scope / PDF** tab to inspect contractual SOW descriptions, export/import an editable JSON field draft, download a safe Excel technical record or open a separate **revised field report** and save it as PDF through the browser's Print dialog.
+
+### Data, approvals and privacy
+
+- The original workbook contains **unit prices, contract values and payments**. These have **not** been committed to this public repository. The public dataset is `data/pay-app-3-quantities-public.json`; the sanitized technical spreadsheet is `docs/Barcelona_Pay_App_3_Technical_Quantities.xlsx`.
+- **Pay App quantities are field-measured billing backup**, not automatically work accepted, engineer-approved or completed. Do **not** add quantity-over-contract (CO) overages to measured totals; those overages are already part of the source totals.
+- NV5 repair marks, source unit quantities and new field records have **different provenance**. No measurements are automatically attributed to a particular NV5 mark merely because they share a building or unit number. Association requires field confirmation.
+- The original 10-sheet `Barcelona_Gardens_Typical_Elevations.pdf` remains **unchanged**. The revised field report is a separate print-ready document generated from the field draft.
+- This is a **static GitHub Pages application**. Field edits persist in **this browser's localStorage only** and update the interface immediately on that device. They are **not** server-synced across PMs/devices. Export JSON backups to preserve and transfer revisions. For shared real-time records, a secure authenticated backend and audit trail must be implemented.
+
