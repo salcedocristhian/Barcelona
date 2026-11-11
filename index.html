@@ -769,7 +769,7 @@ function devSym(t,x,z){const s=1.1;switch(t){
  case 'PS':return `<rect x="${x-s*.8}" y="${z-s*.8}" width="${1.6*s}" height="${1.6*s}" fill="var(--danger)"/>`;
  case 'HS':return `<polygon points="${x},${z-s} ${x+s},${z} ${x},${z+s} ${x-s},${z}" fill="none" stroke="var(--danger)" stroke-width=".3"/>`;
  case 'EEL':return `<rect x="${x-.7}" y="${z-1.3}" width="1.4" height="2.6" fill="#2F9E44"/>`;}return '';}
-function markSvg(m,k){const st=statusOf(m),col=CATS[m.cat].color;const x=m.X,z=m.Z;let s=`<g class="p-mark" data-id="${m.id}" role="button" tabindex="0" aria-label="${esc(m.code+': '+m.note)}">`;
+function markSvg(m,k){const st=statusOf(m),col=window.BarcelonaField?.colorFor(m.id)||CATS[m.cat].color;const x=m.X,z=m.Z;let s=`<g class="p-mark" data-id="${m.id}" role="button" tabindex="0" aria-label="${esc(m.code+': '+m.note)}">`;
  if(m.X2!=null)s+=`<line x1="${x}" y1="${z}" x2="${m.X2}" y2="${m.Z2}" stroke="${col}" stroke-width="${1.2*k}" stroke-linecap="round"/>`;
  if(st)s+=`<circle cx="${x}" cy="${z}" r="${2.9*k}" fill="none" stroke="var(--${st==='conf'?'danger':'near'})" stroke-width="${.45*k}" stroke-dasharray="${1*k} ${.6*k}"/>`;
  if(state.sel&&state.sel.id===m.id)s+=`<circle cx="${x}" cy="${z}" r="${3.9*k}" fill="none" stroke="var(--ink)" stroke-width="${.5*k}"/>`;
@@ -815,7 +815,7 @@ function sitePlan(){let s=`<rect x="-20" y="-20" width="540" height="420" fill="
   const nm=b==='club'?'Club':b;s+=`<text x="${B.c[0]}" y="${B.c[1]+(b==='club'?2:3)}" font-size="${b==='club'?7:11}" text-anchor="middle" class="p-txt" font-weight="600">${nm}</text>`;
   if(b!=='club')s+=`<text x="${B.c[0]}" y="${B.c[1]+12}" font-size="6" text-anchor="middle" class="p-mut">Phase ${B.phase}</text>`;s+='</g>';
   for(const [ex,ez] of exitsOf(b)){const [wx,wz]=toWorld(b,ex,ez);s+=`<circle cx="${wx}" cy="${wz}" r="${state.r}" fill="none" stroke="var(--danger)" stroke-width=".6" stroke-dasharray="2 1.4" opacity=".7"/><circle cx="${wx}" cy="${wz}" r="1.6" fill="#8A2222"/>`;}}
- if(state.marks)for(const m of MARKS){const st=statusOf(m);if(state.only&&!st)continue;const [x,z]=toWorld(m.b,m.X2!=null?(m.X+m.X2)/2:m.X,m.Z2!=null?(m.Z+m.Z2)/2:m.Z);s+=`<g class="p-mark" data-id="${m.id}" role="button" tabindex="0" aria-label="${esc(m.b+' '+m.code+': '+m.note)}">${st?`<circle cx="${x}" cy="${z}" r="4" fill="none" stroke="var(--${st==='conf'?'danger':'near'})" stroke-width=".8"/>`:''}${state.sel&&state.sel.id===m.id?`<circle cx="${x}" cy="${z}" r="5.5" fill="none" stroke="var(--ink)" stroke-width=".9"/>`:''}<circle cx="${x}" cy="${z}" r="2" fill="${CATS[m.cat].color}" stroke="var(--surface)" stroke-width=".5"/></g>`;}
+ if(state.marks)for(const m of MARKS){const st=statusOf(m);if(state.only&&!st)continue;const [x,z]=toWorld(m.b,m.X2!=null?(m.X+m.X2)/2:m.X,m.Z2!=null?(m.Z+m.Z2)/2:m.Z);s+=`<g class="p-mark" data-id="${m.id}" role="button" tabindex="0" aria-label="${esc(m.b+' '+m.code+': '+m.note)}">${st?`<circle cx="${x}" cy="${z}" r="4" fill="none" stroke="var(--${st==='conf'?'danger':'near'})" stroke-width=".8"/>`:''}${state.sel&&state.sel.id===m.id?`<circle cx="${x}" cy="${z}" r="5.5" fill="none" stroke="var(--ink)" stroke-width=".9"/>`:''}<circle cx="${x}" cy="${z}" r="2" fill="${window.BarcelonaField?.colorFor(m.id)||CATS[m.cat].color}" stroke="var(--surface)" stroke-width=".5"/></g>`;}
  s+=northArrow(478,40,0,9)+scaleBar(36,292,100,'100′ (30.5 m)',2.4);
  return {vb:[-10,-8,520,382],s};}
 function renderPlan(){const r=state.b==='all'?sitePlan():state.b==='club'?clubPlan():bldPlan(state.b,state.floor);
@@ -830,7 +830,7 @@ function renderFicha(){const m=state.sel,el=$('#ficha');if(!m){el.innerHTML='<h2
  const al=st==='conf'?`<p class="alert conf">${fBoth(m.dist)} from an exit, within the selected distance. If this is overhead work, require falling-object protection.</p>`:st==='near'?`<p class="alert near">${fBoth(m.dist)} from an exit, less than 5′ beyond the selected limit.</p>`:`<p class="alert ok">${fBoth(m.dist)} from the nearest exit.</p>`;
  const fc=m.code==='SP'?'Hatch':m.code==='CK'?'CC':m.code;el.innerHTML=`<h2>Mark details</h2><div class="fcode cond" style="color:${col}">${esc(fc)}</div><p class="fmean">${esc(MEAN[m.code]||m.code)} · ${esc(m.note)}</p>
  <dl class="kv"><dt>Location</dt><dd>${where(m)}</dd><dt>Phase</dt><dd>${B.phase}</dd><dt>Elevation</dt><dd>${m.elev} · ${ENAME[m.elev]}</dd><dt>Height</dt><dd>${fFt(m.h)} (estimated)</dd><dt>Source</dt><dd>NV5 drawing ${m.b==='club'?'Bldg 200':'Bldg '+m.b}, sheet ${esc(m.sheet).replace(' y ',' and ')}</dd><dt>Data</dt><dd>${m.b==='club'?'Proportional position on the clubhouse from the aerial':'Plan position measured on the drawing'}</dd></dl>${al}
- <div class="row"><button class="btn" type="button" data-go="3d">View in 3D</button><button class="btn" type="button" data-go="plan">View in plan</button><button class="btn" type="button" data-go="elev">View in elevation</button></div>`;}
+ <div class="row"><button class="btn" type="button" data-go="3d">View in 3D</button><button class="btn" type="button" data-go="plan">View in plan</button><button class="btn" type="button" data-go="elev">View in elevation</button><button class="btn" type="button" data-field-open="${m.id}">✎ Edit field record</button></div>`;}
 $('#ficha').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b||!state.sel)return;const m=state.sel;state.b=m.b;
  if(b.dataset.go==='plan'){state.floor=m.b==='club'?1:m.f;setView('plan');}
  else if(b.dataset.go==='elev'){state.elev=m.elev;setView('elev');}
@@ -843,7 +843,7 @@ function renderConf(){const list=MARKS.filter(m=>statusOf(m)&&(state.b==='all'||
 $('#confList').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)selectMark(MARKS[+b.dataset.id],true);});
 $('#rVal').textContent=fBoth(state.r);
 
-function selectMark(m,move){state.sel=m;renderFicha();
+function selectMark(m,move){state.sel=m;renderFicha();window.dispatchEvent(new CustomEvent('barcelona-mark-selected',{detail:{id:m.id}}));
  if(move){if(state.view==='3d'&&glOK){const o=markObjs[m.id];const v=dirW(m.b,m.n[0],m.n[1]);flyTo(o.p.clone(),80,new THREE.Vector3(v[0],.55,v[1]).normalize());}
   else if(state.view==='plan'){state.b=m.b;state.floor=m.f;}
   else if(state.view==='elev'){state.b=m.b;state.elev=m.elev;fitOrtho();}}
@@ -873,7 +873,7 @@ function syncUI(){const v=state.view;
  else if(v==='plan'){$('#vtTitle').textContent=state.b==='all'?'Site plan':(state.b==='club'?'Plan · Clubhouse':`Plan · ${bn} · ${state.floor===1?'ground floor':'2nd floor'}`);$('#vtSub').textContent=state.b==='all'?'Tap a building to see its plan':'Dashed circle: selected distance from each exit';}
  else{$('#vtTitle').textContent=`Elevation ${state.elev} · ${ENAME[state.elev]} · ${bn}`;$('#vtSub').textContent='Orthographic view · heights estimated';}
  const ms=MARKS.filter(m=>state.b==='all'||m.b===state.b);const nc=ms.filter(m=>statusOf(m)==='conf').length;
- $('#summary').textContent=`${ms.length} marks · ${nc} within ${fFt(state.r)} of an exit`;
+ $('#summary').textContent=`${ms.length} marks · ${nc} within ${fFt(state.r)} of an exit${window.BarcelonaField?.summaryText()||''}`;
  if(v==='plan')renderPlan();applyVis();renderConf();}
 
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
@@ -895,7 +895,17 @@ $('#rRad').addEventListener('input',e=>{state.r=+e.target.value;$('#rVal').textC
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(glOK&&!techOn)scene.background.set(cssVar('--scene'));});
 if(!glOK){host.innerHTML='<div class="nogl">This device could not open the 3D view. The plan is still available.</div>';setView('plan');}
 else{resize();syncUI();}
+window.BarcelonaViewer={
+  marks:MARKS,
+  get state(){return state;},
+  selectMark(id,move=false){const m=MARKS.find(x=>x.id===Number(id));if(m)selectMark(m,move);},
+  setView(v){if(['3d','plan','elev'].includes(v))setView(v);},
+  setBuilding(b){if(BLD[b])selectB(b);},
+  setElevation(e){state.elev=Number(e);if(state.view==='elev'&&glOK)fitOrtho();syncUI();},
+  refresh(){renderFicha();syncUI();if(glOK){for(const obj of markObjs){const col=window.BarcelonaField?.colorFor(obj.m.id)||CATS[obj.m.cat].color;obj.s.material.color.set(col);obj.s.material.emissive.set(col);}}}
+};
 })();
 </script>
+<script src="report-editor.js" defer></script>
 </body>
 </html>
