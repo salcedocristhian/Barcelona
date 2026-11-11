@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "file": "Barcelona Gardens Quantities - Pay App 3_5 (1).xlsx",
+    "report": "Pay Application #3 — field quantities",
+    "job": "MTD2025-016",
+    "contract": "MTD2025-016-12",
+    "changeOrder": "MTD2025-016-25",
+    "measuredThrough": "2026-10-24",
+    "periodEnd": "2026-10-31",
+    "sheets": [
+      "Summary",
+      "Bldg 100",
+      "Bldg 200",
+      "Bldg 300",
+      "Bldg 400"
+    ],
+    "financialDataExcluded": true,
+    "notes": [
+      "Source quantities reflect field-measured billing backup, not a verified completion or acceptance certificate.",
+      "Source workbook contains unit prices and payment amounts; excluded from this public technical record.",
+      "4E and 4F are measured together as 4E/4F; do not double-count.",
+      "Change-order entries are quantity-over-contract rows, not additional independent measured work."
+    ]
+  },
+  "scope": [
+    {
+      "code": "1",
+      "unit": "LS",
+      "description": "Video & Precondition Survey"
+    },
+    {
+      "code": "2A",
+      "unit": "LS",
+      "description": "Mobilization"
+    },
+    {
+      "code": "2B",
+      "unit": "LS",
+      "description": "General Conditions"
+    },
+    {
+      "code": "3",
+      "unit": "LS",
+      "description": "Shoring"
+    },
+    {
+      "code": "6",
+      "unit": "LS",
+      "description": "Permits (4%)"
+    },
+    {
+      "code": "4A",
+      "unit": "SF",
+      "description": "Overhead Ceiling Spall Repairs"
+    },
+    {
+      "code": "4B",
+      "unit": "SF",
+      "description": "Partial Depth Floor Repairs"
+    },
+    {
+      "code": "4C",
+      "unit": "SF",
+      "description": "Full Depth Floor Repairs"
+    },
+    {
+      "code": "4D",
+      "unit": "LF",
+      "description": "Slab Edge Repairs back to 8\""
+    },
+    {
+      "code": "4E/4F",
+      "unit": "CF",
+      "description": "Concrete Column and Beam Repairs"
+    },
+    {
+      "code": "4G",
+      "unit": "EA",
+      "description": "Rust Spot Repairs"
+    },
+    {
+      "code": "4H",
+      "unit": "LF",
+      "description": "Shutters (Accordion) Remove & Reinstall"
+    },
+    {
+      "code": "4I",
+      "unit": "LF",
+      "description": "Shutters Bottom/Top Track Removal & Reinstall"
+    },
+    {
+      "code": "4J",
+      "unit": "LF",
+      "description": "Crack Repair - Route & Apply Sealant"
+    },
+    {
+      "code": "4K",
+      "unit": "LF",
+      "description": "#5 Reinforcing Bar Replacement"
+    },
+    {
+      "code": "4L",
+      "unit": "EA",
+      "description": "Dowel & Epoxy Reinforcing Bar"
+    },
+    {
+      "code": "4M",
+      "unit": "SF",
+      "description": "Tile or Laminate Removal"
+    },
+    {
+      "code": "4N",
+      "unit": "SF",
+      "description": "Surface Prep for Affected Balcony Waterproofing"
+    },
+    {
+      "code": "4O",
+      "unit": "SF",
+      "description": "Balcony Waterproofing"
+    },
+    {
+      "code": "4P",
+      "unit": "LF",
+      "description": "Window Sills Chip & Repair"
+    },
+    {
+      "code": "4Q",
+      "unit": "EA",
+      "description": "Post Pocket Detail"
+    },
+    {
+      "code": "4R",
+      "unit": "EA",
+      "description": "Oxidized Shutter Fasteners"
+    },
+    {
+      "code": "4S",
+      "unit": "SF",
+      "description": "Remove Delaminated Stucco Repairs"
+    },
+    {
+      "code": "4T",
+      "unit": "SF",
+      "description": "Cementitious Waterproofing"
+    },
+    {
+      "code": "4U",
+      "unit": "LF",
+      "description": "Wall Cracks - Rout & Apply Sto RFP"
+    },
+    {
+      "code": "4V",
+      "unit": "LF",
+      "description": "Remove Screen from Screen Enclosed Units"
+    }
+  ],
+  "buildings": {
+    "100": {
+      "locations": [
+        "Prior Work",
+        "Un 101",
+        "Un 105",
+        "Un 107",
+        "Un 108",
+        "Un 109",
+        "Un 110",
+        "Un 111",
+        "Un 112",
+        "Un 114",
+        "Un 117",
+        "Un 120",
+        "Un 121",
+        "Un 123",
+        "Un 124",
+        "Un 129"
+      ],
+      "totals": {
+        "1": 1,
+        "3": 1,
+        "2A": 1,
+        "2B": 1,
+        "4C": 91,
+        "4E/4F": 29.5,
+        "4K": 90,
+        "4L": 77,
+        "4S": 141
+      },
+      "measured": {
+        "4C": {
+          "Un 120": 12,
+          "Un 121": 22,
+          "Un 123": 16,
+          "Un 124": 20,
+          "Un 129": 21
+        },
+        "4E/4F": {
+          "Prior Work": 13,
+          "Un 105": 2.5,
+          "Un 109": 0.5,
+          "Un 110": 3,
+          "Un 111": 3.5,
+          "Un 112": 3.5,
+          "Un 114": 3.5
+        },
+        "4K": {
+          "Un 120": 12,
+          "Un 121": 21,
+          "Un 123": 16,
+          "Un 124": 20,
+          "Un 129": 21
+        },
+        "4L": {
+          "Un 120": 7,
+          "Un 121": 20,
+          "Un 123": 12,
+          "Un 124": 18,
+          "Un 129": 20
+        },
+        "4S": {
+          "Prior Work": 100,
+          "Un 101": 12,
+          "Un 107": 15,
+          "Un 108": 4,
+          "Un 117": 10
+        }
+      }
+    },
+    "200": {
+      "locations": [
+        "Pool Side",
+        "Entrance",
+        "Un 204",
+        "Un 206",
+        "Un 207",
+        "Un 208",
+        "Un 209",
+        "Un 210",
+        "Un 211",
+        "Un 212",
+        "Un 214",
+        "Un 216"
+      ],
+      "totals": {
+        "1": 1,
+        "2A": 1,
+        "2B": 1,
+        "4E/4F": 12.5,
+        "4S": 152,
+        "4U": 14
+      },
+      "measured": {
+        "4E/4F": {
+          "Un 207": 5.5,
+          "Un 210": 2,
+          "Un 216": 5
+        },
+        "4S": {
+          "Pool Side": 4,
+          "Entrance": 3,
+          "Un 204": 16,
+          "Un 206": 14,
+          "Un 207": 20,
+          "Un 208": 5,
+          "Un 209": 6,
+          "Un 210": 25,
+          "Un 211": 11,
+          "Un 212": 6,
+          "Un 214": 10,
+          "Un 216": 32
+        },
+        "4U": {
+          "Entrance": 5,
+          "Un 204": 2,
+          "Un 206": 5,
+          "Un 208": 2
+        }
+      }
+    },
+    "300": {
+      "locations": [
+        "Loc 1",
+        "Loc 2",
+        "Loc 3",
+        "Loc 4",
+        "Loc 5",
+        "Loc 6"
+      ],
+      "totals": {
+        "1": 0,
+        "3": 0,
+        "6": 0,
+        "2A": 0.5461914285714285,
+        "2B": 0
+      },
+      "measured": {}
+    },
+    "400": {
+      "locations": [
+        "Loc 1",
+        "Loc 2",
+        "Loc 3",
+        "Loc 4",
+        "Loc 5",
+        "Loc 6"
+      ],
+      "totals": {
+        "1": 0,
+        "3": 0,
+        "6": 0,
+        "2A": 0.5461914285714285,
+        "2B": 0
+      },
+      "measured": {}
+    }
+  },
+  "extraQuantities": [
+    {
+      "id": "CO-1",
+      "building": "100",
+      "code": "4C",
+      "contractBase": 10,
+      "overage": 81,
+      "unit": "SF"
+    },
+    {
+      "id": "CO-2",
+      "building": "100",
+      "code": "4E/4F",
+      "contractBase": 13,
+      "overage": 16.5,
+      "unit": "CF"
+    },
+    {
+      "id": "CO-3",
+      "building": "100",
+      "code": "4K",
+      "contractBase": 20,
+      "overage": 70,
+      "unit": "LF"
+    },
+    {
+      "id": "CO-4",
+      "building": "100",
+      "code": "4L",
+      "contractBase": 2,
+      "overage": 75,
+      "unit": "EA"
+    },
+    {
+      "id": "CO-5",
+      "building": "100",
+      "code": "4S",
+      "contractBase": 100,
+      "overage": 41,
+      "unit": "SF"
+    },
+    {
+      "id": "CO-6",
+      "building": "200",
+      "code": "4S",
+      "contractBase": 100,
+      "overage": 52,
+      "unit": "SF"
+    }
+  ]
+}
