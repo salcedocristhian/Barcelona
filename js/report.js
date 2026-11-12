@@ -343,6 +343,105 @@
         legend: function (x, y) { T(x, y - 2, 'Repair ID, code and description', 10.5, 'B'); T(x, y - 21, 'See register E-' + b[0] + '06', 10.5); }, legendH: 48 });
     }
 
+
+    /* ---------- unified NV5 + CompanyCam register (separate from marked elevations) ---------- */
+    function registerRows(b) {
+      var nv5 = o.marks.filter(function(m){return m.b === b;}).map(function(m){
+        return { id: String(BLD[b].num[m.id] || m.id + 1), source: 'NV5', floor: m.f,
+          elev: sideElev(b, sideOfMark(m)), code: DISP[m.code] || m.code,
+          desc: m.note || (MEAN[m.code] || ''), photos: '—', stage: 'Shown on NV5' };
+      });
+      var field = o.entries.filter(function(e){return e.b === b;}).map(function(e){
+        var floor = e.patches && e.patches.length ? 2 : (Number(e.y0) >= F2 - .1 ? 2 : 1);
+        return { id: o.label(e), source: 'CompanyCam', floor: floor, elev: sideElev(b, e.side),
+          code: e.sow || e.code || e.kind || 'Field', desc: (e.unit ? e.unit + ' · ' : '') + (e.note || e.notes || 'Observed repair'),
+          photos: (e.photos || []).map(function(p){return String(p).replace(/^bal:/,'');}).join(', '),
+          stage: e.stage || e.status || 'Observed' };
+      });
+      return nv5.concat(field).sort(function(a,c){return a.floor-c.floor || a.elev-c.elev || String(a.id).localeCompare(String(c.id),'en',{numeric:true});});
+    }
+    function unifiedRegister(b,no,pg) {
+      newPage();
+      var rows = registerRows(b), PER = 28, chunk = rows.slice(pg * PER, pg * PER + PER);
+      var x0 = 48, right = MAINR - 4, tableW = right - x0;
+      var y = H - 72, codeCol = [0, 730, 1450];
+      T(48, y, 'Building ' + b + '  ·  UNIFIED REPAIR LEGEND & REGISTER' + (pg ? ' (continued)' : ''), 26, 'B');
+      y -= 34;
+      T(48, y, 'NV5 marks + CompanyCam field observations · Ground and 2nd floor · Mark references correspond to the elevation sheets.', 13, 'R', 'l', GRAY);
+      y -= 34;
+      if (pg === 0) {
+        T(48, y, 'LEGEND — REPAIR CODES / DESCRIPTIONS', 16, 'B'); y -= 28;
+        var codes = Object.keys(MEAN).sort(), groups = Math.ceil(codes.length / 3);
+        codes.forEach(function(code,i) {
+          var colx = x0 + codeCol[Math.floor(i/groups)], row = i % groups;
+          T(colx, y - row * 22, (DISP[code] || code) + '  —  ' + MEAN[code], 12.5);
+        });
+        y -= (groups * 22 + 25);
+        T(48, y, 'REPAIR REGISTER — ONE CONSOLIDATED TABLE', 16, 'B'); y -= 24;
+      } else {
+        T(48, y, 'REPAIR REGISTER — CONTINUED', 16, 'B'); y -= 26;
+      }
+      var widths = [90, 140, 105, 105, 130, 1000, 225, tableW - 1795];
+      var heads = ['Mark ID', 'Source', 'Floor', 'Elevation', 'Code/SOW', 'Location / Description', 'Photos', 'Status / Stage'];
+      fill(LIGHT);rect(x0,y-28,tableW,28,true,false);
+      var xx=x0;heads.forEach(function(h,i){T(xx+6,y-19,h,12,'B');xx+=widths[i];});y-=28;
+      chunk.forEach(function(row,ri) {
+        var desc = wrap(row.desc,widths[5]-14,12.5), stage = wrap(row.stage,widths[7]-14,12.5), photos = wrap(row.photos,widths[6]-14,12.5);
+        var h = Math.max(29,Math.max(desc.length,stage.length,photos.length)*17+10);
+        var cells = [row.id,row.source,row.floor===1?'Ground':'2nd',row.elev+' · '+ENAME[row.elev],row.code,null,null,null];
+        if(ri%2===1){fill([247,247,247]);rect(x0,y-h,tableW,h,true,false);}
+        xx=x0;
+        cells.forEach(function(v,i){
+          if(i===5)desc.forEach(function(line,k){T(xx+6,y-19-k*17,line,12.5);});
+          else if(i===6)photos.forEach(function(line,k){T(xx+6,y-19-k*17,line,12.5);});
+          else if(i===7)stage.forEach(function(line,k){T(xx+6,y-19-k*17,line,12.5);});
+          else T(xx+6,y-19,v,i===0?13:12.5,i===0?'B':'R','l',i===0?ORANGE:0);
+          xx+=widths[i];
+        });
+        y-=h;stroke(LIGHT);lw(.5);line(x0,y,right,y);
+      });
+      y-=22;
+      T(48,Math.max(84,y),'Sheet covers '+chunk.length+' of '+rows.length+' records · NV5 and CompanyCam entries remain separate sources. No measured quantities inferred.',12,'R','l',GRAY);
+      titleBlock({no:no+(pg?'.'+(pg+1):''),title:'Building '+b+' · Unified repair legend and register',
+        sub:['All elevations · Both floors · NV5 + CompanyCam'],key:[b,['top','bottom','left','right']],
+        scale:'NTS',basis:'NV5 '+BLD[b].permit+' + CompanyCam',notes:NOTES_E(BLD[b].permit),
+        legend:function(x,yy){T(x,yy,'NV5: documented drawing mark',10.5);T(x,yy-20,'CompanyCam: field observation',10.5);T(x,yy-40,'Locations subject to verification',10.5);},legendH:66});
+    }
+    /* ---------- ground-floor plan (screened lanais, exterior access only) ---------- */
+    function groundFloorPlan(b,no) {
+      newPage();
+      var flip=planFrame(b),sc=9, left=(MAINR- L*sc)/2+20,top=H-205;
+      function P(X,Z){return [left+(flip?L-X:X)*sc, top-(flip?D-Z:Z)*sc];}
+      function R(x0,x1,z0,z1,fillIt){var a=P(x0,z0),c=P(x1,z1),x=Math.min(a[0],c[0]),y=Math.min(a[1],c[1]),w=Math.abs(c[0]-a[0]),h=Math.abs(c[1]-a[1]);rect(x,y,w,h,fillIt,true);return[x,y,w,h];}
+      T(48,H-62,'Building '+b+' · GROUND FLOOR / SCREENED LANAIS',27,'B');
+      T(48,H-88,'First-floor units and schematic exterior screen-door openings. Door locations and swing directions are NOT field-verified.',13,'R','l',GRAY);
+      stroke(0);lw(.75);fill([242,242,242]);
+      BLDunits(b,1).forEach(function(u){var p=R(u.x0,u.x1,u.z0,u.z1,true),c=P((u.x0+u.x1)/2,(u.z0+u.z1)/2);T(c[0],c[1]+3,u.n,15,'B','c');});
+      fill([238,238,238]);R(0,L,CT,CB,true);var pc=P(L/2,CC);T(pc[0],pc[1]-4,'CORRIDOR · 5′-0″',10.5,'B','c');
+      var doors=0;
+      function D(X,Z,vertical){var p=P(X,Z),a=p[0],y=p[1];fill(255);stroke(PATCHS);lw(1.4);circle(a,y,9,true,true);T(a,y-4,'D',11.5,'B','c',ORANGE);doors++;}
+      function Lanai(x0,x1,z0,z1){fill([248,239,227]);var p=R(x0,x1,z0,z1,true),c=P((x0+x1)/2,(z0+z1)/2);T(c[0],c[1]-3,'LANAI',11,'B','c');}
+      PAIRS.forEach(function(pp){
+        [[pp-12,pp],[pp,pp+12]].forEach(function(xx){
+          Lanai(xx[0],xx[1],0,RT);Lanai(xx[0],xx[1],RB,D);
+          D((xx[0]+xx[1])/2,0,false);D((xx[0]+xx[1])/2,D,false);
+        });
+      });
+      EBZ.forEach(function(z){Lanai(-EB,0,z[0],z[1]);Lanai(L,L+EB,z[0],z[1]);D(-EB,(z[0]+z[1])/2,true);D(L+EB,(z[0]+z[1])/2,true);});
+      var near=o.marks.filter(function(m){return m.b===b&&m.f===1;});
+      near.forEach(function(m){var c=P(m.X,m.Z);fill(255);stroke(0);lw(.8);circle(c[0],c[1],8,true,true);T(c[0],c[1]-3,String(BLD[b].num[m.id]||'?'),10.5,'B','c');});
+      var lower=o.entries.filter(function(e){return e.b===b&&!e.patches&&Number(e.y0)<F2-.1;});
+      lower.forEach(function(e){var x=(e.side==='left'?0:e.side==='right'?L:(e.a0+e.a1)/2),z=(e.side==='top'?0:e.side==='bottom'?D:(e.a0+e.a1)/2),c=P(x,z);
+        stroke(PATCHS);lw(1.5);line(c[0]-7,c[1]-7,c[0]+7,c[1]+7);T(c[0]+12,c[1]+2,o.label(e),10,'B','l',ORANGE);
+      });
+      T(48,340,'GROUND FLOOR · '+doors+' SCHEMATIC LANAI SCREEN-ACCESS DOORS',18,'B');
+      T(48,310,'D = exterior screen access door on ground floor ONLY. No exterior screen-access doors are drawn on the 2nd-floor balconies.',14);
+      T(48,282,'Door centers and handing are placeholders until field-verified; do not fabricate, permit, or price door locations from this schematic.',12,'R','l',GRAY);
+      T(48,255,'Ground-floor NV5 marks and CompanyCam observations appear on this plan and in the unified register E-'+b[0]+'06.',12,'R','l',GRAY);
+      titleBlock({no:no,title:'Building '+b+' · Ground-floor plan · Screened lanais',sub:['Schematic exterior lanai access doors'],
+        key:[b,['top','bottom']],scale:'1/8″ = 1′-0″',basis:'NV5 '+BLD[b].permit+' + field direction',
+        notes:NOTES_E(BLD[b].permit),legend:function(x,y){fill(255);stroke(PATCHS);lw(1.1);circle(x+8,y,8,true,true);T(x+8,y-3,'D',10,'B','c',ORANGE);T(x+25,y-3,'Ground lanai screen door',10.5);T(x,y-24,'Position / swing to verify',10.5);},legendH:52});
+    }
     /* ---------- balcony sheets (E-x03 / x04 / x05) ---------- */
     function belowOf(u) { var m = { '25': '08', '24': '07', '23': '06', '22': '05', '21': '04', '20': '03', '19': '02', '18': '01', '26': '09', '27': '10', '28': '11', '29': '12', '30': '14', '31': '15', '32': '16', '33': '17' }; return u[0] + (m[u.slice(1)] || u.slice(1)); }
     function planFrame(b) { var r = rot(b), nv = [r[1], -r[0]]; return nv[0] > .5 || nv[1] > .5; }
