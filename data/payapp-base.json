@@ -1,3186 +1,3184 @@
 {
-  "project": "Barcelona Gardens Restoration (MTD2025-016) - 101 E. McNab Road, Pompano Beach, FL 33060",
-  "contract": "Restoration Contract MTD2025-016-12",
-  "coTitle": "Change Order MTD2025-016-25 - Extra Quantities Pay App 3 (quantities over the contract quantity, at contract unit prices)",
-  "payApps": [
-    {
-      "no": 1,
-      "label": "Pay App #1"
-    },
-    {
-      "no": 2,
-      "label": "Pay App #2"
-    },
-    {
-      "no": 3,
-      "label": "Pay App #3",
-      "through": "2026-10-24",
-      "period": "2026-10-31",
-      "title3": "Schedule of Values - Billing by Pay Application (Pay App #3 quantities from the Bldg 100 and Bldg 200 backup)",
-      "title4": "Pay Application #3 - Quantities through October 24, 2026 (period to October 31, 2026)"
-    }
-  ],
-  "rows": [
-    {
-      "no": 1,
-      "b": "100",
-      "code": "1",
-      "name": "Video & Precondition Survey",
-      "desc": "Bldg 100 - Item 1 - Video & Precondition Survey",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 2,
-      "b": "100",
-      "code": "2A",
-      "name": "Mobilization",
-      "desc": "Bldg 100 - Item 2A - Mobilization",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 3,
-      "b": "100",
-      "code": "2B",
-      "name": "General Conditions",
-      "desc": "Bldg 100 - Item 2B - General Conditions",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 4,
-      "b": "100",
-      "code": "3",
-      "name": "Shoring",
-      "desc": "Bldg 100 - Item 3 - Shoring",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 5,
-      "b": "100",
-      "code": "4A",
-      "name": "Overhead Ceiling Spall Repairs",
-      "desc": "Bldg 100 - 4A - Overhead Ceiling Spall Repairs",
-      "unit": "SF",
-      "qty": 30,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 6,
-      "b": "100",
-      "code": "4B",
-      "name": "Partial Depth Floor Repairs",
-      "desc": "Bldg 100 - 4B - Partial Depth Floor Repairs",
-      "unit": "SF",
-      "qty": 50,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 7,
-      "b": "100",
-      "code": "4C",
-      "name": "Full Depth Floor Repairs",
-      "desc": "Bldg 100 - 4C - Full Depth Floor Repairs",
-      "unit": "SF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 8,
-      "b": "100",
-      "code": "4D",
-      "name": "Slab Edge Repairs back to 8\"",
-      "desc": "Bldg 100 - 4D - Slab Edge Repairs back to 8\"",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 9,
-      "b": "100",
-      "code": "4E",
-      "name": "Concrete Column Repairs",
-      "desc": "Bldg 100 - 4E - Concrete Column Repairs",
-      "unit": "CF",
-      "qty": 5,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 10,
-      "b": "100",
-      "code": "4F",
-      "name": "Concrete Beam Repairs",
-      "desc": "Bldg 100 - 4F - Concrete Beam Repairs",
-      "unit": "CF",
-      "qty": 8,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 11,
-      "b": "100",
-      "code": "4G",
-      "name": "Rust Spot Repairs",
-      "desc": "Bldg 100 - 4G - Rust Spot Repairs",
-      "unit": "EA",
-      "qty": 30,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 12,
-      "b": "100",
-      "code": "4H",
-      "name": "Shutters (Accordion) Remove & Reinstall",
-      "desc": "Bldg 100 - 4H - Shutters (Accordion) Remove & Reinstall",
-      "unit": "LF",
-      "qty": 12,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 13,
-      "b": "100",
-      "code": "4I",
-      "name": "Shutters Bottom/Top Track Removal & Reinstall",
-      "desc": "Bldg 100 - 4I - Shutters Bottom/Top Track Removal & Reinstall",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 14,
-      "b": "100",
-      "code": "4J",
-      "name": "Crack Repair - Route & Apply Sealant",
-      "desc": "Bldg 100 - 4J - Crack Repair - Route & Apply Sealant",
-      "unit": "LF",
-      "qty": 50,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 15,
-      "b": "100",
-      "code": "4K",
-      "name": "#5 Reinforcing Bar Replacement",
-      "desc": "Bldg 100 - 4K - #5 Reinforcing Bar Replacement",
-      "unit": "LF",
-      "qty": 20,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 16,
-      "b": "100",
-      "code": "4L",
-      "name": "Dowel & Epoxy Reinforcing Bar",
-      "desc": "Bldg 100 - 4L - Dowel & Epoxy Reinforcing Bar",
-      "unit": "EA",
-      "qty": 2,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 17,
-      "b": "100",
-      "code": "4M",
-      "name": "Tile or Laminate Removal",
-      "desc": "Bldg 100 - 4M - Tile or Laminate Removal",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 18,
-      "b": "100",
-      "code": "4N",
-      "name": "Surface Prep for Affected Balcony Waterproofing",
-      "desc": "Bldg 100 - 4N - Surface Prep for Affected Balcony Waterproofing",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 19,
-      "b": "100",
-      "code": "4O",
-      "name": "Balcony Waterproofing",
-      "desc": "Bldg 100 - 4O - Balcony Waterproofing",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 20,
-      "b": "100",
-      "code": "4P",
-      "name": "Window Sills Chip & Repair",
-      "desc": "Bldg 100 - 4P - Window Sills Chip & Repair",
-      "unit": "LF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 21,
-      "b": "100",
-      "code": "4Q",
-      "name": "Post Pocket Detail",
-      "desc": "Bldg 100 - 4Q - Post Pocket Detail",
-      "unit": "EA",
-      "qty": 6,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 22,
-      "b": "100",
-      "code": "4R",
-      "name": "Oxidized Shutter Fasteners",
-      "desc": "Bldg 100 - 4R - Oxidized Shutter Fasteners",
-      "unit": "EA",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 23,
-      "b": "100",
-      "code": "4S",
-      "name": "Remove Delaminated Stucco Repairs",
-      "desc": "Bldg 100 - 4S - Remove Delaminated Stucco Repairs",
-      "unit": "SF",
-      "qty": 100,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 24,
-      "b": "100",
-      "code": "4T",
-      "name": "Cementitious Waterproofing",
-      "desc": "Bldg 100 - 4T - Cementitious Waterproofing",
-      "unit": "SF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 25,
-      "b": "100",
-      "code": "4U",
-      "name": "Wall Cracks - Rout & Apply Sto RFP",
-      "desc": "Bldg 100 - 4U - Wall Cracks - Rout & Apply Sto RFP",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 26,
-      "b": "100",
-      "code": "4V",
-      "name": "Remove Screen from Screen Enclosed Units",
-      "desc": "Bldg 100 - 4V - Remove Screen from Screen Enclosed Units",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 27,
-      "b": "100",
-      "code": "6",
-      "name": "Permits (4%)",
-      "desc": "Bldg 100 - Item 6 - Permits (4%)",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 28,
-      "b": "200",
-      "code": "1",
-      "name": "Video & Precondition Survey",
-      "desc": "Bldg 200 - Item 1 - Video & Precondition Survey",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 29,
-      "b": "200",
-      "code": "2A",
-      "name": "Mobilization",
-      "desc": "Bldg 200 - Item 2A - Mobilization",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 30,
-      "b": "200",
-      "code": "2B",
-      "name": "General Conditions",
-      "desc": "Bldg 200 - Item 2B - General Conditions",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 31,
-      "b": "200",
-      "code": "3",
-      "name": "Shoring",
-      "desc": "Bldg 200 - Item 3 - Shoring",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 32,
-      "b": "200",
-      "code": "4A",
-      "name": "Overhead Ceiling Spall Repairs",
-      "desc": "Bldg 200 - 4A - Overhead Ceiling Spall Repairs",
-      "unit": "SF",
-      "qty": 30,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 33,
-      "b": "200",
-      "code": "4B",
-      "name": "Partial Depth Floor Repairs",
-      "desc": "Bldg 200 - 4B - Partial Depth Floor Repairs",
-      "unit": "SF",
-      "qty": 50,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 34,
-      "b": "200",
-      "code": "4C",
-      "name": "Full Depth Floor Repairs",
-      "desc": "Bldg 200 - 4C - Full Depth Floor Repairs",
-      "unit": "SF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 35,
-      "b": "200",
-      "code": "4D",
-      "name": "Slab Edge Repairs back to 8\"",
-      "desc": "Bldg 200 - 4D - Slab Edge Repairs back to 8\"",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 36,
-      "b": "200",
-      "code": "4E",
-      "name": "Concrete Column Repairs",
-      "desc": "Bldg 200 - 4E - Concrete Column Repairs",
-      "unit": "CF",
-      "qty": 5,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 37,
-      "b": "200",
-      "code": "4F",
-      "name": "Concrete Beam Repairs",
-      "desc": "Bldg 200 - 4F - Concrete Beam Repairs",
-      "unit": "CF",
-      "qty": 8,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 38,
-      "b": "200",
-      "code": "4G",
-      "name": "Rust Spot Repairs",
-      "desc": "Bldg 200 - 4G - Rust Spot Repairs",
-      "unit": "EA",
-      "qty": 30,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 39,
-      "b": "200",
-      "code": "4H",
-      "name": "Shutters (Accordion) Remove & Reinstall",
-      "desc": "Bldg 200 - 4H - Shutters (Accordion) Remove & Reinstall",
-      "unit": "LF",
-      "qty": 12,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 40,
-      "b": "200",
-      "code": "4I",
-      "name": "Shutters Bottom/Top Track Removal & Reinstall",
-      "desc": "Bldg 200 - 4I - Shutters Bottom/Top Track Removal & Reinstall",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 41,
-      "b": "200",
-      "code": "4J",
-      "name": "Crack Repair - Route & Apply Sealant",
-      "desc": "Bldg 200 - 4J - Crack Repair - Route & Apply Sealant",
-      "unit": "LF",
-      "qty": 50,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 42,
-      "b": "200",
-      "code": "4K",
-      "name": "#5 Reinforcing Bar Replacement",
-      "desc": "Bldg 200 - 4K - #5 Reinforcing Bar Replacement",
-      "unit": "LF",
-      "qty": 20,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 43,
-      "b": "200",
-      "code": "4L",
-      "name": "Dowel & Epoxy Reinforcing Bar",
-      "desc": "Bldg 200 - 4L - Dowel & Epoxy Reinforcing Bar",
-      "unit": "EA",
-      "qty": 2,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 44,
-      "b": "200",
-      "code": "4M",
-      "name": "Tile or Laminate Removal",
-      "desc": "Bldg 200 - 4M - Tile or Laminate Removal",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 45,
-      "b": "200",
-      "code": "4N",
-      "name": "Surface Prep for Affected Balcony Waterproofing",
-      "desc": "Bldg 200 - 4N - Surface Prep for Affected Balcony Waterproofing",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 46,
-      "b": "200",
-      "code": "4O",
-      "name": "Balcony Waterproofing",
-      "desc": "Bldg 200 - 4O - Balcony Waterproofing",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 47,
-      "b": "200",
-      "code": "4P",
-      "name": "Window Sills Chip & Repair",
-      "desc": "Bldg 200 - 4P - Window Sills Chip & Repair",
-      "unit": "LF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 48,
-      "b": "200",
-      "code": "4Q",
-      "name": "Post Pocket Detail",
-      "desc": "Bldg 200 - 4Q - Post Pocket Detail",
-      "unit": "EA",
-      "qty": 6,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 49,
-      "b": "200",
-      "code": "4R",
-      "name": "Oxidized Shutter Fasteners",
-      "desc": "Bldg 200 - 4R - Oxidized Shutter Fasteners",
-      "unit": "EA",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 50,
-      "b": "200",
-      "code": "4S",
-      "name": "Remove Delaminated Stucco Repairs",
-      "desc": "Bldg 200 - 4S - Remove Delaminated Stucco Repairs",
-      "unit": "SF",
-      "qty": 100,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 51,
-      "b": "200",
-      "code": "4T",
-      "name": "Cementitious Waterproofing",
-      "desc": "Bldg 200 - 4T - Cementitious Waterproofing",
-      "unit": "SF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 52,
-      "b": "200",
-      "code": "4U",
-      "name": "Wall Cracks - Rout & Apply Sto RFP",
-      "desc": "Bldg 200 - 4U - Wall Cracks - Rout & Apply Sto RFP",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 53,
-      "b": "200",
-      "code": "4V",
-      "name": "Remove Screen from Screen Enclosed Units",
-      "desc": "Bldg 200 - 4V - Remove Screen from Screen Enclosed Units",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 54,
-      "b": "200",
-      "code": "6",
-      "name": "Permits (4%)",
-      "desc": "Bldg 200 - Item 6 - Permits (4%)",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 55,
-      "b": "300",
-      "code": "1",
-      "name": "Video & Precondition Survey",
-      "desc": "Bldg 300 - Item 1 - Video & Precondition Survey",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 56,
-      "b": "300",
-      "code": "2A",
-      "name": "Mobilization",
-      "desc": "Bldg 300 - Item 2A - Mobilization",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 57,
-      "b": "300",
-      "code": "2B",
-      "name": "General Conditions",
-      "desc": "Bldg 300 - Item 2B - General Conditions",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 58,
-      "b": "300",
-      "code": "3",
-      "name": "Shoring",
-      "desc": "Bldg 300 - Item 3 - Shoring",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 59,
-      "b": "300",
-      "code": "4A",
-      "name": "Overhead Ceiling Spall Repairs",
-      "desc": "Bldg 300 - 4A - Overhead Ceiling Spall Repairs",
-      "unit": "SF",
-      "qty": 30,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 60,
-      "b": "300",
-      "code": "4B",
-      "name": "Partial Depth Floor Repairs",
-      "desc": "Bldg 300 - 4B - Partial Depth Floor Repairs",
-      "unit": "SF",
-      "qty": 50,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 61,
-      "b": "300",
-      "code": "4C",
-      "name": "Full Depth Floor Repairs",
-      "desc": "Bldg 300 - 4C - Full Depth Floor Repairs",
-      "unit": "SF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 62,
-      "b": "300",
-      "code": "4D",
-      "name": "Slab Edge Repairs back to 8\"",
-      "desc": "Bldg 300 - 4D - Slab Edge Repairs back to 8\"",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 63,
-      "b": "300",
-      "code": "4E",
-      "name": "Concrete Column Repairs",
-      "desc": "Bldg 300 - 4E - Concrete Column Repairs",
-      "unit": "CF",
-      "qty": 5,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 64,
-      "b": "300",
-      "code": "4F",
-      "name": "Concrete Beam Repairs",
-      "desc": "Bldg 300 - 4F - Concrete Beam Repairs",
-      "unit": "CF",
-      "qty": 8,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 65,
-      "b": "300",
-      "code": "4G",
-      "name": "Rust Spot Repairs",
-      "desc": "Bldg 300 - 4G - Rust Spot Repairs",
-      "unit": "EA",
-      "qty": 30,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 66,
-      "b": "300",
-      "code": "4H",
-      "name": "Shutters (Accordion) Remove & Reinstall",
-      "desc": "Bldg 300 - 4H - Shutters (Accordion) Remove & Reinstall",
-      "unit": "LF",
-      "qty": 12,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 67,
-      "b": "300",
-      "code": "4I",
-      "name": "Shutters Bottom/Top Track Removal & Reinstall",
-      "desc": "Bldg 300 - 4I - Shutters Bottom/Top Track Removal & Reinstall",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 68,
-      "b": "300",
-      "code": "4J",
-      "name": "Crack Repair - Route & Apply Sealant",
-      "desc": "Bldg 300 - 4J - Crack Repair - Route & Apply Sealant",
-      "unit": "LF",
-      "qty": 50,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 69,
-      "b": "300",
-      "code": "4K",
-      "name": "#5 Reinforcing Bar Replacement",
-      "desc": "Bldg 300 - 4K - #5 Reinforcing Bar Replacement",
-      "unit": "LF",
-      "qty": 20,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 70,
-      "b": "300",
-      "code": "4L",
-      "name": "Dowel & Epoxy Reinforcing Bar",
-      "desc": "Bldg 300 - 4L - Dowel & Epoxy Reinforcing Bar",
-      "unit": "EA",
-      "qty": 2,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 71,
-      "b": "300",
-      "code": "4M",
-      "name": "Tile or Laminate Removal",
-      "desc": "Bldg 300 - 4M - Tile or Laminate Removal",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 72,
-      "b": "300",
-      "code": "4N",
-      "name": "Surface Prep for Affected Balcony Waterproofing",
-      "desc": "Bldg 300 - 4N - Surface Prep for Affected Balcony Waterproofing",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 73,
-      "b": "300",
-      "code": "4O",
-      "name": "Balcony Waterproofing",
-      "desc": "Bldg 300 - 4O - Balcony Waterproofing",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 74,
-      "b": "300",
-      "code": "4P",
-      "name": "Window Sills Chip & Repair",
-      "desc": "Bldg 300 - 4P - Window Sills Chip & Repair",
-      "unit": "LF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 75,
-      "b": "300",
-      "code": "4Q",
-      "name": "Post Pocket Detail",
-      "desc": "Bldg 300 - 4Q - Post Pocket Detail",
-      "unit": "EA",
-      "qty": 6,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 76,
-      "b": "300",
-      "code": "4R",
-      "name": "Oxidized Shutter Fasteners",
-      "desc": "Bldg 300 - 4R - Oxidized Shutter Fasteners",
-      "unit": "EA",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 77,
-      "b": "300",
-      "code": "4S",
-      "name": "Remove Delaminated Stucco Repairs",
-      "desc": "Bldg 300 - 4S - Remove Delaminated Stucco Repairs",
-      "unit": "SF",
-      "qty": 100,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 78,
-      "b": "300",
-      "code": "4T",
-      "name": "Cementitious Waterproofing",
-      "desc": "Bldg 300 - 4T - Cementitious Waterproofing",
-      "unit": "SF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 79,
-      "b": "300",
-      "code": "4U",
-      "name": "Wall Cracks - Rout & Apply Sto RFP",
-      "desc": "Bldg 300 - 4U - Wall Cracks - Rout & Apply Sto RFP",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 80,
-      "b": "300",
-      "code": "4V",
-      "name": "Remove Screen from Screen Enclosed Units",
-      "desc": "Bldg 300 - 4V - Remove Screen from Screen Enclosed Units",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 81,
-      "b": "300",
-      "code": "6",
-      "name": "Permits (4%)",
-      "desc": "Bldg 300 - Item 6 - Permits (4%)",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 82,
-      "b": "400",
-      "code": "1",
-      "name": "Video & Precondition Survey",
-      "desc": "Bldg 400 - Item 1 - Video & Precondition Survey",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 83,
-      "b": "400",
-      "code": "2A",
-      "name": "Mobilization",
-      "desc": "Bldg 400 - Item 2A - Mobilization",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 84,
-      "b": "400",
-      "code": "2B",
-      "name": "General Conditions",
-      "desc": "Bldg 400 - Item 2B - General Conditions",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 85,
-      "b": "400",
-      "code": "3",
-      "name": "Shoring",
-      "desc": "Bldg 400 - Item 3 - Shoring",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 86,
-      "b": "400",
-      "code": "4A",
-      "name": "Overhead Ceiling Spall Repairs",
-      "desc": "Bldg 400 - 4A - Overhead Ceiling Spall Repairs",
-      "unit": "SF",
-      "qty": 30,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 87,
-      "b": "400",
-      "code": "4B",
-      "name": "Partial Depth Floor Repairs",
-      "desc": "Bldg 400 - 4B - Partial Depth Floor Repairs",
-      "unit": "SF",
-      "qty": 50,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 88,
-      "b": "400",
-      "code": "4C",
-      "name": "Full Depth Floor Repairs",
-      "desc": "Bldg 400 - 4C - Full Depth Floor Repairs",
-      "unit": "SF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 89,
-      "b": "400",
-      "code": "4D",
-      "name": "Slab Edge Repairs back to 8\"",
-      "desc": "Bldg 400 - 4D - Slab Edge Repairs back to 8\"",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 90,
-      "b": "400",
-      "code": "4E",
-      "name": "Concrete Column Repairs",
-      "desc": "Bldg 400 - 4E - Concrete Column Repairs",
-      "unit": "CF",
-      "qty": 5,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 91,
-      "b": "400",
-      "code": "4F",
-      "name": "Concrete Beam Repairs",
-      "desc": "Bldg 400 - 4F - Concrete Beam Repairs",
-      "unit": "CF",
-      "qty": 8,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 92,
-      "b": "400",
-      "code": "4G",
-      "name": "Rust Spot Repairs",
-      "desc": "Bldg 400 - 4G - Rust Spot Repairs",
-      "unit": "EA",
-      "qty": 30,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 93,
-      "b": "400",
-      "code": "4H",
-      "name": "Shutters (Accordion) Remove & Reinstall",
-      "desc": "Bldg 400 - 4H - Shutters (Accordion) Remove & Reinstall",
-      "unit": "LF",
-      "qty": 12,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 94,
-      "b": "400",
-      "code": "4I",
-      "name": "Shutters Bottom/Top Track Removal & Reinstall",
-      "desc": "Bldg 400 - 4I - Shutters Bottom/Top Track Removal & Reinstall",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 95,
-      "b": "400",
-      "code": "4J",
-      "name": "Crack Repair - Route & Apply Sealant",
-      "desc": "Bldg 400 - 4J - Crack Repair - Route & Apply Sealant",
-      "unit": "LF",
-      "qty": 50,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 96,
-      "b": "400",
-      "code": "4K",
-      "name": "#5 Reinforcing Bar Replacement",
-      "desc": "Bldg 400 - 4K - #5 Reinforcing Bar Replacement",
-      "unit": "LF",
-      "qty": 20,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 97,
-      "b": "400",
-      "code": "4L",
-      "name": "Dowel & Epoxy Reinforcing Bar",
-      "desc": "Bldg 400 - 4L - Dowel & Epoxy Reinforcing Bar",
-      "unit": "EA",
-      "qty": 2,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 98,
-      "b": "400",
-      "code": "4M",
-      "name": "Tile or Laminate Removal",
-      "desc": "Bldg 400 - 4M - Tile or Laminate Removal",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 99,
-      "b": "400",
-      "code": "4N",
-      "name": "Surface Prep for Affected Balcony Waterproofing",
-      "desc": "Bldg 400 - 4N - Surface Prep for Affected Balcony Waterproofing",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 100,
-      "b": "400",
-      "code": "4O",
-      "name": "Balcony Waterproofing",
-      "desc": "Bldg 400 - 4O - Balcony Waterproofing",
-      "unit": "SF",
-      "qty": 200,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 101,
-      "b": "400",
-      "code": "4P",
-      "name": "Window Sills Chip & Repair",
-      "desc": "Bldg 400 - 4P - Window Sills Chip & Repair",
-      "unit": "LF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 102,
-      "b": "400",
-      "code": "4Q",
-      "name": "Post Pocket Detail",
-      "desc": "Bldg 400 - 4Q - Post Pocket Detail",
-      "unit": "EA",
-      "qty": 6,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 103,
-      "b": "400",
-      "code": "4R",
-      "name": "Oxidized Shutter Fasteners",
-      "desc": "Bldg 400 - 4R - Oxidized Shutter Fasteners",
-      "unit": "EA",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 104,
-      "b": "400",
-      "code": "4S",
-      "name": "Remove Delaminated Stucco Repairs",
-      "desc": "Bldg 400 - 4S - Remove Delaminated Stucco Repairs",
-      "unit": "SF",
-      "qty": 100,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 105,
-      "b": "400",
-      "code": "4T",
-      "name": "Cementitious Waterproofing",
-      "desc": "Bldg 400 - 4T - Cementitious Waterproofing",
-      "unit": "SF",
-      "qty": 10,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 106,
-      "b": "400",
-      "code": "4U",
-      "name": "Wall Cracks - Rout & Apply Sto RFP",
-      "desc": "Bldg 400 - 4U - Wall Cracks - Rout & Apply Sto RFP",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 107,
-      "b": "400",
-      "code": "4V",
-      "name": "Remove Screen from Screen Enclosed Units",
-      "desc": "Bldg 400 - 4V - Remove Screen from Screen Enclosed Units",
-      "unit": "LF",
-      "qty": 40,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": 108,
-      "b": "400",
-      "code": "6",
-      "name": "Permits (4%)",
-      "desc": "Bldg 400 - Item 6 - Permits (4%)",
-      "unit": "LS",
-      "qty": 1,
-      "price": 0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    }
-  ],
-  "cos": [
-    {
-      "no": "CO-1",
-      "b": "100",
-      "code": "4C",
-      "desc": "Bldg 100 - 4C - Full Depth Floor Repairs (over 10 SF contract qty)",
-      "unit": "SF",
-      "qty": 81,
-      "price": 0,
-      "contract": 10.0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": "CO-2",
-      "b": "100",
-      "code": "4E/4F",
-      "desc": "Bldg 100 - 4E/4F - Concrete Column and Beam Repairs (over 13 CF contract qty)",
-      "unit": "CF",
-      "qty": 16.5,
-      "price": 0,
-      "contract": 13.0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": "CO-3",
-      "b": "100",
-      "code": "4K",
-      "desc": "Bldg 100 - 4K - #5 Reinforcing Bar Replacement (over 20 LF contract qty)",
-      "unit": "LF",
-      "qty": 70,
-      "price": 0,
-      "contract": 20.0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": "CO-4",
-      "b": "100",
-      "code": "4L",
-      "desc": "Bldg 100 - 4L - Dowel & Epoxy Reinforcing Bar (over 2 EA contract qty)",
-      "unit": "EA",
-      "qty": 75,
-      "price": 0,
-      "contract": 2.0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": "CO-5",
-      "b": "100",
-      "code": "4S",
-      "desc": "Bldg 100 - 4S - Remove Delaminated Stucco Repairs (over 100 SF contract qty)",
-      "unit": "SF",
-      "qty": 41,
-      "price": 0,
-      "contract": 100.0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "no": "CO-6",
-      "b": "200",
-      "code": "4S",
-      "desc": "Bldg 200 - 4S - Remove Delaminated Stucco Repairs (over 100 SF contract qty)",
-      "unit": "SF",
-      "qty": 52,
-      "price": 0,
-      "contract": 100.0,
-      "paid": [
-        0,
-        0,
-        0
-      ]
-    }
-  ],
-  "sheets": {
-    "100": {
-      "cols": [
-        "Prior Work",
-        "Un 101",
-        "Un 105",
-        "Un 107",
-        "Un 108",
-        "Un 109",
-        "Un 110",
-        "Un 111",
-        "Un 112",
-        "Un 114",
-        "Un 117",
-        "Un 120",
-        "Un 121",
-        "Un 123",
-        "Un 124",
-        "Un 129"
-      ],
-      "ls": {
-        "1": 1,
-        "2A": 1,
-        "2B": 1,
-        "3": 1,
-        "6": 0
-      },
-      "items": {
-        "4A": {
-          "desc": "Overhead Ceiling Spall Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4B": {
-          "desc": "Partial Depth Floor Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4C": {
-          "desc": "Full Depth Floor Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            12,
-            22,
-            16,
-            20,
-            21
-          ]
-        },
-        "4D": {
-          "desc": "Slab Edge Repairs back to 8\"",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4E/4F": {
-          "desc": "Concrete Column and Beam Repairs",
-          "unit": "CF",
-          "v": [
-            13,
-            0,
-            2.5,
-            0,
-            0,
-            0.5,
-            3,
-            3.5,
-            3.5,
-            3.5,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4G": {
-          "desc": "Rust Spot Repairs",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4H": {
-          "desc": "Shutters (Accordion) Remove & Reinstall",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4I": {
-          "desc": "Shutters Bottom/Top Track Removal & Reinstall",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4J": {
-          "desc": "Crack Repair - Route & Apply Sealant",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4K": {
-          "desc": "#5 Reinforcing Bar Replacement",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            12,
-            21,
-            16,
-            20,
-            21
-          ]
-        },
-        "4L": {
-          "desc": "Dowel & Epoxy Reinforcing Bar",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            7,
-            20,
-            12,
-            18,
-            20
-          ]
-        },
-        "4M": {
-          "desc": "Tile or Laminate Removal",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4N": {
-          "desc": "Surface Prep for Affected Balcony Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4O": {
-          "desc": "Balcony Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4P": {
-          "desc": "Window Sills Chip & Repair",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4Q": {
-          "desc": "Post Pocket Detail",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4R": {
-          "desc": "Oxidized Shutter Fasteners",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4S": {
-          "desc": "Remove Delaminated Stucco Repairs",
-          "unit": "SF",
-          "v": [
-            100,
-            12,
-            0,
-            15,
-            4,
-            0,
-            0,
-            0,
-            0,
-            0,
-            10,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4T": {
-          "desc": "Cementitious Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4U": {
-          "desc": "Wall Cracks - Rout & Apply Sto RFP",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4V": {
-          "desc": "Remove Screen from Screen Enclosed Units",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "note": "Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."
-    },
-    "200": {
-      "cols": [
-        "Pool Side",
-        "Entrance",
-        "Un 204",
-        "Un 206",
-        "Un 207",
-        "Un 208",
-        "Un 209",
-        "Un 210",
-        "Un 211",
-        "Un 212",
-        "Un 214",
-        "Un 216"
-      ],
-      "ls": {
-        "1": 1,
-        "2A": 1,
-        "2B": 1,
-        "3": 0,
-        "6": 0
-      },
-      "items": {
-        "4A": {
-          "desc": "Overhead Ceiling Spall Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4B": {
-          "desc": "Partial Depth Floor Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4C": {
-          "desc": "Full Depth Floor Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4D": {
-          "desc": "Slab Edge Repairs back to 8\"",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4E/4F": {
-          "desc": "Concrete Column and Beam Repairs",
-          "unit": "CF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            5.5,
-            0,
-            0,
-            2,
-            0,
-            0,
-            0,
-            5
-          ]
-        },
-        "4G": {
-          "desc": "Rust Spot Repairs",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4H": {
-          "desc": "Shutters (Accordion) Remove & Reinstall",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4I": {
-          "desc": "Shutters Bottom/Top Track Removal & Reinstall",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4J": {
-          "desc": "Crack Repair - Route & Apply Sealant",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4K": {
-          "desc": "#5 Reinforcing Bar Replacement",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4L": {
-          "desc": "Dowel & Epoxy Reinforcing Bar",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4M": {
-          "desc": "Tile or Laminate Removal",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4N": {
-          "desc": "Surface Prep for Affected Balcony Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4O": {
-          "desc": "Balcony Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4P": {
-          "desc": "Window Sills Chip & Repair",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4Q": {
-          "desc": "Post Pocket Detail",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4R": {
-          "desc": "Oxidized Shutter Fasteners",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4S": {
-          "desc": "Remove Delaminated Stucco Repairs",
-          "unit": "SF",
-          "v": [
-            4,
-            3,
-            16,
-            14,
-            20,
-            5,
-            6,
-            25,
-            11,
-            6,
-            10,
-            32
-          ]
-        },
-        "4T": {
-          "desc": "Cementitious Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4U": {
-          "desc": "Wall Cracks - Rout & Apply Sto RFP",
-          "unit": "LF",
-          "v": [
-            0,
-            5,
-            2,
-            5,
-            0,
-            2,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4V": {
-          "desc": "Remove Screen from Screen Enclosed Units",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "note": "Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."
-    },
-    "300": {
-      "cols": [
-        "Loc 1",
-        "Loc 2",
-        "Loc 3",
-        "Loc 4",
-        "Loc 5",
-        "Loc 6"
-      ],
-      "ls": {
-        "1": 0,
-        "2A": 0.5461914285714285,
-        "2B": 0,
-        "3": 0,
-        "6": 0
-      },
-      "items": {
-        "4A": {
-          "desc": "Overhead Ceiling Spall Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4B": {
-          "desc": "Partial Depth Floor Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4C": {
-          "desc": "Full Depth Floor Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4D": {
-          "desc": "Slab Edge Repairs back to 8\"",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4E/4F": {
-          "desc": "Concrete Column and Beam Repairs",
-          "unit": "CF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4G": {
-          "desc": "Rust Spot Repairs",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4H": {
-          "desc": "Shutters (Accordion) Remove & Reinstall",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4I": {
-          "desc": "Shutters Bottom/Top Track Removal & Reinstall",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4J": {
-          "desc": "Crack Repair - Route & Apply Sealant",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4K": {
-          "desc": "#5 Reinforcing Bar Replacement",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4L": {
-          "desc": "Dowel & Epoxy Reinforcing Bar",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4M": {
-          "desc": "Tile or Laminate Removal",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4N": {
-          "desc": "Surface Prep for Affected Balcony Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4O": {
-          "desc": "Balcony Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4P": {
-          "desc": "Window Sills Chip & Repair",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4Q": {
-          "desc": "Post Pocket Detail",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4R": {
-          "desc": "Oxidized Shutter Fasteners",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4S": {
-          "desc": "Remove Delaminated Stucco Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4T": {
-          "desc": "Cementitious Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4U": {
-          "desc": "Wall Cracks - Rout & Apply Sto RFP",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4V": {
-          "desc": "Remove Screen from Screen Enclosed Units",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "note": "Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."
-    },
-    "400": {
-      "cols": [
-        "Loc 1",
-        "Loc 2",
-        "Loc 3",
-        "Loc 4",
-        "Loc 5",
-        "Loc 6"
-      ],
-      "ls": {
-        "1": 0,
-        "2A": 0.5461914285714285,
-        "2B": 0,
-        "3": 0,
-        "6": 0
-      },
-      "items": {
-        "4A": {
-          "desc": "Overhead Ceiling Spall Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4B": {
-          "desc": "Partial Depth Floor Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4C": {
-          "desc": "Full Depth Floor Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4D": {
-          "desc": "Slab Edge Repairs back to 8\"",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4E/4F": {
-          "desc": "Concrete Column and Beam Repairs",
-          "unit": "CF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4G": {
-          "desc": "Rust Spot Repairs",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4H": {
-          "desc": "Shutters (Accordion) Remove & Reinstall",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4I": {
-          "desc": "Shutters Bottom/Top Track Removal & Reinstall",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4J": {
-          "desc": "Crack Repair - Route & Apply Sealant",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4K": {
-          "desc": "#5 Reinforcing Bar Replacement",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4L": {
-          "desc": "Dowel & Epoxy Reinforcing Bar",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4M": {
-          "desc": "Tile or Laminate Removal",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4N": {
-          "desc": "Surface Prep for Affected Balcony Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4O": {
-          "desc": "Balcony Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4P": {
-          "desc": "Window Sills Chip & Repair",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4Q": {
-          "desc": "Post Pocket Detail",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4R": {
-          "desc": "Oxidized Shutter Fasteners",
-          "unit": "EA",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4S": {
-          "desc": "Remove Delaminated Stucco Repairs",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4T": {
-          "desc": "Cementitious Waterproofing",
-          "unit": "SF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4U": {
-          "desc": "Wall Cracks - Rout & Apply Sto RFP",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
-        "4V": {
-          "desc": "Remove Screen from Screen Enclosed Units",
-          "unit": "LF",
-          "v": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "note": "Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."
-    }
+ "project": "Barcelona Gardens Restoration (MTD2025-016) - 101 E. McNab Road, Pompano Beach, FL 33060",
+ "contract": "Restoration Contract MTD2025-016-12",
+ "coTitle": "Change Order MTD2025-016-25 - Extra Quantities Pay App 3 (quantities over the contract quantity, at contract unit prices)",
+ "payApps": [
+  {
+   "no": 1,
+   "label": "Pay App #1"
   },
-  "notes": [
-    "Pay App #1 is the deposit (mobilization, all four buildings). Pay App #2 is Bldg 100 mobilization balance and general conditions. Pay App #3 is the first application with measured quantities.",
-    "Qty / % to Date links to the field backup on the Bldg 100 to Bldg 400 sheets. Contract lines fill up to the contract quantity per building; quantities over contract bill on CO MTD2025-016-25 at the same unit prices.",
-    "4E and 4F are measured together on the backup; 4E fills to its contract quantity first, then 4F. Pay App #3 = total to date less Pay Apps #1 and #2.",
-    "PUBLIC TECHNICAL COPY: Price, invoice, paid-to-date, and scheduled dollar values excluded. This record must not be treated as a financial pay application."
-  ],
-  "publicTechnicalOnly": true
+  {
+   "no": 2,
+   "label": "Pay App #2"
+  },
+  {
+   "no": 3,
+   "label": "Pay App #3",
+   "through": "2026-10-24",
+   "period": "2026-10-31",
+   "title3": "Schedule of Values - Billing by Pay Application (Pay App #3 quantities from the Bldg 100 and Bldg 200 backup)",
+   "title4": "Pay Application #3 - Quantities through October 24, 2026 (period to October 31, 2026)"
+  }
+ ],
+ "rows": [
+  {
+   "no": 1,
+   "b": "100",
+   "code": "1",
+   "name": "Video & Precondition Survey",
+   "desc": "Bldg 100 - Item 1 - Video & Precondition Survey",
+   "unit": "LS",
+   "qty": 1,
+   "price": 100,
+   "paid": [
+    0,
+    0,
+    100
+   ]
+  },
+  {
+   "no": 2,
+   "b": "100",
+   "code": "2A",
+   "name": "Mobilization",
+   "desc": "Bldg 100 - Item 2A - Mobilization",
+   "unit": "LS",
+   "qty": 1,
+   "price": 3500,
+   "paid": [
+    1911.67,
+    1588.33,
+    0
+   ]
+  },
+  {
+   "no": 3,
+   "b": "100",
+   "code": "2B",
+   "name": "General Conditions",
+   "desc": "Bldg 100 - Item 2B - General Conditions",
+   "unit": "LS",
+   "qty": 1,
+   "price": 2500,
+   "paid": [
+    0,
+    2500,
+    0
+   ]
+  },
+  {
+   "no": 4,
+   "b": "100",
+   "code": "3",
+   "name": "Shoring",
+   "desc": "Bldg 100 - Item 3 - Shoring",
+   "unit": "LS",
+   "qty": 1,
+   "price": 600,
+   "paid": [
+    0,
+    0,
+    600
+   ]
+  },
+  {
+   "no": 5,
+   "b": "100",
+   "code": "4A",
+   "name": "Overhead Ceiling Spall Repairs",
+   "desc": "Bldg 100 - 4A - Overhead Ceiling Spall Repairs",
+   "unit": "SF",
+   "qty": 30,
+   "price": 130,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 6,
+   "b": "100",
+   "code": "4B",
+   "name": "Partial Depth Floor Repairs",
+   "desc": "Bldg 100 - 4B - Partial Depth Floor Repairs",
+   "unit": "SF",
+   "qty": 50,
+   "price": 135,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 7,
+   "b": "100",
+   "code": "4C",
+   "name": "Full Depth Floor Repairs",
+   "desc": "Bldg 100 - 4C - Full Depth Floor Repairs",
+   "unit": "SF",
+   "qty": 10,
+   "price": 170,
+   "paid": [
+    0,
+    0,
+    1700
+   ]
+  },
+  {
+   "no": 8,
+   "b": "100",
+   "code": "4D",
+   "name": "Slab Edge Repairs back to 8\"",
+   "desc": "Bldg 100 - 4D - Slab Edge Repairs back to 8\"",
+   "unit": "LF",
+   "qty": 40,
+   "price": 145,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 9,
+   "b": "100",
+   "code": "4E",
+   "name": "Concrete Column Repairs",
+   "desc": "Bldg 100 - 4E - Concrete Column Repairs",
+   "unit": "CF",
+   "qty": 5,
+   "price": 350,
+   "paid": [
+    0,
+    0,
+    1750
+   ]
+  },
+  {
+   "no": 10,
+   "b": "100",
+   "code": "4F",
+   "name": "Concrete Beam Repairs",
+   "desc": "Bldg 100 - 4F - Concrete Beam Repairs",
+   "unit": "CF",
+   "qty": 8,
+   "price": 350,
+   "paid": [
+    0,
+    0,
+    2800
+   ]
+  },
+  {
+   "no": 11,
+   "b": "100",
+   "code": "4G",
+   "name": "Rust Spot Repairs",
+   "desc": "Bldg 100 - 4G - Rust Spot Repairs",
+   "unit": "EA",
+   "qty": 30,
+   "price": 35,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 12,
+   "b": "100",
+   "code": "4H",
+   "name": "Shutters (Accordion) Remove & Reinstall",
+   "desc": "Bldg 100 - 4H - Shutters (Accordion) Remove & Reinstall",
+   "unit": "LF",
+   "qty": 12,
+   "price": 60,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 13,
+   "b": "100",
+   "code": "4I",
+   "name": "Shutters Bottom/Top Track Removal & Reinstall",
+   "desc": "Bldg 100 - 4I - Shutters Bottom/Top Track Removal & Reinstall",
+   "unit": "LF",
+   "qty": 40,
+   "price": 60,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 14,
+   "b": "100",
+   "code": "4J",
+   "name": "Crack Repair - Route & Apply Sealant",
+   "desc": "Bldg 100 - 4J - Crack Repair - Route & Apply Sealant",
+   "unit": "LF",
+   "qty": 50,
+   "price": 12,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 15,
+   "b": "100",
+   "code": "4K",
+   "name": "#5 Reinforcing Bar Replacement",
+   "desc": "Bldg 100 - 4K - #5 Reinforcing Bar Replacement",
+   "unit": "LF",
+   "qty": 20,
+   "price": 10,
+   "paid": [
+    0,
+    0,
+    200
+   ]
+  },
+  {
+   "no": 16,
+   "b": "100",
+   "code": "4L",
+   "name": "Dowel & Epoxy Reinforcing Bar",
+   "desc": "Bldg 100 - 4L - Dowel & Epoxy Reinforcing Bar",
+   "unit": "EA",
+   "qty": 2,
+   "price": 50,
+   "paid": [
+    0,
+    0,
+    100
+   ]
+  },
+  {
+   "no": 17,
+   "b": "100",
+   "code": "4M",
+   "name": "Tile or Laminate Removal",
+   "desc": "Bldg 100 - 4M - Tile or Laminate Removal",
+   "unit": "SF",
+   "qty": 200,
+   "price": 8.5,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 18,
+   "b": "100",
+   "code": "4N",
+   "name": "Surface Prep for Affected Balcony Waterproofing",
+   "desc": "Bldg 100 - 4N - Surface Prep for Affected Balcony Waterproofing",
+   "unit": "SF",
+   "qty": 200,
+   "price": 7,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 19,
+   "b": "100",
+   "code": "4O",
+   "name": "Balcony Waterproofing",
+   "desc": "Bldg 100 - 4O - Balcony Waterproofing",
+   "unit": "SF",
+   "qty": 200,
+   "price": 16,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 20,
+   "b": "100",
+   "code": "4P",
+   "name": "Window Sills Chip & Repair",
+   "desc": "Bldg 100 - 4P - Window Sills Chip & Repair",
+   "unit": "LF",
+   "qty": 10,
+   "price": 50,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 21,
+   "b": "100",
+   "code": "4Q",
+   "name": "Post Pocket Detail",
+   "desc": "Bldg 100 - 4Q - Post Pocket Detail",
+   "unit": "EA",
+   "qty": 6,
+   "price": 90,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 22,
+   "b": "100",
+   "code": "4R",
+   "name": "Oxidized Shutter Fasteners",
+   "desc": "Bldg 100 - 4R - Oxidized Shutter Fasteners",
+   "unit": "EA",
+   "qty": 10,
+   "price": 30,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 23,
+   "b": "100",
+   "code": "4S",
+   "name": "Remove Delaminated Stucco Repairs",
+   "desc": "Bldg 100 - 4S - Remove Delaminated Stucco Repairs",
+   "unit": "SF",
+   "qty": 100,
+   "price": 30,
+   "paid": [
+    0,
+    0,
+    3000
+   ]
+  },
+  {
+   "no": 24,
+   "b": "100",
+   "code": "4T",
+   "name": "Cementitious Waterproofing",
+   "desc": "Bldg 100 - 4T - Cementitious Waterproofing",
+   "unit": "SF",
+   "qty": 10,
+   "price": 9,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 25,
+   "b": "100",
+   "code": "4U",
+   "name": "Wall Cracks - Rout & Apply Sto RFP",
+   "desc": "Bldg 100 - 4U - Wall Cracks - Rout & Apply Sto RFP",
+   "unit": "LF",
+   "qty": 40,
+   "price": 12,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 26,
+   "b": "100",
+   "code": "4V",
+   "name": "Remove Screen from Screen Enclosed Units",
+   "desc": "Bldg 100 - 4V - Remove Screen from Screen Enclosed Units",
+   "unit": "LF",
+   "qty": 40,
+   "price": 40,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 27,
+   "b": "100",
+   "code": "6",
+   "name": "Permits (4%)",
+   "desc": "Bldg 100 - Item 6 - Permits (4%)",
+   "unit": "LS",
+   "qty": 1,
+   "price": 1820,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 28,
+   "b": "200",
+   "code": "1",
+   "name": "Video & Precondition Survey",
+   "desc": "Bldg 200 - Item 1 - Video & Precondition Survey",
+   "unit": "LS",
+   "qty": 1,
+   "price": 100,
+   "paid": [
+    0,
+    0,
+    100
+   ]
+  },
+  {
+   "no": 29,
+   "b": "200",
+   "code": "2A",
+   "name": "Mobilization",
+   "desc": "Bldg 200 - Item 2A - Mobilization",
+   "unit": "LS",
+   "qty": 1,
+   "price": 3500,
+   "paid": [
+    1911.67,
+    0,
+    1588.33
+   ]
+  },
+  {
+   "no": 30,
+   "b": "200",
+   "code": "2B",
+   "name": "General Conditions",
+   "desc": "Bldg 200 - Item 2B - General Conditions",
+   "unit": "LS",
+   "qty": 1,
+   "price": 2500,
+   "paid": [
+    0,
+    0,
+    2500
+   ]
+  },
+  {
+   "no": 31,
+   "b": "200",
+   "code": "3",
+   "name": "Shoring",
+   "desc": "Bldg 200 - Item 3 - Shoring",
+   "unit": "LS",
+   "qty": 1,
+   "price": 600,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 32,
+   "b": "200",
+   "code": "4A",
+   "name": "Overhead Ceiling Spall Repairs",
+   "desc": "Bldg 200 - 4A - Overhead Ceiling Spall Repairs",
+   "unit": "SF",
+   "qty": 30,
+   "price": 130,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 33,
+   "b": "200",
+   "code": "4B",
+   "name": "Partial Depth Floor Repairs",
+   "desc": "Bldg 200 - 4B - Partial Depth Floor Repairs",
+   "unit": "SF",
+   "qty": 50,
+   "price": 135,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 34,
+   "b": "200",
+   "code": "4C",
+   "name": "Full Depth Floor Repairs",
+   "desc": "Bldg 200 - 4C - Full Depth Floor Repairs",
+   "unit": "SF",
+   "qty": 10,
+   "price": 170,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 35,
+   "b": "200",
+   "code": "4D",
+   "name": "Slab Edge Repairs back to 8\"",
+   "desc": "Bldg 200 - 4D - Slab Edge Repairs back to 8\"",
+   "unit": "LF",
+   "qty": 40,
+   "price": 145,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 36,
+   "b": "200",
+   "code": "4E",
+   "name": "Concrete Column Repairs",
+   "desc": "Bldg 200 - 4E - Concrete Column Repairs",
+   "unit": "CF",
+   "qty": 5,
+   "price": 350,
+   "paid": [
+    0,
+    0,
+    1750
+   ]
+  },
+  {
+   "no": 37,
+   "b": "200",
+   "code": "4F",
+   "name": "Concrete Beam Repairs",
+   "desc": "Bldg 200 - 4F - Concrete Beam Repairs",
+   "unit": "CF",
+   "qty": 8,
+   "price": 350,
+   "paid": [
+    0,
+    0,
+    2625
+   ]
+  },
+  {
+   "no": 38,
+   "b": "200",
+   "code": "4G",
+   "name": "Rust Spot Repairs",
+   "desc": "Bldg 200 - 4G - Rust Spot Repairs",
+   "unit": "EA",
+   "qty": 30,
+   "price": 35,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 39,
+   "b": "200",
+   "code": "4H",
+   "name": "Shutters (Accordion) Remove & Reinstall",
+   "desc": "Bldg 200 - 4H - Shutters (Accordion) Remove & Reinstall",
+   "unit": "LF",
+   "qty": 12,
+   "price": 60,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 40,
+   "b": "200",
+   "code": "4I",
+   "name": "Shutters Bottom/Top Track Removal & Reinstall",
+   "desc": "Bldg 200 - 4I - Shutters Bottom/Top Track Removal & Reinstall",
+   "unit": "LF",
+   "qty": 40,
+   "price": 60,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 41,
+   "b": "200",
+   "code": "4J",
+   "name": "Crack Repair - Route & Apply Sealant",
+   "desc": "Bldg 200 - 4J - Crack Repair - Route & Apply Sealant",
+   "unit": "LF",
+   "qty": 50,
+   "price": 12,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 42,
+   "b": "200",
+   "code": "4K",
+   "name": "#5 Reinforcing Bar Replacement",
+   "desc": "Bldg 200 - 4K - #5 Reinforcing Bar Replacement",
+   "unit": "LF",
+   "qty": 20,
+   "price": 10,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 43,
+   "b": "200",
+   "code": "4L",
+   "name": "Dowel & Epoxy Reinforcing Bar",
+   "desc": "Bldg 200 - 4L - Dowel & Epoxy Reinforcing Bar",
+   "unit": "EA",
+   "qty": 2,
+   "price": 50,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 44,
+   "b": "200",
+   "code": "4M",
+   "name": "Tile or Laminate Removal",
+   "desc": "Bldg 200 - 4M - Tile or Laminate Removal",
+   "unit": "SF",
+   "qty": 200,
+   "price": 8.5,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 45,
+   "b": "200",
+   "code": "4N",
+   "name": "Surface Prep for Affected Balcony Waterproofing",
+   "desc": "Bldg 200 - 4N - Surface Prep for Affected Balcony Waterproofing",
+   "unit": "SF",
+   "qty": 200,
+   "price": 7,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 46,
+   "b": "200",
+   "code": "4O",
+   "name": "Balcony Waterproofing",
+   "desc": "Bldg 200 - 4O - Balcony Waterproofing",
+   "unit": "SF",
+   "qty": 200,
+   "price": 16,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 47,
+   "b": "200",
+   "code": "4P",
+   "name": "Window Sills Chip & Repair",
+   "desc": "Bldg 200 - 4P - Window Sills Chip & Repair",
+   "unit": "LF",
+   "qty": 10,
+   "price": 50,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 48,
+   "b": "200",
+   "code": "4Q",
+   "name": "Post Pocket Detail",
+   "desc": "Bldg 200 - 4Q - Post Pocket Detail",
+   "unit": "EA",
+   "qty": 6,
+   "price": 90,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 49,
+   "b": "200",
+   "code": "4R",
+   "name": "Oxidized Shutter Fasteners",
+   "desc": "Bldg 200 - 4R - Oxidized Shutter Fasteners",
+   "unit": "EA",
+   "qty": 10,
+   "price": 30,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 50,
+   "b": "200",
+   "code": "4S",
+   "name": "Remove Delaminated Stucco Repairs",
+   "desc": "Bldg 200 - 4S - Remove Delaminated Stucco Repairs",
+   "unit": "SF",
+   "qty": 100,
+   "price": 30,
+   "paid": [
+    0,
+    0,
+    3000
+   ]
+  },
+  {
+   "no": 51,
+   "b": "200",
+   "code": "4T",
+   "name": "Cementitious Waterproofing",
+   "desc": "Bldg 200 - 4T - Cementitious Waterproofing",
+   "unit": "SF",
+   "qty": 10,
+   "price": 9,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 52,
+   "b": "200",
+   "code": "4U",
+   "name": "Wall Cracks - Rout & Apply Sto RFP",
+   "desc": "Bldg 200 - 4U - Wall Cracks - Rout & Apply Sto RFP",
+   "unit": "LF",
+   "qty": 40,
+   "price": 12,
+   "paid": [
+    0,
+    0,
+    168
+   ]
+  },
+  {
+   "no": 53,
+   "b": "200",
+   "code": "4V",
+   "name": "Remove Screen from Screen Enclosed Units",
+   "desc": "Bldg 200 - 4V - Remove Screen from Screen Enclosed Units",
+   "unit": "LF",
+   "qty": 40,
+   "price": 40,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 54,
+   "b": "200",
+   "code": "6",
+   "name": "Permits (4%)",
+   "desc": "Bldg 200 - Item 6 - Permits (4%)",
+   "unit": "LS",
+   "qty": 1,
+   "price": 1820,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 55,
+   "b": "300",
+   "code": "1",
+   "name": "Video & Precondition Survey",
+   "desc": "Bldg 300 - Item 1 - Video & Precondition Survey",
+   "unit": "LS",
+   "qty": 1,
+   "price": 100,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 56,
+   "b": "300",
+   "code": "2A",
+   "name": "Mobilization",
+   "desc": "Bldg 300 - Item 2A - Mobilization",
+   "unit": "LS",
+   "qty": 1,
+   "price": 3500,
+   "paid": [
+    1911.67,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 57,
+   "b": "300",
+   "code": "2B",
+   "name": "General Conditions",
+   "desc": "Bldg 300 - Item 2B - General Conditions",
+   "unit": "LS",
+   "qty": 1,
+   "price": 2500,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 58,
+   "b": "300",
+   "code": "3",
+   "name": "Shoring",
+   "desc": "Bldg 300 - Item 3 - Shoring",
+   "unit": "LS",
+   "qty": 1,
+   "price": 600,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 59,
+   "b": "300",
+   "code": "4A",
+   "name": "Overhead Ceiling Spall Repairs",
+   "desc": "Bldg 300 - 4A - Overhead Ceiling Spall Repairs",
+   "unit": "SF",
+   "qty": 30,
+   "price": 130,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 60,
+   "b": "300",
+   "code": "4B",
+   "name": "Partial Depth Floor Repairs",
+   "desc": "Bldg 300 - 4B - Partial Depth Floor Repairs",
+   "unit": "SF",
+   "qty": 50,
+   "price": 135,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 61,
+   "b": "300",
+   "code": "4C",
+   "name": "Full Depth Floor Repairs",
+   "desc": "Bldg 300 - 4C - Full Depth Floor Repairs",
+   "unit": "SF",
+   "qty": 10,
+   "price": 170,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 62,
+   "b": "300",
+   "code": "4D",
+   "name": "Slab Edge Repairs back to 8\"",
+   "desc": "Bldg 300 - 4D - Slab Edge Repairs back to 8\"",
+   "unit": "LF",
+   "qty": 40,
+   "price": 145,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 63,
+   "b": "300",
+   "code": "4E",
+   "name": "Concrete Column Repairs",
+   "desc": "Bldg 300 - 4E - Concrete Column Repairs",
+   "unit": "CF",
+   "qty": 5,
+   "price": 350,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 64,
+   "b": "300",
+   "code": "4F",
+   "name": "Concrete Beam Repairs",
+   "desc": "Bldg 300 - 4F - Concrete Beam Repairs",
+   "unit": "CF",
+   "qty": 8,
+   "price": 350,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 65,
+   "b": "300",
+   "code": "4G",
+   "name": "Rust Spot Repairs",
+   "desc": "Bldg 300 - 4G - Rust Spot Repairs",
+   "unit": "EA",
+   "qty": 30,
+   "price": 35,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 66,
+   "b": "300",
+   "code": "4H",
+   "name": "Shutters (Accordion) Remove & Reinstall",
+   "desc": "Bldg 300 - 4H - Shutters (Accordion) Remove & Reinstall",
+   "unit": "LF",
+   "qty": 12,
+   "price": 60,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 67,
+   "b": "300",
+   "code": "4I",
+   "name": "Shutters Bottom/Top Track Removal & Reinstall",
+   "desc": "Bldg 300 - 4I - Shutters Bottom/Top Track Removal & Reinstall",
+   "unit": "LF",
+   "qty": 40,
+   "price": 60,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 68,
+   "b": "300",
+   "code": "4J",
+   "name": "Crack Repair - Route & Apply Sealant",
+   "desc": "Bldg 300 - 4J - Crack Repair - Route & Apply Sealant",
+   "unit": "LF",
+   "qty": 50,
+   "price": 12,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 69,
+   "b": "300",
+   "code": "4K",
+   "name": "#5 Reinforcing Bar Replacement",
+   "desc": "Bldg 300 - 4K - #5 Reinforcing Bar Replacement",
+   "unit": "LF",
+   "qty": 20,
+   "price": 10,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 70,
+   "b": "300",
+   "code": "4L",
+   "name": "Dowel & Epoxy Reinforcing Bar",
+   "desc": "Bldg 300 - 4L - Dowel & Epoxy Reinforcing Bar",
+   "unit": "EA",
+   "qty": 2,
+   "price": 50,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 71,
+   "b": "300",
+   "code": "4M",
+   "name": "Tile or Laminate Removal",
+   "desc": "Bldg 300 - 4M - Tile or Laminate Removal",
+   "unit": "SF",
+   "qty": 200,
+   "price": 8.5,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 72,
+   "b": "300",
+   "code": "4N",
+   "name": "Surface Prep for Affected Balcony Waterproofing",
+   "desc": "Bldg 300 - 4N - Surface Prep for Affected Balcony Waterproofing",
+   "unit": "SF",
+   "qty": 200,
+   "price": 7,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 73,
+   "b": "300",
+   "code": "4O",
+   "name": "Balcony Waterproofing",
+   "desc": "Bldg 300 - 4O - Balcony Waterproofing",
+   "unit": "SF",
+   "qty": 200,
+   "price": 16,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 74,
+   "b": "300",
+   "code": "4P",
+   "name": "Window Sills Chip & Repair",
+   "desc": "Bldg 300 - 4P - Window Sills Chip & Repair",
+   "unit": "LF",
+   "qty": 10,
+   "price": 50,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 75,
+   "b": "300",
+   "code": "4Q",
+   "name": "Post Pocket Detail",
+   "desc": "Bldg 300 - 4Q - Post Pocket Detail",
+   "unit": "EA",
+   "qty": 6,
+   "price": 90,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 76,
+   "b": "300",
+   "code": "4R",
+   "name": "Oxidized Shutter Fasteners",
+   "desc": "Bldg 300 - 4R - Oxidized Shutter Fasteners",
+   "unit": "EA",
+   "qty": 10,
+   "price": 30,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 77,
+   "b": "300",
+   "code": "4S",
+   "name": "Remove Delaminated Stucco Repairs",
+   "desc": "Bldg 300 - 4S - Remove Delaminated Stucco Repairs",
+   "unit": "SF",
+   "qty": 100,
+   "price": 30,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 78,
+   "b": "300",
+   "code": "4T",
+   "name": "Cementitious Waterproofing",
+   "desc": "Bldg 300 - 4T - Cementitious Waterproofing",
+   "unit": "SF",
+   "qty": 10,
+   "price": 9,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 79,
+   "b": "300",
+   "code": "4U",
+   "name": "Wall Cracks - Rout & Apply Sto RFP",
+   "desc": "Bldg 300 - 4U - Wall Cracks - Rout & Apply Sto RFP",
+   "unit": "LF",
+   "qty": 40,
+   "price": 12,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 80,
+   "b": "300",
+   "code": "4V",
+   "name": "Remove Screen from Screen Enclosed Units",
+   "desc": "Bldg 300 - 4V - Remove Screen from Screen Enclosed Units",
+   "unit": "LF",
+   "qty": 40,
+   "price": 40,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 81,
+   "b": "300",
+   "code": "6",
+   "name": "Permits (4%)",
+   "desc": "Bldg 300 - Item 6 - Permits (4%)",
+   "unit": "LS",
+   "qty": 1,
+   "price": 1820,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 82,
+   "b": "400",
+   "code": "1",
+   "name": "Video & Precondition Survey",
+   "desc": "Bldg 400 - Item 1 - Video & Precondition Survey",
+   "unit": "LS",
+   "qty": 1,
+   "price": 100,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 83,
+   "b": "400",
+   "code": "2A",
+   "name": "Mobilization",
+   "desc": "Bldg 400 - Item 2A - Mobilization",
+   "unit": "LS",
+   "qty": 1,
+   "price": 3500,
+   "paid": [
+    1911.67,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 84,
+   "b": "400",
+   "code": "2B",
+   "name": "General Conditions",
+   "desc": "Bldg 400 - Item 2B - General Conditions",
+   "unit": "LS",
+   "qty": 1,
+   "price": 2500,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 85,
+   "b": "400",
+   "code": "3",
+   "name": "Shoring",
+   "desc": "Bldg 400 - Item 3 - Shoring",
+   "unit": "LS",
+   "qty": 1,
+   "price": 600,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 86,
+   "b": "400",
+   "code": "4A",
+   "name": "Overhead Ceiling Spall Repairs",
+   "desc": "Bldg 400 - 4A - Overhead Ceiling Spall Repairs",
+   "unit": "SF",
+   "qty": 30,
+   "price": 130,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 87,
+   "b": "400",
+   "code": "4B",
+   "name": "Partial Depth Floor Repairs",
+   "desc": "Bldg 400 - 4B - Partial Depth Floor Repairs",
+   "unit": "SF",
+   "qty": 50,
+   "price": 135,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 88,
+   "b": "400",
+   "code": "4C",
+   "name": "Full Depth Floor Repairs",
+   "desc": "Bldg 400 - 4C - Full Depth Floor Repairs",
+   "unit": "SF",
+   "qty": 10,
+   "price": 170,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 89,
+   "b": "400",
+   "code": "4D",
+   "name": "Slab Edge Repairs back to 8\"",
+   "desc": "Bldg 400 - 4D - Slab Edge Repairs back to 8\"",
+   "unit": "LF",
+   "qty": 40,
+   "price": 145,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 90,
+   "b": "400",
+   "code": "4E",
+   "name": "Concrete Column Repairs",
+   "desc": "Bldg 400 - 4E - Concrete Column Repairs",
+   "unit": "CF",
+   "qty": 5,
+   "price": 350,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 91,
+   "b": "400",
+   "code": "4F",
+   "name": "Concrete Beam Repairs",
+   "desc": "Bldg 400 - 4F - Concrete Beam Repairs",
+   "unit": "CF",
+   "qty": 8,
+   "price": 350,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 92,
+   "b": "400",
+   "code": "4G",
+   "name": "Rust Spot Repairs",
+   "desc": "Bldg 400 - 4G - Rust Spot Repairs",
+   "unit": "EA",
+   "qty": 30,
+   "price": 35,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 93,
+   "b": "400",
+   "code": "4H",
+   "name": "Shutters (Accordion) Remove & Reinstall",
+   "desc": "Bldg 400 - 4H - Shutters (Accordion) Remove & Reinstall",
+   "unit": "LF",
+   "qty": 12,
+   "price": 60,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 94,
+   "b": "400",
+   "code": "4I",
+   "name": "Shutters Bottom/Top Track Removal & Reinstall",
+   "desc": "Bldg 400 - 4I - Shutters Bottom/Top Track Removal & Reinstall",
+   "unit": "LF",
+   "qty": 40,
+   "price": 60,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 95,
+   "b": "400",
+   "code": "4J",
+   "name": "Crack Repair - Route & Apply Sealant",
+   "desc": "Bldg 400 - 4J - Crack Repair - Route & Apply Sealant",
+   "unit": "LF",
+   "qty": 50,
+   "price": 12,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 96,
+   "b": "400",
+   "code": "4K",
+   "name": "#5 Reinforcing Bar Replacement",
+   "desc": "Bldg 400 - 4K - #5 Reinforcing Bar Replacement",
+   "unit": "LF",
+   "qty": 20,
+   "price": 10,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 97,
+   "b": "400",
+   "code": "4L",
+   "name": "Dowel & Epoxy Reinforcing Bar",
+   "desc": "Bldg 400 - 4L - Dowel & Epoxy Reinforcing Bar",
+   "unit": "EA",
+   "qty": 2,
+   "price": 50,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 98,
+   "b": "400",
+   "code": "4M",
+   "name": "Tile or Laminate Removal",
+   "desc": "Bldg 400 - 4M - Tile or Laminate Removal",
+   "unit": "SF",
+   "qty": 200,
+   "price": 8.5,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 99,
+   "b": "400",
+   "code": "4N",
+   "name": "Surface Prep for Affected Balcony Waterproofing",
+   "desc": "Bldg 400 - 4N - Surface Prep for Affected Balcony Waterproofing",
+   "unit": "SF",
+   "qty": 200,
+   "price": 7,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 100,
+   "b": "400",
+   "code": "4O",
+   "name": "Balcony Waterproofing",
+   "desc": "Bldg 400 - 4O - Balcony Waterproofing",
+   "unit": "SF",
+   "qty": 200,
+   "price": 16,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 101,
+   "b": "400",
+   "code": "4P",
+   "name": "Window Sills Chip & Repair",
+   "desc": "Bldg 400 - 4P - Window Sills Chip & Repair",
+   "unit": "LF",
+   "qty": 10,
+   "price": 50,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 102,
+   "b": "400",
+   "code": "4Q",
+   "name": "Post Pocket Detail",
+   "desc": "Bldg 400 - 4Q - Post Pocket Detail",
+   "unit": "EA",
+   "qty": 6,
+   "price": 90,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 103,
+   "b": "400",
+   "code": "4R",
+   "name": "Oxidized Shutter Fasteners",
+   "desc": "Bldg 400 - 4R - Oxidized Shutter Fasteners",
+   "unit": "EA",
+   "qty": 10,
+   "price": 30,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 104,
+   "b": "400",
+   "code": "4S",
+   "name": "Remove Delaminated Stucco Repairs",
+   "desc": "Bldg 400 - 4S - Remove Delaminated Stucco Repairs",
+   "unit": "SF",
+   "qty": 100,
+   "price": 30,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 105,
+   "b": "400",
+   "code": "4T",
+   "name": "Cementitious Waterproofing",
+   "desc": "Bldg 400 - 4T - Cementitious Waterproofing",
+   "unit": "SF",
+   "qty": 10,
+   "price": 9,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 106,
+   "b": "400",
+   "code": "4U",
+   "name": "Wall Cracks - Rout & Apply Sto RFP",
+   "desc": "Bldg 400 - 4U - Wall Cracks - Rout & Apply Sto RFP",
+   "unit": "LF",
+   "qty": 40,
+   "price": 12,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 107,
+   "b": "400",
+   "code": "4V",
+   "name": "Remove Screen from Screen Enclosed Units",
+   "desc": "Bldg 400 - 4V - Remove Screen from Screen Enclosed Units",
+   "unit": "LF",
+   "qty": 40,
+   "price": 40,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "no": 108,
+   "b": "400",
+   "code": "6",
+   "name": "Permits (4%)",
+   "desc": "Bldg 400 - Item 6 - Permits (4%)",
+   "unit": "LS",
+   "qty": 1,
+   "price": 1820,
+   "paid": [
+    0,
+    0,
+    0
+   ]
+  }
+ ],
+ "cos": [
+  {
+   "no": "CO-1",
+   "b": "100",
+   "code": "4C",
+   "desc": "Bldg 100 - 4C - Full Depth Floor Repairs (over 10 SF contract qty)",
+   "unit": "SF",
+   "qty": 81,
+   "price": 170,
+   "contract": 10.0,
+   "paid": [
+    0,
+    0,
+    13770
+   ]
+  },
+  {
+   "no": "CO-2",
+   "b": "100",
+   "code": "4E/4F",
+   "desc": "Bldg 100 - 4E/4F - Concrete Column and Beam Repairs (over 13 CF contract qty)",
+   "unit": "CF",
+   "qty": 16.5,
+   "price": 350,
+   "contract": 13.0,
+   "paid": [
+    0,
+    0,
+    5775
+   ]
+  },
+  {
+   "no": "CO-3",
+   "b": "100",
+   "code": "4K",
+   "desc": "Bldg 100 - 4K - #5 Reinforcing Bar Replacement (over 20 LF contract qty)",
+   "unit": "LF",
+   "qty": 70,
+   "price": 10,
+   "contract": 20.0,
+   "paid": [
+    0,
+    0,
+    700
+   ]
+  },
+  {
+   "no": "CO-4",
+   "b": "100",
+   "code": "4L",
+   "desc": "Bldg 100 - 4L - Dowel & Epoxy Reinforcing Bar (over 2 EA contract qty)",
+   "unit": "EA",
+   "qty": 75,
+   "price": 50,
+   "contract": 2.0,
+   "paid": [
+    0,
+    0,
+    3750
+   ]
+  },
+  {
+   "no": "CO-5",
+   "b": "100",
+   "code": "4S",
+   "desc": "Bldg 100 - 4S - Remove Delaminated Stucco Repairs (over 100 SF contract qty)",
+   "unit": "SF",
+   "qty": 41,
+   "price": 30,
+   "contract": 100.0,
+   "paid": [
+    0,
+    0,
+    1230
+   ]
+  },
+  {
+   "no": "CO-6",
+   "b": "200",
+   "code": "4S",
+   "desc": "Bldg 200 - 4S - Remove Delaminated Stucco Repairs (over 100 SF contract qty)",
+   "unit": "SF",
+   "qty": 52,
+   "price": 30,
+   "contract": 100.0,
+   "paid": [
+    0,
+    0,
+    1560
+   ]
+  }
+ ],
+ "sheets": {
+  "100": {
+   "cols": [
+    "Prior Work",
+    "Un 101",
+    "Un 105",
+    "Un 107",
+    "Un 108",
+    "Un 109",
+    "Un 110",
+    "Un 111",
+    "Un 112",
+    "Un 114",
+    "Un 117",
+    "Un 120",
+    "Un 121",
+    "Un 123",
+    "Un 124",
+    "Un 129"
+   ],
+   "ls": {
+    "1": 1,
+    "2A": 1,
+    "2B": 1,
+    "3": 1,
+    "6": 0
+   },
+   "items": {
+    "4A": {
+     "desc": "Overhead Ceiling Spall Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4B": {
+     "desc": "Partial Depth Floor Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4C": {
+     "desc": "Full Depth Floor Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      12,
+      22,
+      16,
+      20,
+      21
+     ]
+    },
+    "4D": {
+     "desc": "Slab Edge Repairs back to 8\"",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4E/4F": {
+     "desc": "Concrete Column and Beam Repairs",
+     "unit": "CF",
+     "v": [
+      13,
+      0,
+      2.5,
+      0,
+      0,
+      0.5,
+      3,
+      3.5,
+      3.5,
+      3.5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4G": {
+     "desc": "Rust Spot Repairs",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4H": {
+     "desc": "Shutters (Accordion) Remove & Reinstall",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4I": {
+     "desc": "Shutters Bottom/Top Track Removal & Reinstall",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4J": {
+     "desc": "Crack Repair - Route & Apply Sealant",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4K": {
+     "desc": "#5 Reinforcing Bar Replacement",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      12,
+      21,
+      16,
+      20,
+      21
+     ]
+    },
+    "4L": {
+     "desc": "Dowel & Epoxy Reinforcing Bar",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      7,
+      20,
+      12,
+      18,
+      20
+     ]
+    },
+    "4M": {
+     "desc": "Tile or Laminate Removal",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4N": {
+     "desc": "Surface Prep for Affected Balcony Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4O": {
+     "desc": "Balcony Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4P": {
+     "desc": "Window Sills Chip & Repair",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4Q": {
+     "desc": "Post Pocket Detail",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4R": {
+     "desc": "Oxidized Shutter Fasteners",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4S": {
+     "desc": "Remove Delaminated Stucco Repairs",
+     "unit": "SF",
+     "v": [
+      100,
+      12,
+      0,
+      15,
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      10,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4T": {
+     "desc": "Cementitious Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4U": {
+     "desc": "Wall Cracks - Rout & Apply Sto RFP",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4V": {
+     "desc": "Remove Screen from Screen Enclosed Units",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "note": "Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."
+  },
+  "200": {
+   "cols": [
+    "Pool Side",
+    "Entrance",
+    "Un 204",
+    "Un 206",
+    "Un 207",
+    "Un 208",
+    "Un 209",
+    "Un 210",
+    "Un 211",
+    "Un 212",
+    "Un 214",
+    "Un 216"
+   ],
+   "ls": {
+    "1": 1,
+    "2A": 1,
+    "2B": 1,
+    "3": 0,
+    "6": 0
+   },
+   "items": {
+    "4A": {
+     "desc": "Overhead Ceiling Spall Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4B": {
+     "desc": "Partial Depth Floor Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4C": {
+     "desc": "Full Depth Floor Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4D": {
+     "desc": "Slab Edge Repairs back to 8\"",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4E/4F": {
+     "desc": "Concrete Column and Beam Repairs",
+     "unit": "CF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      5.5,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      5
+     ]
+    },
+    "4G": {
+     "desc": "Rust Spot Repairs",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4H": {
+     "desc": "Shutters (Accordion) Remove & Reinstall",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4I": {
+     "desc": "Shutters Bottom/Top Track Removal & Reinstall",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4J": {
+     "desc": "Crack Repair - Route & Apply Sealant",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4K": {
+     "desc": "#5 Reinforcing Bar Replacement",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4L": {
+     "desc": "Dowel & Epoxy Reinforcing Bar",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4M": {
+     "desc": "Tile or Laminate Removal",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4N": {
+     "desc": "Surface Prep for Affected Balcony Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4O": {
+     "desc": "Balcony Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4P": {
+     "desc": "Window Sills Chip & Repair",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4Q": {
+     "desc": "Post Pocket Detail",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4R": {
+     "desc": "Oxidized Shutter Fasteners",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4S": {
+     "desc": "Remove Delaminated Stucco Repairs",
+     "unit": "SF",
+     "v": [
+      4,
+      3,
+      16,
+      14,
+      20,
+      5,
+      6,
+      25,
+      11,
+      6,
+      10,
+      32
+     ]
+    },
+    "4T": {
+     "desc": "Cementitious Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4U": {
+     "desc": "Wall Cracks - Rout & Apply Sto RFP",
+     "unit": "LF",
+     "v": [
+      0,
+      5,
+      2,
+      5,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4V": {
+     "desc": "Remove Screen from Screen Enclosed Units",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "note": "Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."
+  },
+  "300": {
+   "cols": [
+    "Loc 1",
+    "Loc 2",
+    "Loc 3",
+    "Loc 4",
+    "Loc 5",
+    "Loc 6"
+   ],
+   "ls": {
+    "1": 0,
+    "2A": 0.5461914285714285,
+    "2B": 0,
+    "3": 0,
+    "6": 0
+   },
+   "items": {
+    "4A": {
+     "desc": "Overhead Ceiling Spall Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4B": {
+     "desc": "Partial Depth Floor Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4C": {
+     "desc": "Full Depth Floor Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4D": {
+     "desc": "Slab Edge Repairs back to 8\"",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4E/4F": {
+     "desc": "Concrete Column and Beam Repairs",
+     "unit": "CF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4G": {
+     "desc": "Rust Spot Repairs",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4H": {
+     "desc": "Shutters (Accordion) Remove & Reinstall",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4I": {
+     "desc": "Shutters Bottom/Top Track Removal & Reinstall",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4J": {
+     "desc": "Crack Repair - Route & Apply Sealant",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4K": {
+     "desc": "#5 Reinforcing Bar Replacement",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4L": {
+     "desc": "Dowel & Epoxy Reinforcing Bar",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4M": {
+     "desc": "Tile or Laminate Removal",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4N": {
+     "desc": "Surface Prep for Affected Balcony Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4O": {
+     "desc": "Balcony Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4P": {
+     "desc": "Window Sills Chip & Repair",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4Q": {
+     "desc": "Post Pocket Detail",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4R": {
+     "desc": "Oxidized Shutter Fasteners",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4S": {
+     "desc": "Remove Delaminated Stucco Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4T": {
+     "desc": "Cementitious Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4U": {
+     "desc": "Wall Cracks - Rout & Apply Sto RFP",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4V": {
+     "desc": "Remove Screen from Screen Enclosed Units",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "note": "Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."
+  },
+  "400": {
+   "cols": [
+    "Loc 1",
+    "Loc 2",
+    "Loc 3",
+    "Loc 4",
+    "Loc 5",
+    "Loc 6"
+   ],
+   "ls": {
+    "1": 0,
+    "2A": 0.5461914285714285,
+    "2B": 0,
+    "3": 0,
+    "6": 0
+   },
+   "items": {
+    "4A": {
+     "desc": "Overhead Ceiling Spall Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4B": {
+     "desc": "Partial Depth Floor Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4C": {
+     "desc": "Full Depth Floor Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4D": {
+     "desc": "Slab Edge Repairs back to 8\"",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4E/4F": {
+     "desc": "Concrete Column and Beam Repairs",
+     "unit": "CF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4G": {
+     "desc": "Rust Spot Repairs",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4H": {
+     "desc": "Shutters (Accordion) Remove & Reinstall",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4I": {
+     "desc": "Shutters Bottom/Top Track Removal & Reinstall",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4J": {
+     "desc": "Crack Repair - Route & Apply Sealant",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4K": {
+     "desc": "#5 Reinforcing Bar Replacement",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4L": {
+     "desc": "Dowel & Epoxy Reinforcing Bar",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4M": {
+     "desc": "Tile or Laminate Removal",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4N": {
+     "desc": "Surface Prep for Affected Balcony Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4O": {
+     "desc": "Balcony Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4P": {
+     "desc": "Window Sills Chip & Repair",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4Q": {
+     "desc": "Post Pocket Detail",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4R": {
+     "desc": "Oxidized Shutter Fasteners",
+     "unit": "EA",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4S": {
+     "desc": "Remove Delaminated Stucco Repairs",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4T": {
+     "desc": "Cementitious Waterproofing",
+     "unit": "SF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4U": {
+     "desc": "Wall Cracks - Rout & Apply Sto RFP",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "4V": {
+     "desc": "Remove Screen from Screen Enclosed Units",
+     "unit": "LF",
+     "v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "note": "Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."
+  }
+ },
+ "notes": [
+  "Pay App #1 is the deposit (mobilization, all four buildings). Pay App #2 is Bldg 100 mobilization balance and general conditions. Pay App #3 is the first application with measured quantities.",
+  "Qty / % to Date links to the field backup on the Bldg 100 to Bldg 400 sheets. Contract lines fill up to the contract quantity per building; quantities over contract bill on CO MTD2025-016-25 at the same unit prices.",
+  "4E and 4F are measured together on the backup; 4E fills to its contract quantity first, then 4F. Pay App #3 = total to date less Pay Apps #1 and #2."
+ ]
 }

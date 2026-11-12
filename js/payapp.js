@@ -279,7 +279,7 @@
   }
 
   /* ---------- PDF (jsPDF + autoTable) ---------- */
-  function money(v) { if (typeof window !== 'undefined') return '—'; if (!v) return '-'; var s = Math.abs(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); return (v < 0 ? '-$' : '$') + s; }
+  function money(v) { if (!v) return '-'; var s = Math.abs(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); return (v < 0 ? '-$' : '$') + s; }
   function qty(v) { if (!v) return '-'; return (Math.round(v * 100) / 100).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 2 }); }
   function pct(v) { return v ? Math.round(v * 100) + '%' : '-'; }
   function buildPDF(jsPDF, st0, opts) {

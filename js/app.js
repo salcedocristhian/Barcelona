@@ -7,6 +7,10 @@
   if (!BG || !P) return;
   var BASE = JSON.parse(document.getElementById('payappBase').textContent);
   var FIELD = JSON.parse(document.getElementById('fieldBldg100').textContent);
+  var BALC = JSON.parse(document.getElementById('fieldBalc').textContent);
+  FIELD.entries.forEach(function (e) { e.report = 'ELEVATIONS BLDG 100 · Nov 11, 2026'; });
+  BALC.entries.forEach(function (e) { e.source = 'companycam'; e.report = 'BALCONIES · Oct 20–21, 2026'; });
+  FIELD.entries = FIELD.entries.concat(BALC.entries);
   var THREE = window.THREE;
 
   var SOW = {}; P.UNIT_ITEMS.forEach(function (c) { var it = BASE.sheets['100'].items[c]; SOW[c] = { desc: it.desc, unit: it.unit }; });
@@ -51,7 +55,7 @@
     blobKeys: function () { return this.req('blobs', 'readonly', function (s) { return s ? s.getAllKeys() : { result: Object.keys(mem.blobs) }; }); }
   };
 
-  var S = { tab: 'home', recTab: 'records', placing: false, overrides: {}, userEntries: [], records: [], meta: null, attachments: [], payView: null, attachB: '200', pendingPhotos: [] };
+  var S = { sheetH: 'peek', tab: 'model', recTab: 'records', placing: false, overrides: {}, userEntries: [], records: [], meta: null, attachments: [], payView: null, attachB: '200', pendingPhotos: [] };
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
   function save() { return IDB.set('state', { overrides: S.overrides, userEntries: S.userEntries, records: S.records, meta: S.meta, attachments: S.attachments }).catch(function () { toast('Could not save on this device'); }); }
   function toast(t, ms) { var el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove('on'); }, ms || 2600); }
@@ -80,7 +84,7 @@
     else S.userEntries = S.userEntries.filter(function (x) { return x.id !== e.id; });
     save(); refreshAll();
   }
-  function entryLabel(e) { var list = entries().filter(function (x) { return x.b === e.b; }); return 'F' + (list.findIndex(function (x) { return x.id === e.id; }) + 1); }
+  function entryLabel(e) { if (e.code) return e.code; var list = entries().filter(function (x) { return x.b === e.b && !x.code; }); return 'F' + (list.findIndex(function (x) { return x.id === e.id; }) + 1); }
   function sideElev(b, side) { var n = { top: [0, -1], bottom: [0, 1], left: [-1, 0], right: [1, 0] }[side]; return BG.elevOf(BG.dirW(b, n[0], n[1])); }
 
   /* ---------------- records & draft ---------------- */
@@ -127,12 +131,25 @@
   var patchMeshes = [];
   var hatchTex = (function () { var c = document.createElement('canvas'); c.width = c.height = 64; var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, 64, 64); g.strokeStyle = '#555'; g.lineWidth = 3; for (var i = -64; i < 128; i += 16) { g.beginPath(); g.moveTo(i, 64); g.lineTo(i + 64, 0); g.stroke(); } var t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; })();
   var COL = { Observed: 0xBEC5CC, Open: 0xF2B8A4, 'In progress': 0xF2C46D, Completed: 0x8FD1A4 };
+  function floorColor(e) { var t = (e.stage || '').toLowerCase(); if (e.billed) return 0x8FD1A4; if (/patched/.test(t)) return 0x8B9096; if (/rebar/.test(t)) return 0xB5533C; return 0x6E5A48; }
   function statusColor(e) { if (e.billed) return 0x8FD1A4; if (e.inDraft) return 0xF09A7E; return COL[e.status] || COL.Observed; }
   function rebuildPatches() {
     patchMeshes.forEach(function (m) { patchGroup.remove(m); m.geometry.dispose(); }); patchMeshes = [];
     entries().forEach(function (e) {
       if (e.side == null) return;
       var B = BG.BLD[e.b]; if (!B) return;
+      if (e.patches) {
+        var M2 = BG.matOf(B), yb = G.F2 + .05;
+        e.patches.forEach(function (pt) {
+          var g2 = new THREE.BoxGeometry(Math.max(pt.X1 - pt.X0, .1), .09, Math.max(pt.Z1 - pt.Z0, .1));
+          g2.translate((pt.X0 + pt.X1) / 2, yb + .045, (pt.Z0 + pt.Z1) / 2); g2.applyMatrix4(M2);
+          var mat2 = new THREE.MeshStandardMaterial({ color: floorColor(e), roughness: .9, emissive: 0x111111 });
+          var m2 = new THREE.Mesh(g2, mat2); m2.userData = { entry: e.id, b: e.b, side: e.side, y0: G.F2, w: pt.X1 - pt.X0, h: pt.Z1 - pt.Z0, floor: true };
+          var ed = new THREE.LineSegments(new THREE.EdgesGeometry(g2), new THREE.LineBasicMaterial({ color: 0x7a2a12 })); m2.add(ed);
+          m2.renderOrder = 4; patchGroup.add(m2); patchMeshes.push(m2);
+        });
+        return;
+      }
       var M = BG.matOf(B), t = 0.12, off = 0.16, g, x0, x1, z0, z1;
       if (e.side === 'top') { x0 = e.a0; x1 = e.a1; z0 = e.p - off - t; z1 = e.p - off; }
       else if (e.side === 'bottom') { x0 = e.a0; x1 = e.a1; z0 = e.p + off; z1 = e.p + off + t; }
@@ -160,7 +177,7 @@
         m.material = m.userData.tm; m.children[0].material.color.set(0x000000);
       } else {
         if (m.userData.tm && m.material === m.userData.tm) m.material = new THREE.MeshStandardMaterial({ roughness: .85, emissive: 0x222222, polygonOffset: true, polygonOffsetFactor: -2 });
-        if (e) m.material.color.setHex(statusColor(e));
+        if (e) m.material.color.setHex(u.floor ? floorColor(e) : statusColor(e));
         m.material.emissive.setHex(sel ? 0x8a2a10 : 0x222222);
         m.children[0].material.color.setHex(sel ? 0xD4563A : 0x5b6470);
       }
@@ -175,6 +192,13 @@
     entries().forEach(function (e) {
       if (e.b !== b || e.side == null) return;
       var f = e.y0 >= G.F2 - .2 ? 2 : 1; if (f !== fl) return;
+      if (e.patches) {
+        var zt = e.side === 'top' ? 0 : G.RB, zb = e.side === 'top' ? G.RT : G.D;
+        s += '<g class="p-field" data-fid="' + e.id + '" role="button" tabindex="0" aria-label="' + esc(e.code) + '"><rect x="' + e.a0 + '" y="' + zt + '" width="' + (e.a1 - e.a0) + '" height="' + (zb - zt) + '" fill="color-mix(in srgb, var(--accent) 16%, transparent)" stroke="var(--accent)" stroke-width=".35"/>';
+        e.patches.forEach(function (pt) { s += '<rect x="' + pt.X0 + '" y="' + pt.Z0 + '" width="' + (pt.X1 - pt.X0) + '" height="' + (pt.Z1 - pt.Z0) + '" fill="#' + floorColor(e).toString(16).padStart(6, '0') + '" stroke="var(--ink)" stroke-width=".15"/>'; });
+        s += '<text x="' + ((e.a0 + e.a1) / 2) + '" y="' + (e.side === 'top' ? -2.2 : G.D + 4) + '" font-size="2.6" text-anchor="middle" class="p-txt" font-weight="700">' + esc(e.code) + '</text></g>';
+        return;
+      }
       var col = '#' + statusColor(e).toString(16).padStart(6, '0'), x, y, w, h;
       if (e.side === 'top') { x = e.a0; w = e.a1 - e.a0; y = e.p - 1.8; h = 1.2; }
       else if (e.side === 'bottom') { x = e.a0; w = e.a1 - e.a0; y = e.p + .6; h = 1.2; }
@@ -241,6 +265,7 @@
   var urlCache = {};
   function photoURL(ref, thumb) {
     if (typeof ref === 'number' || /^cc:/.test(ref)) { var n = String(typeof ref === 'number' ? ref : ref.slice(3)).padStart(2, '0'); return FIELD.photoFolder + (thumb ? 't' : '') + n + '.jpg'; }
+    if (/^bal:/.test(ref)) { var m2 = String(ref.slice(4)).padStart(2, '0'); return 'photos/balconies/' + (thumb ? 't' : '') + m2 + '.jpg'; }
     return urlCache[ref] || '';
   }
   function loadBlobURLs(refs) {
@@ -278,9 +303,10 @@
     cur = JSON.parse(JSON.stringify(e)); curCtx = ctx || {};
     S.sel = cur; onVis();
     loadBlobURLs(cur.photos || []).then(renderRepair);
-    $('#repairModal').classList.add('on');
+    if (S.tab !== 'model') setTab('model');
+    $('#repairSec').hidden = false; $('#peekSec').hidden = true; setSheet('mid'); $('#sheet').scrollTop = 0;
   }
-  function closeRepair() { $('#repairModal').classList.remove('on'); S.sel = null; cur = null; onVis(); }
+  function closeRepair() { $('#repairSec').hidden = true; $('#peekSec').hidden = false; $('#repairSec').innerHTML = ''; setSheet('peek'); S.sel = null; cur = null; onVis(); }
   function pa3Hint(e) {
     var sh = BASE.sheets[e.b]; if (!sh || !SOW[e.sow]) return '';
     var ci = sh.cols.indexOf(e.unit), v = ci >= 0 ? sh.items[e.sow].v[ci] : null;
@@ -293,11 +319,14 @@
     if (sug.indexOf(e.sow) < 0) sug.unshift(e.sow); sug = sug.slice(0, 4);
     var cols = sh.cols.slice(); if (e.unit && cols.indexOf(e.unit) < 0) cols.push(e.unit);
     var el = BG.ENAME[sideElev(e.b, e.side)] || '';
-    var src = e.source === 'companycam' ? 'CompanyCam photo report · Nov 11, 2026' : (e.source === 'nv5' ? 'From NV5 mark ' + esc(e.nv5 || '') : 'Added ' + esc(e.date));
+    var src = e.source === 'companycam' ? 'CompanyCam “' + esc(e.report || '') + '”' : (e.source === 'nv5' ? 'From NV5 mark ' + esc(e.nv5 || '') : 'Added ' + esc(e.date));
     var editable = !e.billed;
+    if (e.patches && e.qty == null) e.qty = e.area;
     var h = '<div class="mhead"><svg class="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg><h3 id="repTitle">Selected Repair ' + (editable ? '<span class="tagok">Future reports editable</span>' : '<span class="tagok" style="background:var(--surface-2);color:var(--muted)">Billed</span>') + '</h3><button class="close" type="button" data-x aria-label="Close">✕</button></div>';
     h += '<p class="note" style="margin-top:-4px">' + (e.b === 'club' ? 'Clubhouse' : 'Bldg ' + esc(e.b)) + ' · ' + esc(e.unit || '') + ' · ' + esc(el) + ' face · ' + src + '</p>';
     if (e.note) h += '<p class="note" style="color:var(--ink)">' + esc(e.note) + '</p>';
+    if (e.stage) h += '<ul class="stage-tl"><li><b>' + esc(e.stage) + '</b><br><span class="note">' + esc((e.time || e.date || '').replace('T', ' ')) + (e.nv5 ? ' · ' + esc(e.nv5) : '') + '</span></li></ul>';
+    if (e.patches) h += '<table class="pt" style="margin:6px 0 4px"><thead><tr><th>Patch</th><th>Size (approx.)</th><th>Area</th><th>Description</th></tr></thead><tbody>' + e.patches.map(function (pt) { return '<tr><td>' + pt.id + '</td><td>' + esc(pt.size) + '</td><td>' + pt.area + ' sf</td><td class="desc">' + esc(pt.desc) + '</td></tr>'; }).join('') + '<tr class="tot"><td></td><td>Total</td><td>' + e.area + ' sf</td><td></td></tr></tbody></table>';
     h += '<div style="font-weight:700;margin:12px 0 8px">Suggested SOW Item</div><div class="chips" id="sowChips">' + sug.map(function (c) { return '<button type="button" class="chip" data-sow="' + c + '" aria-pressed="' + (c === e.sow) + '">' + (c === e.sow ? '✓ ' : '') + esc(SHORT[c] || c) + '</button>'; }).join('') + '</div>';
     h += '<div class="field"><label for="sowSel">Item</label><select class="inp" id="sowSel" ' + (editable ? '' : 'disabled') + '>' + P.UNIT_ITEMS.map(function (c) { return '<option value="' + c + '"' + (c === e.sow ? ' selected' : '') + '>' + c + ' · ' + esc(SOW[c].desc) + '</option>'; }).join('') + '</select></div>';
     h += '<div class="field"><label for="unitSel">Location</label><select class="inp" id="unitSel" ' + (editable ? '' : 'disabled') + '>' + cols.map(function (c) { return '<option' + (c === e.unit ? ' selected' : '') + '>' + esc(c) + '</option>'; }).join('') + '<option value="__new">New column…</option></select></div>';
@@ -309,7 +338,7 @@
     h += '<p class="note">' + pa3Hint(e) + '</p>';
     h += '<div class="actions">' + (editable ? '<button class="primary center" type="button" id="saveRep">' + (e.inDraft && e.draftNo === ensureMeta().no ? 'Save to Draft' : 'Save') + '</button>' : '') + '</div>';
     h += '<div class="actions"><button class="btn" type="button" id="goElev">View in elevation</button>' + (editable && !curCtx.isNew ? '<button class="btn danger" type="button" id="delRep">' + (e.source === 'companycam' ? 'Hide' : 'Delete') + '</button>' : '') + '</div>';
-    $('#repairSheet').innerHTML = h;
+    $('#repairSec').innerHTML = h;
   }
   function readForm() {
     if (!cur || cur.billed) return;
@@ -318,7 +347,7 @@
     cur.status = $('#statusSel').value; cur.notes = $('#notesIn').value;
     cur.inDraft = $('#inDraft').checked; cur.draftNo = ensureMeta().no;
   }
-  $('#repairSheet').addEventListener('click', function (ev) {
+  $('#repairSec').addEventListener('click', function (ev) {
     var t = ev.target;
     if (t.closest('[data-x]')) { closeRepair(); return; }
     var chip = t.closest('[data-sow]'); if (chip && !cur.billed) { readForm(); cur.sow = chip.dataset.sow; renderRepair(); return; }
@@ -333,7 +362,7 @@
     if (t.closest('#delRep')) { if (confirm('Remove this field repair?')) { removeEntry(cur); closeRepair(); } return; }
     if (t.closest('#goElev')) { var e = cur; closeRepair(); BG.state.b = e.b; BG.state.elev = sideElev(e.b, e.side); BG.setView('elev'); return; }
   });
-  $('#repairSheet').addEventListener('change', function (ev) {
+  $('#repairSec').addEventListener('change', function (ev) {
     if (ev.target.id === 'inDraft') { $('#saveRep').textContent = ev.target.checked ? 'Save to Draft' : 'Save'; return; }
     if (ev.target.id === 'sowSel') { readForm(); renderRepair(); }
     if (ev.target.id === 'unitSel' && ev.target.value === '__new') {
@@ -341,10 +370,9 @@
       if (n) { readForm(); cur.unit = n.trim(); renderRepair(); } else ev.target.value = cur.unit;
     }
   });
-  $('#repairSheet').addEventListener('input', function (ev) {
+  $('#repairSec').addEventListener('input', function (ev) {
     if (ev.target.id === 'qtyIn' && cur && cur.source !== 'companycam' && parseFloat(ev.target.value) > 0) { var c = $('#inDraft'); if (c && !c.checked) { c.checked = true; $('#saveRep').textContent = 'Save to Draft'; } }
   });
-  $('#repairModal').addEventListener('click', function (ev) { if (ev.target.id === 'repairModal') closeRepair(); });
   $('#photoFile').addEventListener('change', function (ev) {
     var files = ev.target.files; if (!files || !files.length) return;
     var b = cur ? cur.b : (BG.state.b === 'all' ? '100' : BG.state.b);
@@ -373,11 +401,12 @@
   function gallery(title, refs) {
     loadBlobURLs(refs).then(function () {
       act('<div class="mhead"><h3 id="actTitle">' + esc(title) + '</h3><button class="close" type="button" data-x aria-label="Close">✕</button></div><div class="gallery">' +
-        refs.map(function (r) { return '<button type="button" data-gp="' + esc(r) + '"><img loading="lazy" src="' + esc(photoURL(r, true) || photoURL(r)) + '" alt=""><i>' + (typeof r === 'number' ? r : '•') + (usedBy(r).length ? ' ✓' : '') + '</i></button>'; }).join('') + '</div><p class="note">✓ = linked to a field repair. Tap a photo to open it.</p>');
+        refs.map(function (r) { return '<button type="button" data-gp="' + esc(r) + '"><img loading="lazy" src="' + esc(photoURL(r, true) || photoURL(r)) + '" alt=""><i>' + (typeof r === 'number' ? r : (/^bal:/.test(r) ? r.slice(4) : '•')) + (usedBy(r).length ? ' ✓' : '') + '</i></button>'; }).join('') + '</div><p class="note">✓ = linked to a field repair. Tap a photo to open it.</p>');
     });
   }
   $('#actSheet').addEventListener('click', function (ev) {
     var g = ev.target.closest('[data-gp]'); if (g) { var r = g.dataset.gp; showPhoto(/^\d+$/.test(r) ? +r : r); return; }
+    var fl2 = ev.target.closest('[data-fl]'); if (fl2) { closeAct(); BG.goInside(S.insideB, +fl2.dataset.fl); return; }
     var o = ev.target.closest('[data-open]'); if (o) { ev.preventDefault(); closeAct(); openRepair(entryById(o.dataset.open)); return; }
     var u = ev.target.closest('#usePh'); if (u) { var ref = u.dataset.ref; S.pendingPhotos = [/^\d+$/.test(ref) ? +ref : ref]; closeAct(); startPlacing(); return; }
     var bb = ev.target.closest('[data-pickb]'); if (bb) { var b = bb.dataset.pickb; closeAct(); if (S.afterPick) { var f = S.afterPick; S.afterPick = null; f(b); } return; }
@@ -404,29 +433,31 @@
   $('#placeAttach').addEventListener('click', function () { $('#photoFile').dataset.mode = 'pending'; cur = null; $('#photoFile').click(); });
 
   /* ---------------- tabs & shell ---------------- */
+  function setSheet(h) { S.sheetH = h; $('#sheet').dataset.h = h; setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 280); }
   function setTab(t) {
     S.tab = t; document.querySelector('.app').dataset.tab = t;
     $$('.tab').forEach(function (b) { if (b.dataset.tab === t) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
-    var ws = t === 'home' || t === 'model';
-    $('#workspace').classList.toggle('on', ws); $('#recordsPage').classList.toggle('on', t === 'records'); $('#settingsPage').classList.toggle('on', t === 'settings');
-    if (t === 'home' && BG.state.view === 'plan') BG.setView('3d');
-    if (t === 'records') renderRecords();
+    var pages = { model: 'workspace', repairs: 'repairsPage', payapps: 'payappsPage', reports: 'reportsPage', settings: 'settingsPage' };
+    Object.keys(pages).forEach(function (k) { $('#' + pages[k]).classList.toggle('on', k === t); });
+    if (t === 'repairs') { renderRepairs(); renderPhotoReports(); }
+    if (t === 'payapps') renderRecords();
     if (t === 'settings') renderSettings();
-    if (ws) setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 30);
     refreshHome();
   }
   $$('.tab').forEach(function (b) { b.addEventListener('click', function () { setTab(b.dataset.tab); }); });
   $('#bldPill').addEventListener('click', function () { pickBuilding('Show', function (b) { BG.selectB(b); }, true); });
-  $('#moreBtn').addEventListener('click', function () {
+  $('#bLayers').addEventListener('click', function () { setSheet('full'); setTimeout(function () { $('#layersSec').scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 60); });
+  $('#gearBtn').addEventListener('click', function () { setTab('settings'); });
+  $('#settingsBack').addEventListener('click', function () { setTab('model'); });
+  if (false) $('#x').addEventListener('click', function () {
     act('<div class="mhead"><h3 id="actTitle">More</h3><button class="close" type="button" data-x aria-label="Close">✕</button></div><div class="group" style="box-shadow:none;border:1px solid var(--line)">' +
       '<button class="listrow" type="button" data-actc="layers"><span class="grow">Layers, legend and near-exit list</span></button>' +
       '<button class="listrow" type="button" data-actc="gal100"><span class="grow">Bldg 100 photos (CompanyCam, Nov 11, 2026)</span></button>' +
       '<button class="listrow" type="button" data-actc="pdf"><span class="grow">Typical Elevations PDF</span></button></div>');
   });
-  $('#sheetHandle').addEventListener('click', function () { $('#modelSheet').classList.toggle('expanded'); setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 280); });
+  $('#sheetHandle').addEventListener('click', function () { setSheet({ peek: 'mid', mid: 'full', full: 'peek' }[S.sheetH] || 'peek'); });
   $('#bFocus').addEventListener('click', function () { BG.selectB(BG.state.b === 'all' ? '100' : BG.state.b); });
   $('#lField').addEventListener('change', function () { onVis(); if (BG.state.view === 'plan') BG.renderPlan(); });
-  $('#openRecord').addEventListener('click', function () { openPay(lastRecord()); });
 
   function refreshHome() {
     var st = BG.state, b = st.b, all = b === 'all';
@@ -436,8 +467,7 @@
     var c = P.compute(draftState()), N = ensureMeta().no;
     $('#homeTitle').textContent = all ? 'Barcelona Gardens' : (b === 'club' ? 'Clubhouse' : 'Building ' + b);
     $('#homeMeta').textContent = all ? '4 buildings and clubhouse · 101 E McNab Rd' : (b === 'club' ? 'Phase 5' : 'Phase ' + BG.BLD[b].phase + ' · ' + BG.ENAME[st.elev] + ' face selected in Elevations');
-    $('#homeStats').innerHTML = '<div class="stat"><b>' + marks + '</b><span>NV5 marks</span></div><div class="stat"><b>' + ents.length + '</b><span>Field repairs</span></div><div class="stat"><b>#' + N + '</b><span>Editable draft</span></div>';
-    $('#openRecordText').textContent = 'Pay App ' + lastRecord().no + ' — Record';
+    $('#homeStats').innerHTML = '<div class="stat"><b>' + marks + '</b><span>NV5 marks</span></div><div class="stat"><b>' + ents.length + '</b><span>Field repairs</span></div><div class="stat"><b>' + (c.grand.paid[N - 1] ? P.money(c.grand.paid[N - 1]) : '$0.00') + '</b><span>Pay App #' + N + ' draft</span></div>';
     renderFieldList();
   }
   function renderFieldList() {
@@ -448,8 +478,8 @@
       return '<li><button type="button" data-fe="' + e.id + '"><span><span class="dot" style="background:' + col + '"></span>' + esc(entryLabel(e)) + ' · ' + esc(e.unit) + ' — ' + esc(SHORT[e.sow] || e.sow) + '</span><span class="d">' + (e.qty ? P.qty(e.qty) + ' ' + SOW[e.sow].unit : esc(e.status)) + '</span></button></li>';
     }).join('') + '</ul>' : '<p class="empty">No field repairs yet. Use New Field Report on Home.</p>');
   }
-  $('#modelSheet').addEventListener('click', function (ev) { var f = ev.target.closest('[data-fe]'); if (f) { var e = entryById(f.dataset.fe); BG.state.b = e.b; BG.state.elev = sideElev(e.b, e.side); BG.setView('elev'); openRepair(e); } });
-  BG.onSync = function () { refreshHome(); };
+  $('#sheet').addEventListener('click', function (ev) { var f = ev.target.closest('[data-fe]'); if (f) { var e = entryById(f.dataset.fe); BG.state.b = e.b; BG.state.elev = sideElev(e.b, e.side); BG.setView('elev'); openRepair(e); } });
+  BG.onSync = function () { refreshHome(); var ins = BG.state.inside; $('#walkBar').hidden = !ins; if (ins) $('#wFloor').textContent = 'Floor ' + ins.fl + ' ⇅'; };
 
   /* ---------------- records ---------------- */
   var ICON_DOC = '<svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>';
@@ -463,15 +493,15 @@
       });
     } else {
       var m = ensureMeta(), c = P.compute(draftState()), n = entries().filter(function (e) { return e.inDraft && e.draftNo === m.no && e.qty > 0; }).length;
-      h += '<button class="card" type="button" id="openDraft"><span class="ic good">' + ICON_PEN + '</span><span class="grow"><b>Next Pay App Draft</b><span>Pay App #' + m.no + ' · ' + n + ' field item' + (n === 1 ? '' : 's') + ' · quantity-only public draft' + '</span><br><span class="badge">Editable</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>';
+      h += '<button class="card" type="button" id="openDraft"><span class="ic good">' + ICON_PEN + '</span><span class="grow"><b>Next Pay App Draft</b><span>Pay App #' + m.no + ' · ' + n + ' field item' + (n === 1 ? '' : 's') + ' · this period ' + P.money(c.grand.paid[m.no - 1]) + '</span><br><span class="badge">Editable</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>';
     }
     $('#recList').innerHTML = h;
     var which = S.recTab === 'drafts' ? 'Pay App #' + ensureMeta().no + ' draft' : 'Pay App #' + lastRecord().no + ' record';
-    $('#exportPdfSub').textContent = 'Field elevations + repair photos'; $('#openExcelSub').textContent = 'Technical quantities only · pricing excluded';
+    $('#exportPdfSub').textContent = which; $('#openExcelSub').textContent = which + ' · same format as the original workbook';
     renderPhotoReports();
   }
   function renderPhotoReports() {
-    var h = '<button class="listrow" type="button" data-gal="100"><span class="fi rep">📷</span><span class="grow">ELEVATIONS BLDG 100<small>CompanyCam · Miguel Graterol · Nov 11, 2026 · 49 photos · placed on the elevations</small></span></button>';
+    var h = '<button class="listrow" type="button" data-gal="100"><span class="fi rep">📷</span><span class="grow">ELEVATIONS BLDG 100<small>CompanyCam · Miguel Graterol · Nov 11, 2026 · 49 photos · placed on the elevations</small></span></button><button class="listrow" type="button" data-galbal="1"><span class="fi rep">📷</span><span class="grow">BALCONIES · Bldg 100<small>CompanyCam · Oct 20–21, 2026 · 35 photos · balcony floors BF-119 to BF-129</small></span></button>';
     ['100', '200', '300', '400'].forEach(function (b) {
       var imgs = S.attachments.filter(function (a) { return a.b === b && a.type === 'image'; }), pdfs = S.attachments.filter(function (a) { return a.b === b && a.type === 'pdf'; });
       if (imgs.length) h += '<button class="listrow" type="button" data-galb="' + b + '"><span class="fi rep">📷</span><span class="grow">Bldg ' + b + ' photos<small>' + imgs.length + ' photo' + (imgs.length > 1 ? 's' : '') + ' added on this device</small></span></button>';
@@ -481,24 +511,29 @@
     $('#photoReports').innerHTML = h;
   }
   $$('[data-rec]').forEach(function (b) { b.addEventListener('click', function () { S.recTab = b.dataset.rec; $$('[data-rec]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); renderRecords(); }); });
-  $('#recordsPage').addEventListener('click', function (ev) {
+  $('.views').addEventListener('click', function (ev) {
     var t = ev.target;
     var r = t.closest('[data-openrec]'); if (r) { openPay(allRecords().find(function (x) { return x.no === +r.dataset.openrec; })); return; }
     if (t.closest('#openDraft')) { openPay(null); return; }
+    if (t.closest('[data-galbal]')) { var rf = []; BALC.entries.forEach(function (e) { rf = rf.concat(e.photos); }); gallery('BALCONIES · 35 photos', rf); return; }
     if (t.closest('[data-gal]')) { gallery('ELEVATIONS BLDG 100 · 49 photos', Array.from({ length: 49 }, function (_, i) { return i + 1; })); return; }
     var gb = t.closest('[data-galb]'); if (gb) { gallery('Bldg ' + gb.dataset.galb + ' photos', S.attachments.filter(function (a) { return a.b === gb.dataset.galb && a.type === 'image'; }).map(function (a) { return a.id; })); return; }
     var pd = t.closest('[data-pdf]'); if (pd) { IDB.getBlob(pd.dataset.pdf).then(function (b) { if (b) window.open(URL.createObjectURL(b), '_blank'); }); return; }
-    if (t.closest('#attachBtn') || t.closest('#recPlus')) { pickBuilding('Attach to which building?', function (b) { S.attachB = b; $('#attachFile').click(); }); return; }
-    if (t.closest('#exportPdf')) { generateReport(); return; }
-    if (t.closest('#openExcel')) { window.open('docs/Barcelona_Pay_App_3_Technical_Quantities.xlsx', '_blank', 'noopener'); return; }
-    if (t.closest('#genReport')) { generateReport(); return; }
+    var dc = t.closest('[data-doc]'); if (dc) { window.open(dc.dataset.doc === 'pdf' ? 'docs/Barcelona_Gardens_Typical_Elevations.pdf' : 'docs/Barcelona_Gardens_Quantities_Pay_App_3.xlsx', '_blank', 'noopener'); return; }
+    var rc = t.closest('[data-rep]'); if (rc) { openFromList(entryById(rc.dataset.rep)); return; }
+    var fb = t.closest('[data-fb]'); if (fb) { RF.b = fb.dataset.fb; renderRepairs(); return; }
+    var fs = t.closest('[data-fs]'); if (fs) { RF.s = fs.dataset.fs; renderRepairs(); return; }
+    if (t.closest('#attachBtn') || t.closest('#importBtn')) { pickBuilding('Attach to which building?', function (b) { S.attachB = b; $('#attachFile').click(); }); return; }
+    if (t.closest('#exportPdf')) { exportPDF(S.recTab === 'drafts' ? draftState() : lastRecord()); return; }
+    if (t.closest('#openExcel')) { exportXLSX(S.recTab === 'drafts' ? draftState() : lastRecord()); return; }
+    if (t.closest('#genReport')) { generateRepairReport(); return; }
   });
   $('#attachFile').addEventListener('change', function (ev) { var f = ev.target.files; if (!f || !f.length) return; storeFiles(f, S.attachB).then(function (l) { toast(l.length + ' file' + (l.length > 1 ? 's' : '') + ' attached to Bldg ' + S.attachB); renderPhotoReports(); }); ev.target.value = ''; });
 
   /* ---------------- pay app viewer / editor ---------------- */
   var pv = { rec: null, tab: 'Summary' };
   function openPay(rec) { pv.rec = rec; pv.tab = 'Summary'; renderPay(); $('#payModal').classList.add('on'); }
-  function closePay() { $('#payModal').classList.remove('on'); refreshHome(); if (S.tab === 'records') renderRecords(); }
+  function closePay() { $('#payModal').classList.remove('on'); refreshHome(); if (S.tab === 'payapps') renderRecords(); }
   $('#payModal').addEventListener('click', function (ev) { if (ev.target.id === 'payModal' || ev.target.closest('[data-px]')) closePay(); });
   function renderPay() {
     var isDraft = !pv.rec, parts = isDraft ? draftParts() : null, st = isDraft ? parts.state : pv.rec, c = P.compute(P.clone(st)), N = st.no, T = P.titles(st);
@@ -576,10 +611,8 @@
   /* ---------------- exports ---------------- */
   var loaded = {};
   function loadScript(src) { if (loaded[src]) return loaded[src]; loaded[src] = new Promise(function (res, rej) { var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = function () { delete loaded[src]; rej(new Error('Could not load ' + src)); }; document.head.appendChild(s); }); return loaded[src]; }
-  function download(blob, name) { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000); }
   function fname(st, ext) { return 'Barcelona_Gardens_Quantities_-_Pay_App_' + st.no + (st.kind === 'draft' ? '_DRAFT' : '') + '.' + ext; }
   function exportXLSX(st) {
-    toast('Financial Excel export requires private price data; use the technical quantities record.', 5500); return;
     toast('Preparing Excel…');
     loadScript('vendor/exceljs/exceljs.min.js').then(function () { return P.buildWorkbook(window.ExcelJS, st).xlsx.writeBuffer(); })
       .then(function (buf) { download(new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), fname(st, 'xlsx')); toast('Excel ready'); })
@@ -589,7 +622,6 @@
   function blobToData(b) { return new Promise(function (res) { var fr = new FileReader(); fr.onload = function () { res(fr.result); }; fr.onerror = function () { res(null); }; fr.readAsDataURL(b); }); }
   function loadPDF() { return loadScript('vendor/jspdf/jspdf.umd.min.js').then(function () { return loadScript('vendor/jspdf/jspdf.plugin.autotable.min.js'); }); }
   function exportPDF(st) {
-    toast('Financial PDF export is unavailable in this public technical version. Use Generate Updated Report.', 5500); return;
     toast('Preparing PDF…');
     Promise.all([loadPDF(), logoData()]).then(function (r) { var doc = P.buildPDF(window.jspdf.jsPDF, st, { logo: r[1] }); doc.save(fname(st, 'pdf')); toast('PDF ready'); })
       .catch(function (e) { toast('PDF export failed: ' + e.message, 5000); });
@@ -688,14 +720,219 @@
     }).then(function () { refreshAll(); renderSettings(); toast('Data reset'); });
   });
 
-  function refreshAll() { rebuildPatches(); refreshHome(); if (BG.state.view === 'plan') BG.renderPlan(); if (S.tab === 'records') renderRecords(); }
+  function refreshAll() { rebuildPatches(); refreshHome(); if (BG.state.view === 'plan') BG.renderPlan(); if (S.tab === 'payapps') renderRecords(); if (S.tab === 'repairs') renderRepairs(); }
 
+  /* ---------------- repairs page ---------------- */
+  var RF = { b: 'all', s: 'all' };
+  function stOf(e) { if (e.billed) return 'billed'; if (e.inDraft && e.qty > 0) return 'draft'; if (e.status === 'Completed' || /patched/i.test(e.stage || '')) return 'done'; return 'open'; }
+  function renderRepairs() {
+    var bs = [['all', 'All'], ['100', '100'], ['200', '200'], ['300', '300'], ['400', '400'], ['club', 'Club']];
+    var ss = [['all', 'All'], ['open', 'Open / observed'], ['done', 'Patched / completed'], ['draft', 'In draft'], ['billed', 'Billed']];
+    $('#fBld').innerHTML = bs.map(function (x) { return '<button class="chip" type="button" data-fb="' + x[0] + '" aria-pressed="' + (RF.b === x[0]) + '">' + x[1] + '</button>'; }).join('');
+    $('#fStat').innerHTML = ss.map(function (x) { return '<button class="chip" type="button" data-fs="' + x[0] + '" aria-pressed="' + (RF.s === x[0]) + '">' + x[1] + '</button>'; }).join('');
+    var list = entries().filter(function (e) { return (RF.b === 'all' || e.b === RF.b) && (RF.s === 'all' || stOf(e) === RF.s); });
+    var refs = []; list.forEach(function (e) { if (e.photos && e.photos[0] != null) refs.push(e.photos[0]); });
+    loadBlobURLs(refs).then(function () {
+      $('#repList').innerHTML = list.length ? list.map(function (e) {
+        var ph = e.photos && e.photos[0] != null ? photoURL(e.photos[0], true) : '';
+        var q = e.qty ? P.qty(e.qty) + ' ' + SOW[e.sow].unit : (e.area ? '≈' + e.area + ' sf' : '');
+        return '<button class="rcard" type="button" data-rep="' + e.id + '">' + (ph ? '<img src="' + esc(ph) + '" alt="">' : '<img alt="">') + '<span class="grow"><b>' + esc(entryLabel(e)) + ' · Bldg ' + esc(e.b) + ' · ' + esc(e.unit) + '</b><span>' + esc(SHORT[e.sow] || e.sow) + ' · ' + esc(e.stage || e.billed || e.status) + '</span><span>' + esc(e.note || e.notes || '') + '</span></span><span class="q">' + esc(q) + '</span></button>';
+      }).join('') : '<p class="empty">No repairs with these filters.</p>';
+    });
+  }
+  function openFromList(e) {
+    if (!e) return; setTab('model'); BG.state.b = e.b;
+    if (e.patches) { BG.state.floor = 2; BG.setView('plan'); } else { BG.state.elev = sideElev(e.b, e.side); BG.setView('elev'); }
+    openRepair(e);
+  }
+
+  /* ---------------- walk inside ---------------- */
+  function askFloor(b) {
+    S.insideB = b;
+    act('<div class="mhead"><h3 id="actTitle">Walk inside · Bldg ' + b + '</h3><button class="close" type="button" data-x aria-label="Close">✕</button></div><div class="group" style="box-shadow:none;border:1px solid var(--line)"><button class="listrow" type="button" data-fl="1"><span class="grow">Ground-floor corridor<small>Units ' + b[0] + '01–' + b[0] + '17</small></span></button><button class="listrow" type="button" data-fl="2"><span class="grow">2nd-floor corridor<small>Units ' + b[0] + '18–' + b[0] + '33</small></span></button></div><p class="note">Drag to look around. Use ◀ ▶ to walk along the corridor.</p>');
+  }
+  $('#bInside').addEventListener('click', function () { var b = BG.state.b; if (b === 'all' || b === 'club') pickBuilding('Which building?', askFloor, false); else askFloor(b); });
+  $('#wFwd').addEventListener('click', function () { BG.walk(6); });
+  $('#wBack').addEventListener('click', function () { BG.walk(-6); });
+  $('#wFloor').addEventListener('click', function () { var i = BG.state.inside; if (i) BG.goInside(i.b, i.fl === 1 ? 2 : 1); });
+  $('#wExit').addEventListener('click', function () { BG.exitInside(); });
+  $$('[data-view]').forEach(function (b) { b.addEventListener('click', function () { if (BG.state.inside) { BG.state.inside = null; BG.exitInside(); } }, true); });
+
+  /* ---------------- repair report (“Elevations Balcony Repairs” format) ---------------- */
+  function imgData(ref) {
+    if (/^blob:/.test(String(ref))) return IDB.getBlob(ref).then(function (b) { return b ? blobToData(b) : null; }).catch(function () { return null; });
+    var u = photoURL(ref, true); if (!u) return Promise.resolve(null); if (/^data:/.test(u)) return Promise.resolve(u);
+    return fetch(u).then(function (r) { return r.blob(); }).then(blobToData).catch(function () { return null; });
+  }
+  function generateRepairReport() {
+    var bl = ['100', '200', '300', '400'].filter(function (b) { return entries().some(function (e) { return e.b === b; }); });
+    if (!bl.length) { toast('No repairs to report yet'); return; }
+    var prevTab = S.tab, st = BG.state, keep = { b: st.b, elev: st.elev, view: st.view, tech: st.tech };
+    toast('Building the repair report…', 9000); setTab('model');
+    var thumbs = {};
+    var allRefs = []; entries().forEach(function (e) { (e.photos || []).forEach(function (r) { allRefs.push(r); }); });
+    Promise.all([loadPDF(), logoData()]).then(function (res) {
+      return Promise.all(allRefs.map(function (r) { return imgData(r).then(function (d) { if (d) thumbs[r] = d; }); })).then(function () { return res; });
+    }).then(function (res) {
+      var logo = res[1], jsPDF = window.jspdf.jsPDF, W = 2592, H = 1728, TBW = 250, TBX = W - 24 - TBW, DR = TBX - 30;
+      var doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: [W, H] }), page = 0, today = new Date();
+      var dstr = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear(), index = [];
+      function ink(c) { doc.setTextColor(c == null ? 20 : c); }
+      function txt(t, x, y, sz, bold, opt) { doc.setFont('helvetica', bold ? 'bold' : 'normal'); doc.setFontSize(sz); doc.text(String(t), x, y, opt || {}); }
+      function sheet(no, title, sub, scale, basis, b) {
+        if (page++ > 0) doc.addPage([W, H], 'landscape');
+        index.push([no, title]);
+        doc.setDrawColor(0); doc.setLineWidth(1.4); doc.rect(18, 18, W - 36, H - 36); doc.setLineWidth(1.1); doc.rect(TBX, 24, TBW, H - 48);
+        var y = 40, cx = TBX + TBW / 2, pad = TBX + 14;
+        if (logo) try { doc.addImage(logo, 'PNG', cx - 85, y, 170, 90); } catch (e) {} y += 112;
+        ink(); txt('MTD Painting & Construction Corp.', cx, y, 11, true, { align: 'center' }); y += 15;
+        ['CGC 1534015', 'PH: 833-350-9300', 'info@MTDcgc.com', '12296 Wiles Rd, Coral Springs, FL 33076', '10600 Chevrolet Way, Suite 220,', 'Estero, FL 33928'].forEach(function (t) { txt(t, cx, y, 9, false, { align: 'center' }); y += 12; });
+        y += 6; doc.line(TBX, y, TBX + TBW, y); y += 20; ink(110); txt('Project', pad, y, 8.5); ink(); y += 18;
+        txt('Barcelona Gardens', pad, y, 15, true); y += 17; txt('Condominium', pad, y, 15, true); y += 15; txt('101 E McNab Rd,', pad, y, 10); y += 13; txt('Pompano Beach, FL 33060', pad, y, 10); y += 12;
+        doc.line(TBX, y, TBX + TBW, y); y += 20; ink(110); txt('Sheet title', pad, y, 8.5); ink(); y += 18;
+        doc.splitTextToSize(title, TBW - 28).forEach(function (l) { txt(l, pad, y, 14, true); y += 17; });
+        doc.splitTextToSize(sub, TBW - 28).forEach(function (l) { txt(l, pad, y, 9.5); y += 12; }); y += 6;
+        doc.line(TBX, y, TBX + TBW, y); y += 18; ink(110); txt('Key plan', pad, y, 8.5); ink(); y += 8;
+        keyPlan(TBX + 20, y, TBW - 40, 150, b); y += 160; doc.line(TBX, y, TBX + TBW, y); y += 18;
+        ink(110); txt('Legend', pad, y, 8.5); ink(); y += 16;
+        doc.setFillColor(250, 224, 204); doc.setDrawColor(212, 86, 58); doc.rect(pad, y - 8, 16, 10, 'FD'); txt('Repair area (saw-cut, demo, patch)', pad + 24, y, 9); y += 16;
+        doc.setFillColor(181, 83, 60); doc.rect(pad, y - 8, 16, 10, 'F'); txt('Reinforcing exposed / coated', pad + 24, y, 9); y += 16;
+        doc.setFillColor(139, 144, 150); doc.rect(pad, y - 8, 16, 10, 'F'); txt('Patched (repair mortar placed)', pad + 24, y, 9); y += 18;
+        doc.setDrawColor(0); doc.line(TBX, y, TBX + TBW, y); y += 18; ink(110); txt('Notes', pad, y, 8.5); ink(); y += 14;
+        ['Plan geometry measured from NV5 CAD drawings (3/16″ = 1′-0″).', 'Field repairs from CompanyCam photo reports. Sizes approximate (±6″); field-measure before close-out or billing.', 'Heights estimated from site photos.', 'Reference document for coordination. Does not replace the signed NV5 drawings or specifications.'].forEach(function (n, i) {
+          var ls = doc.splitTextToSize(n, TBW - 44); txt((i + 1) + '.', pad, y, 8.5, true); ls.forEach(function (l) { txt(l, pad + 14, y, 8.5); y += 11; }); y += 3; });
+        var yb = H - 24 - 240; doc.line(TBX, yb + 120, TBX + TBW, yb + 120);
+        [['MTD Job No.', '2025-016-12'], ['Date', dstr], ['Scale', scale], ['Basis', basis]].forEach(function (f, i) { var yy = yb + (3 - i) * 30; doc.line(TBX, yy, TBX + TBW, yy); ink(110); txt(f[0], pad, yy + 12, 8); ink(); txt(f[1], pad, yy + 25, 10, true); });
+        ink(110); txt('Sheet', pad, yb + 138, 8.5); ink(); txt(no, cx, H - 64, 34, true, { align: 'center' });
+      }
+      function keyPlan(x, y, w, h, b) {
+        var sc = Math.min(w / 500, h / 380);
+        ['100', '200', '300', '400', 'club'].forEach(function (k) {
+          var B = BG.BLD[k], rotq = Math.abs(Math.sin(B.rot)) > .5, bw = (rotq ? B.D : B.L) * sc, bh = (rotq ? B.L : B.D) * sc;
+          var px = x + B.c[0] * sc - bw / 2, py = y + B.c[1] * sc - bh / 2;
+          if (k === b) { doc.setFillColor(212, 86, 58); doc.rect(px, py, bw, bh, 'F'); } else { doc.setFillColor(225, 225, 225); doc.rect(px, py, bw, bh, 'F'); }
+        });
+        doc.setFillColor(0); doc.triangle(x + w - 8, y + 4, x + w - 13, y + 18, x + w - 3, y + 18, 'F'); txt('N', x + w - 8, y + 30, 9, true, { align: 'center' });
+      }
+      function sorted(b) { return entries().filter(function (e) { return e.b === b; }).sort(function (a, c) { return (a.code ? 0 : 1) - (c.code ? 0 : 1) || String(entryLabel(a)).localeCompare(String(entryLabel(c)), 'en', { numeric: true }); }); }
+      function lastStage(e) { return e.billed ? 'Billed in ' + e.billed : (e.stage || e.status || ''); }
+      // cover
+      sheet('R-000', 'Repair report · cover and index', 'Field repairs from CompanyCam reports, per building', 'As noted', 'NV5 + CompanyCam', null);
+      ink(); txt('Barcelona Gardens Condominium', 48, 100, 44, true); txt('Repair report · ' + dstr, 50, 136, 20);
+      doc.setLineWidth(2); doc.line(48, 154, DR, 154); doc.setLineWidth(1);
+      var yy0 = 210;
+      bl.forEach(function (b) { var L = sorted(b), fl = L.filter(function (e) { return e.patches; }); txt('Building ' + b, 60, yy0, 22, true); txt(L.length + ' repairs · ' + fl.length + ' balcony floor repairs (≈' + Math.round(fl.reduce(function (a, e) { return a + (e.area || 0); }, 0)) + ' sq ft) · ' + L.filter(function (e) { return e.inDraft && e.qty > 0; }).length + ' in the Pay App #' + ensureMeta().no + ' draft', 60, yy0 + 24, 13); yy0 += 70; });
+      var coverIndexY = yy0 + 30;
+      bl.forEach(function (b) {
+        var L = sorted(b), n = b[0], B = BG.BLD[b], s9 = 8, ox = 90, oy = 210;
+        // PLAN
+        sheet('R-' + n + '01', 'Building ' + b + ' · repair locations · plan', 'Phase ' + B.phase + ' · 2nd-floor key plan with units below', '1/8″ = 1′-0″', 'NV5 + CompanyCam', b);
+        ink(); txt('Building ' + b + ' · repair locations', 48, 70, 26, true); ink(90); txt('Top view, building long axis horizontal as on the NV5 sheets. Highlighted balconies have floor repairs; orange marks on the faces are wall and slab-edge repairs.', 48, 94, 12); ink();
+        function P2(X, Z) { return [ox + (X + 8) * s9, oy + (Z + 8) * s9]; }
+        doc.setDrawColor(0); doc.setLineWidth(.8);
+        BG.units(b, 2).forEach(function (u) { var a = P2(u.x0, u.z0); doc.setFillColor(242, 242, 242); doc.rect(a[0], a[1], (u.x1 - u.x0) * s9, (u.z1 - u.z0) * s9, 'FD'); var cx2 = P2((u.x0 + u.x1) / 2, (u.z0 + u.z1) / 2); txt(u.n, cx2[0], cx2[1], 14, true, { align: 'center' }); ink(110); var below = String(u.n).replace(/^(\d)(\d\d)$/, function (_, a1, rest) { var m = { '25': '08', '24': '07', '23': '06', '22': '05', '21': '04', '20': '03', '19': '02', '18': '01', '26': '09', '27': '10', '28': '11', '29': '12', '30': '14', '31': '15', '32': '16', '33': '17' }; return a1 + (m[rest] || rest); }); txt('(unit ' + below + ' below)', cx2[0], cx2[1] + 16, 9, false, { align: 'center' }); ink(); });
+        var c0 = P2(0, G.CT); doc.setFillColor(250, 250, 250); doc.rect(c0[0], c0[1], G.L * s9, (G.CB - G.CT) * s9, 'FD'); ink(120); txt('CORRIDOR', P2(G.L / 2, G.CC)[0], P2(G.L / 2, G.CC)[1] + 4, 10, false, { align: 'center' }); ink();
+        G.PAIRS.forEach(function (Pp) { [[0, G.RT], [G.RB, G.D]].forEach(function (zz) { var a = P2(Pp - 12, zz[0]); doc.setFillColor(255, 255, 255); doc.rect(a[0], a[1], 24 * s9, (zz[1] - zz[0]) * s9, 'FD'); doc.line(P2(Pp, zz[0])[0], a[1], P2(Pp, zz[0])[0], a[1] + (zz[1] - zz[0]) * s9); }); });
+        G.EBZ.forEach(function (zz) { [[-G.EB, 0], [G.L, G.L + G.EB]].forEach(function (xx) { var a = P2(xx[0], zz[0]); doc.rect(a[0], a[1], (xx[1] - xx[0]) * s9, (zz[1] - zz[0]) * s9, 'D'); }); });
+        L.forEach(function (e) {
+          if (e.patches) {
+            var zt = e.side === 'top' ? 0 : G.RB, zb = e.side === 'top' ? G.RT : G.D, a = P2(e.a0, zt);
+            doc.setFillColor(250, 224, 204); doc.setDrawColor(212, 86, 58); doc.setLineWidth(1.4); doc.rect(a[0], a[1], (e.a1 - e.a0) * s9, (zb - zt) * s9, 'FD');
+            e.patches.forEach(function (pt) { var q = P2(pt.X0, pt.Z0); var cc = floorColor(e); doc.setFillColor((cc >> 16) & 255, (cc >> 8) & 255, cc & 255); doc.rect(q[0], q[1], (pt.X1 - pt.X0) * s9, (pt.Z1 - pt.Z0) * s9, 'F'); });
+            var lx = P2((e.a0 + e.a1) / 2, e.side === 'top' ? -4.5 : G.D + 5); doc.setFillColor(255, 255, 255); doc.roundedRect(lx[0] - 34, lx[1] - 13, 68, 20, 4, 4, 'FD'); ink(160); txt(e.code, lx[0], lx[1] + 2, 11, true, { align: 'center' }); ink(); doc.setDrawColor(0); doc.setLineWidth(.8);
+          } else if (e.side) {
+            var x0, z0, w2, h2; if (e.side === 'top') { x0 = e.a0; w2 = e.a1 - e.a0; z0 = e.p - 2.2; h2 = 1.2; } else if (e.side === 'bottom') { x0 = e.a0; w2 = e.a1 - e.a0; z0 = e.p + 1; h2 = 1.2; } else if (e.side === 'left') { x0 = e.p - 2.2; w2 = 1.2; z0 = e.a0; h2 = e.a1 - e.a0; } else { x0 = e.p + 1; w2 = 1.2; z0 = e.a0; h2 = e.a1 - e.a0; }
+            var q2 = P2(x0, z0); doc.setFillColor(212, 86, 58); doc.rect(q2[0], q2[1], Math.max(w2, .8) * s9, Math.max(h2, .8) * s9, 'F');
+            var lab = P2(x0 + w2 / 2, e.side === 'top' ? z0 - 1.3 : (e.side === 'bottom' ? z0 + 3.4 : z0 + h2 / 2)); ink(160); txt(entryLabel(e), lab[0] + (e.side === 'left' ? -22 : (e.side === 'right' ? 22 : 0)), lab[1], 8.5, true, { align: 'center' }); ink();
+          }
+        });
+        var tl = P2(0, -11), tr = P2(G.L, -11); doc.line(tl[0], tl[1], tr[0], tr[1]); txt('201′-7″ (61.4 m)', (tl[0] + tr[0]) / 2, tl[1] - 6, 11, false, { align: 'center' });
+        // north arrow
+        var na = P2(G.L + 14, -6), ang = B.rot; doc.setFillColor(0); var R = 16, ax = na[0], ay = na[1];
+        function rp(dx, dy) { return [ax + dx * Math.cos(ang) - dy * Math.sin(ang), ay + dx * Math.sin(ang) + dy * Math.cos(ang)]; }
+        var t1 = rp(0, -R), t2 = rp(R * .5, R * .6), t3 = rp(-R * .5, R * .6); doc.triangle(t1[0], t1[1], t2[0], t2[1], t3[0], t3[1], 'F'); txt('N', ax, ay + R + 16, 11, true, { align: 'center' });
+        var tY = P2(0, G.D + 14)[1];
+        txt('Repairs · summary', 48, tY, 16, true);
+        doc.autoTable({ startY: tY + 10, margin: { left: 48, right: W - DR, bottom: 30 }, theme: 'grid', styles: { fontSize: 8, cellPadding: 2.4 }, headStyles: { fillColor: [232, 232, 232], textColor: 20 },
+          head: [['ID', 'Location', 'Face', 'Floor', 'Patches', 'Area / qty', 'Last stage documented', 'Date', 'NV5 reference', 'SOW', 'Photos', 'Detail']],
+          body: L.map(function (e) { return [entryLabel(e), e.unit + (e.below ? ' (above ' + e.below + ')' : ''), BG.ENAME[sideElev(b, e.side)] || '', e.y0 >= G.F2 - .2 ? '2nd' : 'Ground', e.patches ? e.patches.length : '-', e.area ? '≈' + e.area + ' sq ft' : (e.qty ? P.qty(e.qty) + ' ' + SOW[e.sow].unit : '-'), lastStage(e), (e.time || e.date || '').replace('T', ' '), e.nv5 || (e.source === 'nv5' ? 'NV5 ' + (e.nv5code || '') : 'Not marked on NV5 sheets (field-identified)'), e.sow + ' ' + (SHORT[e.sow] || ''), (e.photos || []).map(function (r) { return String(r).replace(/^bal:/, ''); }).join(', '), 'R-' + n + '02']; }),
+          didParseCell: function (d) { if (d.section === 'body' && d.column.index === 0) { d.cell.styles.textColor = [212, 86, 58]; d.cell.styles.fontStyle = 'bold'; } } });
+        // DETAILS (6 per sheet)
+        var det = L.slice(), pg = 0;
+        while (det.length) {
+          var chunk = det.splice(0, 6); pg++;
+          sheet('R-' + n + '02' + (pg > 1 ? '.' + pg : ''), 'Building ' + b + ' · repair details', 'Enlarged plans (balcony floors) and enlarged face details (walls and slab edges)', '1/2″ = 1′-0″ U.N.O.', 'CompanyCam', b);
+          chunk.forEach(function (e, k) {
+            var px = 48 + (k % 3) * ((DR - 48) / 3), py = 70 + Math.floor(k / 3) * 800, pw = (DR - 48) / 3 - 30;
+            ink(160); txt(entryLabel(e), px, py, 15, true); ink(); txt((e.patches ? 'Balcony ' + e.unit.replace('Un ', '') + ' · ' + BG.ENAME[sideElev(b, e.side)] + ' face · above unit ' + (e.below || '') : e.unit + ' · ' + (BG.ENAME[sideElev(b, e.side)] || '') + ' face'), px + 90, py, 13, true);
+            ink(110); txt(e.patches ? 'Enlarged plan (top view) · Scale 1/2″ = 1′-0″' : 'Enlarged face detail · scale to fit', px, py + 18, 9.5); ink();
+            var gx = px + 40, gy = py + 46, s36 = 36;
+            if (e.patches) {
+              doc.setFillColor(160, 160, 160); doc.rect(gx - 12, gy - 12, 432 + 24, 12, 'F'); txt('BUILDING WALL', gx + 216, gy - 16, 8, false, { align: 'center' });
+              doc.setFillColor(246, 246, 246); doc.setDrawColor(0); doc.rect(gx, gy, 432, 288, 'FD');
+              doc.setDrawColor(90); doc.setLineDashPattern([5, 4], 0); doc.line(gx, gy + 288, gx + 432, gy + 288); doc.setLineDashPattern([], 0); doc.setDrawColor(0);
+              txt('FRONT RAILING / SLAB EDGE', gx + 216, gy + 304, 8, false, { align: 'center' }); txt((e.side === 'top' ? 'WEST' : 'EAST') + ' → OPEN SIDE', gx + 216, gy + 318, 8, false, { align: 'center' });
+              e.patches.forEach(function (pt) { doc.setFillColor(250, 224, 204); doc.setDrawColor(212, 86, 58); doc.setLineWidth(1.2); doc.rect(gx + pt.dx0 * s36, gy + pt.dy0 * s36, (pt.dx1 - pt.dx0) * s36, (pt.dy1 - pt.dy0) * s36, 'FD'); ink(160); txt(pt.id, gx + (pt.dx0 + pt.dx1) / 2 * s36, gy + (pt.dy0 + pt.dy1) / 2 * s36 + 4, 10, true, { align: 'center' }); ink(); });
+              doc.setDrawColor(0); doc.setLineWidth(.6); doc.line(gx, gy + 336, gx + 432, gy + 336); txt('12′-0″', gx + 216, gy + 350, 9, false, { align: 'center' }); doc.line(gx + 446, gy, gx + 446, gy + 288); txt('8′-0″ (approx.)', gx + 456, gy + 144, 9, false, { angle: 90 });
+              doc.autoTable({ startY: gy + 370, margin: { left: px, right: W - (px + pw) }, tableWidth: pw, theme: 'grid', styles: { fontSize: 8.5, cellPadding: 3 }, headStyles: { fillColor: [232, 232, 232], textColor: 20 },
+                head: [['Patch', 'Size (approx.)', 'Area', 'Description']], body: e.patches.map(function (pt) { return [pt.id, pt.size, pt.area + ' sq ft', pt.desc]; }).concat([['', 'Total', '≈' + e.area + ' sq ft', '']]) });
+            } else {
+              var w3 = Math.max(e.a1 - e.a0, .5), h3 = Math.max(e.y1 - e.y0, .5), sc3 = Math.min(s36, (pw - 120) / (w3 + 4), 300 / (h3 + 4));
+              doc.setFillColor(246, 240, 228); doc.rect(gx, gy, (w3 + 4) * sc3, (h3 + 4) * sc3, 'F');
+              doc.setFillColor(250, 224, 204); doc.setDrawColor(212, 86, 58); doc.setLineWidth(1.2); doc.rect(gx + 2 * sc3, gy + 2 * sc3, w3 * sc3, h3 * sc3, 'FD'); doc.setDrawColor(0); doc.setLineWidth(.6);
+              txt(P.qty(w3) + ' ft', gx + (2 + w3 / 2) * sc3, gy + (h3 + 4) * sc3 + 14, 9, false, { align: 'center' }); txt(P.qty(h3) + ' ft', gx + (w3 + 4) * sc3 + 8, gy + (2 + h3 / 2) * sc3, 9);
+              txt('Bottom at ≈' + P.qty(e.y0) + ' ft above floor 0′-0″', gx, gy + (h3 + 4) * sc3 + 30, 9);
+              doc.autoTable({ startY: gy + Math.max((h3 + 4) * sc3 + 46, 120), margin: { left: px, right: W - (px + pw) }, tableWidth: pw, theme: 'grid', styles: { fontSize: 8.5, cellPadding: 3 }, columnStyles: { 0: { fontStyle: 'bold', cellWidth: 90 } },
+                body: [['Description', e.note || ''], ['SOW item', e.sow + ' · ' + (SOW[e.sow] ? SOW[e.sow].desc : '')], ['Area / qty', e.qty ? P.qty(e.qty) + ' ' + SOW[e.sow].unit : '≈' + P.qty(w3 * h3) + ' sq ft (face)'], ['Stage', lastStage(e)], ['Source', e.report || e.source], ['Photos', (e.photos || []).map(function (r) { return String(r).replace(/^bal:/, ''); }).join(', ') || '-']] });
+            }
+          });
+        }
+        // PHOTO LOG (rows per repair)
+        var rows = L.filter(function (e) { return (e.photos || []).length; }), lp = 0;
+        while (rows.length) {
+          var part = rows.splice(0, 6); lp++;
+          sheet('R-' + n + '03' + (lp > 1 ? '.' + lp : ''), 'Building ' + b + ' · photo log', 'Photos by repair, with stage and date from CompanyCam', 'N.T.S.', 'CompanyCam', b);
+          ink(); txt('Photo log · Building ' + b, 48, 66, 22, true);
+          part.forEach(function (e, k) {
+            var ry = 90 + k * 262, rx = 48;
+            doc.setDrawColor(200); doc.roundedRect(rx, ry, DR - 48, 250, 8, 8, 'D'); doc.setDrawColor(0);
+            doc.setFillColor(250, 224, 204); doc.setDrawColor(212, 86, 58); doc.roundedRect(rx + 14, ry + 14, 80, 22, 4, 4, 'FD'); ink(160); txt(entryLabel(e), rx + 54, ry + 30, 12, true, { align: 'center' }); ink(); doc.setDrawColor(0);
+            var info = [e.patches ? 'Balcony ' + e.unit.replace('Un ', '') : e.unit, (BG.ENAME[sideElev(b, e.side)] || '') + ' face' + (e.below ? ' · above unit ' + e.below : ''), 'Last stage documented', lastStage(e), (e.time || e.date || '').replace('T', ' '), e.area ? 'Area ≈ ' + e.area + ' sq ft · ' + e.patches.length + ' patches' : (e.qty ? P.qty(e.qty) + ' ' + SOW[e.sow].unit : ''), e.report || ''];
+            var iy = ry + 56; info.forEach(function (t, i) { doc.splitTextToSize(String(t), 230).forEach(function (l) { txt(l, rx + 14, iy, i === 0 ? 13 : 9.5, i === 0 || i === 3); iy += i === 0 ? 17 : 12; }); });
+            (e.photos || []).slice(0, 11).forEach(function (r, i) {
+              var tx = rx + 270 + i * 168, tyy = ry + 16;
+              if (thumbs[r]) try { doc.addImage(thumbs[r], 'JPEG', tx, tyy, 156, 156); } catch (x) {} else { doc.setFillColor(235); doc.rect(tx, tyy, 156, 156, 'F'); }
+              doc.setFillColor(255, 255, 255); doc.rect(tx + 4, tyy + 4, 26, 16, 'F'); txt(String(r).replace(/^bal:/, ''), tx + 17, tyy + 16, 10, true, { align: 'center' });
+              txt((e.time || e.date || '').replace('T', ' '), tx, tyy + 172, 8); ink(110); txt(e.patches ? (/patched/i.test(e.stage || '') && i >= (e.photos.length / 2) ? 'Patched' : (/rebar/i.test(e.stage || '') ? 'Rebar exposed' : 'Demolition')) : e.status, tx, tyy + 184, 8); ink();
+            });
+          });
+        }
+        // ELEVATIONS (2 per sheet)
+        [[1, 3], [2, 4]].forEach(function (pair, k) {
+          sheet('R-' + n + '0' + (4 + k), 'Building ' + b + ' · elevations ' + pair.map(function (e2) { return e2 + ' ' + BG.ENAME[e2]; }).join(' and '), 'Orthographic views of the model with the field repairs', 'Graphic', 'NV5 + CompanyCam', b);
+          pair.forEach(function (elev, i) {
+            var s2 = snapshot(b, elev), bw = DR - 96, bh = 700, scx = Math.min(bw / s2.W, bh / s2.H), iw = s2.W * scx, ih = s2.H * scx, x0 = 48 + (bw - iw) / 2, y0 = 80 + i * 810;
+            doc.addImage(s2.url, 'JPEG', x0, y0, iw, ih); doc.setDrawColor(0); doc.rect(x0, y0, iw, ih);
+            ink(); txt('Elevation ' + elev + ' · ' + BG.ENAME[elev], 48, y0 + ih + 32, 20, true);
+            s2.pts.forEach(function (p2) { var qx = x0 + p2.x * iw, qy = y0 + p2.y * ih; if (qx < x0 || qx > x0 + iw || qy < y0 || qy > y0 + ih) return; doc.setFillColor(212, 86, 58); doc.circle(qx, qy - 16, 13, 'F'); doc.setTextColor(255); txt(entryLabel(p2.e).replace('BF-', ''), qx, qy - 12, 8.5, true, { align: 'center' }); ink(); });
+          });
+        });
+      });
+      // cover index
+      doc.setPage(1); ink(); txt('Sheet index', 60, coverIndexY, 18, true); var iy2 = coverIndexY + 26;
+      index.forEach(function (r) { txt(r[0], 60, iy2, 12, true); txt(r[1], 160, iy2, 12); iy2 += 18; if (iy2 > H - 60) { iy2 = coverIndexY + 26; } });
+      return download(doc.output('blob'), 'Barcelona_Gardens_Repair_Report.pdf');
+    }).then(function () { toast('Repair report ready'); }).catch(function (e) { toast('Report failed: ' + e.message, 6000); }).then(function () {
+      st.b = keep.b; st.elev = keep.elev; st.tech = keep.tech; var hs = $('#three'); BG.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2)); BG.renderer.setSize(hs.clientWidth, hs.clientHeight, false); BG.setView(keep.view); setTab(prevTab);
+    });
+  }
+  function download(blob, name) { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000); return Promise.resolve(); }
   function heroView() { var B = BG.BLD['100']; BG.flyTo(new THREE.Vector3(B.c[0], 10, B.c[1] + 20), 190, new THREE.Vector3(-0.15, 0.32, 1).normalize()); }
   /* ---------------- boot ---------------- */
   IDB.open().then(function () { return IDB.get('state'); }).then(function (st) {
     if (st) Object.assign(S, { overrides: st.overrides || {}, userEntries: st.userEntries || [], records: st.records || [], meta: st.meta || null, attachments: st.attachments || [] });
   }).catch(function () {}).then(function () {
-    ensureMeta(); BG.state.b = '100'; BG.syncUI(); heroView(); refreshAll(); setTab('home');
+    ensureMeta(); BG.state.b = '100'; BG.syncUI(); heroView(); refreshAll(); setTab('model');
   });
   window.BGApp = { S: S, entries: entries, draftState: draftState, openPay: openPay };
 })();
