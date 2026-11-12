@@ -1,0 +1,600 @@
+{
+ "building": "100",
+ "types": {
+  "bf": {
+   "name": "Full-depth balcony floor repair",
+   "uom": "SF",
+   "color": [
+    31,
+    95,
+    191
+   ]
+  },
+  "cb": {
+   "name": "Concrete column & beam repair",
+   "uom": "CF",
+   "color": [
+    30,
+    127,
+    69
+   ]
+  },
+  "rb": {
+   "name": "#5 reinforcing bar replacement",
+   "uom": "LF",
+   "color": [
+    122,
+    61,
+    184
+   ]
+  },
+  "dw": {
+   "name": "Dowel & epoxy reinforcing bar",
+   "uom": "EA",
+   "color": [
+    19,
+    138,
+    138
+   ]
+  },
+  "st": {
+   "name": "Delaminated stucco removal & repair",
+   "uom": "SF",
+   "color": [
+    179,
+    38,
+    62
+   ]
+  }
+ },
+ "earlier": [
+  {
+   "type": "cb",
+   "qty": 13.0
+  },
+  {
+   "type": "st",
+   "qty": 100
+  }
+ ],
+ "repairs": [
+  {
+   "unit": "120",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-120",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 138.8,
+     "a1": 149.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "BF-120",
+   "type": "bf",
+   "qty": 12,
+   "uom": "SF",
+   "loc": "West face \u00b7 2nd-floor balcony 120 \u00b7 floor slab (above unit 103)"
+  },
+  {
+   "unit": "120",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-120",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 138.8,
+     "a1": 149.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "RB-120",
+   "type": "rb",
+   "qty": 12,
+   "uom": "LF",
+   "loc": "West face \u00b7 2nd-floor balcony 120 \u00b7 floor slab"
+  },
+  {
+   "unit": "120",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-120",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 138.8,
+     "a1": 149.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "DW-120",
+   "type": "dw",
+   "qty": 7,
+   "uom": "EA",
+   "loc": "West face \u00b7 2nd-floor balcony 120 \u00b7 floor slab"
+  },
+  {
+   "unit": "121",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-121",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 101.8,
+     "a1": 112.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "BF-121",
+   "type": "bf",
+   "qty": 22,
+   "uom": "SF",
+   "loc": "West face \u00b7 2nd-floor balcony 121 \u00b7 floor slab (above unit 104)"
+  },
+  {
+   "unit": "121",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-121",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 101.8,
+     "a1": 112.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "RB-121",
+   "type": "rb",
+   "qty": 21,
+   "uom": "LF",
+   "loc": "West face \u00b7 2nd-floor balcony 121 \u00b7 floor slab"
+  },
+  {
+   "unit": "121",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-121",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 101.8,
+     "a1": 112.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "DW-121",
+   "type": "dw",
+   "qty": 20,
+   "uom": "EA",
+   "loc": "West face \u00b7 2nd-floor balcony 121 \u00b7 floor slab"
+  },
+  {
+   "unit": "123",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-123",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 51.8,
+     "a1": 62.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "BF-123",
+   "type": "bf",
+   "qty": 16,
+   "uom": "SF",
+   "loc": "West face \u00b7 2nd-floor balcony 123 \u00b7 floor slab (above unit 106)"
+  },
+  {
+   "unit": "123",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-123",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 51.8,
+     "a1": 62.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "RB-123",
+   "type": "rb",
+   "qty": 16,
+   "uom": "LF",
+   "loc": "West face \u00b7 2nd-floor balcony 123 \u00b7 floor slab"
+  },
+  {
+   "unit": "123",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-123",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 51.8,
+     "a1": 62.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "DW-123",
+   "type": "dw",
+   "qty": 12,
+   "uom": "EA",
+   "loc": "West face \u00b7 2nd-floor balcony 123 \u00b7 floor slab"
+  },
+  {
+   "unit": "124",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-124",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 38.8,
+     "a1": 49.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "BF-124",
+   "type": "bf",
+   "qty": 20,
+   "uom": "SF",
+   "loc": "West face \u00b7 2nd-floor balcony 124 \u00b7 floor slab (above unit 107)"
+  },
+  {
+   "unit": "124",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-124",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 38.8,
+     "a1": 49.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "RB-124",
+   "type": "rb",
+   "qty": 20,
+   "uom": "LF",
+   "loc": "West face \u00b7 2nd-floor balcony 124 \u00b7 floor slab"
+  },
+  {
+   "unit": "124",
+   "floor": 2,
+   "face": "West",
+   "balcony": "bf100-124",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 38.8,
+     "a1": 49.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "DW-124",
+   "type": "dw",
+   "qty": 18,
+   "uom": "EA",
+   "loc": "West face \u00b7 2nd-floor balcony 124 \u00b7 floor slab"
+  },
+  {
+   "unit": "129",
+   "floor": 2,
+   "face": "East",
+   "balcony": "bf100-129",
+   "shapes": [
+    {
+     "side": "bottom",
+     "a0": 88.8,
+     "a1": 99.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "BF-129",
+   "type": "bf",
+   "qty": 21,
+   "uom": "SF",
+   "loc": "East face \u00b7 2nd-floor balcony 129 \u00b7 floor slab (above unit 112)"
+  },
+  {
+   "unit": "129",
+   "floor": 2,
+   "face": "East",
+   "balcony": "bf100-129",
+   "shapes": [
+    {
+     "side": "bottom",
+     "a0": 88.8,
+     "a1": 99.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "RB-129",
+   "type": "rb",
+   "qty": 21,
+   "uom": "LF",
+   "loc": "East face \u00b7 2nd-floor balcony 129 \u00b7 floor slab"
+  },
+  {
+   "unit": "129",
+   "floor": 2,
+   "face": "East",
+   "balcony": "bf100-129",
+   "shapes": [
+    {
+     "side": "bottom",
+     "a0": 88.8,
+     "a1": 99.8,
+     "y0": 9.13,
+     "y1": 9.68
+    }
+   ],
+   "id": "DW-129",
+   "type": "dw",
+   "qty": 20,
+   "uom": "EA",
+   "loc": "East face \u00b7 2nd-floor balcony 129 \u00b7 floor slab"
+  },
+  {
+   "id": "CB-105",
+   "type": "cb",
+   "unit": "105",
+   "floor": 1,
+   "face": "West",
+   "qty": 2.5,
+   "uom": "CF",
+   "loc": "West face \u00b7 ground-floor lanai column and beam, unit 105",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 88.8,
+     "a1": 91.5,
+     "y0": 8.5,
+     "y1": 9.8
+    }
+   ]
+  },
+  {
+   "id": "CB-109",
+   "type": "cb",
+   "unit": "109",
+   "floor": 1,
+   "face": "South",
+   "qty": 0.5,
+   "uom": "CF",
+   "loc": "South face \u00b7 ground-floor end lanai beam, unit 109",
+   "shapes": [
+    {
+     "side": "left",
+     "a0": 43.9,
+     "a1": 62.9,
+     "y0": 8.5,
+     "y1": 9.8
+    }
+   ]
+  },
+  {
+   "id": "CB-110",
+   "type": "cb",
+   "unit": "110",
+   "floor": 1,
+   "face": "East",
+   "qty": 3,
+   "uom": "CF",
+   "loc": "East face \u00b7 ground-floor lanai column and beam, unit 110",
+   "shapes": [
+    {
+     "side": "bottom",
+     "a0": 38.8,
+     "a1": 41.5,
+     "y0": 8.5,
+     "y1": 9.8
+    }
+   ]
+  },
+  {
+   "id": "CB-111",
+   "type": "cb",
+   "unit": "111",
+   "floor": 1,
+   "face": "East",
+   "qty": 3.5,
+   "uom": "CF",
+   "loc": "East face \u00b7 ground-floor lanai column and beam, unit 111",
+   "shapes": [
+    {
+     "side": "bottom",
+     "a0": 60.1,
+     "a1": 62.8,
+     "y0": 8.5,
+     "y1": 9.8
+    }
+   ]
+  },
+  {
+   "id": "CB-112",
+   "type": "cb",
+   "unit": "112",
+   "floor": 1,
+   "face": "East",
+   "qty": 3.5,
+   "uom": "CF",
+   "loc": "East face \u00b7 ground-floor lanai column and beam, unit 112",
+   "shapes": [
+    {
+     "side": "bottom",
+     "a0": 88.8,
+     "a1": 91.5,
+     "y0": 8.5,
+     "y1": 9.8
+    }
+   ]
+  },
+  {
+   "id": "CB-114",
+   "type": "cb",
+   "unit": "114",
+   "floor": 1,
+   "face": "East",
+   "qty": 3.5,
+   "uom": "CF",
+   "loc": "East face \u00b7 ground-floor lanai column and beam, unit 114",
+   "shapes": [
+    {
+     "side": "bottom",
+     "a0": 110.1,
+     "a1": 112.8,
+     "y0": 8.5,
+     "y1": 9.8
+    }
+   ]
+  },
+  {
+   "id": "ST-101",
+   "type": "st",
+   "unit": "101",
+   "floor": 1,
+   "face": "West",
+   "qty": 12,
+   "uom": "SF",
+   "loc": "West face \u00b7 wall stucco at the northwest corner, unit 101",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 179.5,
+     "a1": 184.5,
+     "y0": 0.4,
+     "y1": 3.6
+    },
+    {
+     "side": "top",
+     "a0": 193.5,
+     "a1": 196.5,
+     "y0": 0.9,
+     "y1": 2.6
+    },
+    {
+     "side": "top",
+     "a0": 199.8,
+     "a1": 201.6,
+     "y0": 5.6,
+     "y1": 7.4
+    }
+   ],
+   "approx": false
+  },
+  {
+   "id": "ST-107",
+   "type": "st",
+   "unit": "107",
+   "floor": 1,
+   "face": "West",
+   "qty": 15,
+   "uom": "SF",
+   "loc": "West face \u00b7 slab band and wall stucco, unit 107",
+   "shapes": [
+    {
+     "side": "top",
+     "a0": 26.0,
+     "a1": 38.8,
+     "y0": 8.9,
+     "y1": 9.9
+    },
+    {
+     "side": "top",
+     "a0": 26.0,
+     "a1": 27.6,
+     "y0": 3.0,
+     "y1": 9.0
+    }
+   ],
+   "approx": false
+  },
+  {
+   "id": "ST-108",
+   "type": "st",
+   "unit": "108",
+   "floor": 1,
+   "face": "South",
+   "qty": 4,
+   "uom": "SF",
+   "loc": "South face \u00b7 wall stucco between floors, unit 108",
+   "shapes": [
+    {
+     "side": "left",
+     "a0": 11.0,
+     "a1": 13.0,
+     "y0": 10.0,
+     "y1": 12.5
+    },
+    {
+     "side": "left",
+     "a0": 12.8,
+     "a1": 15.2,
+     "y0": 8.5,
+     "y1": 10.3
+    }
+   ],
+   "approx": false
+  },
+  {
+   "id": "ST-117",
+   "type": "st",
+   "unit": "117",
+   "floor": 1,
+   "face": "North",
+   "qty": 10,
+   "uom": "SF",
+   "loc": "North face \u00b7 wall stucco next to end balcony 117, unit 117",
+   "shapes": [
+    {
+     "side": "right",
+     "a0": 63.5,
+     "a1": 67.5,
+     "y0": 3.0,
+     "y1": 5.5
+    }
+   ],
+   "approx": true
+  }
+ ],
+ "links": [],
+ "ccLinked": [
+  "cc100-09",
+  "cc100-23",
+  "cc100-25",
+  "cc100-26",
+  "cc100-28",
+  "cc100-29",
+  "cc100-01",
+  "cc100-02",
+  "cc100-04",
+  "cc100-15",
+  "cc100-16",
+  "cc100-18",
+  "cc100-19"
+ ]
+}
