@@ -13,9 +13,12 @@ on a phone use **Add to Home Screen** to install it like an app.
 - **Repairs** – every NV5 and field repair, filtered by building and status, with photos and stage.
   **+** imports a CompanyCam report or photos for a building.
 - **Pay Apps** – Pay App #3 (read-only) and the editable next draft; Excel in the original workbook format and PDF.
-- **Reports** – the repair report per building (or the full set) in the master-template format: cover and index, elevations E-x01/E-x02, and for buildings with balcony floor repairs the 2nd-floor plan E-x03, enlarged plans E-x04 and photo log E-x05.
-  enlarged plans with each patch measured, photo log by repair with stage and date, and the elevations. Also the
-  Typical Elevations PDF and the original Pay App #3 workbook.
+- **Reports** – legible 36×24″ PDF set: cover/index, marked elevation sheets E-x01/E-x02
+  without crowded tables, unified NV5 + CompanyCam repair register E-x06 (continued sheets as needed),
+  and ground-floor screened-lanai plan E-x07. When balcony floor repairs are documented, the existing
+  second-floor plan E-x03, enlarged details E-x04 and photo log E-x05 are preserved.
+  Fonts, row heights and wrapping are adjusted for improved on-screen and print readability.
+  The original Typical Elevations PDF and Pay App #3 workbook remain available.
 - **Settings** (gear icon) – backup, restore and reset of the data saved on the device.
 
 ## Model
@@ -26,6 +29,11 @@ on a phone use **Add to Home Screen** to install it like an app.
   courtyard with two shuffleboard courts, flagpole, lamps and grills (sizes approximate).
 - Corridor interiors (carpet, paneled unit doors, sconces, life-safety devices) for walking inside.
 - Heights estimated from photos (9′-4″ floor to floor, 18′-8″ eave, 22′-4″ roof).
+- First-floor **lanais** show exterior screen enclosures with schematic screen-access doors; second-floor
+  balconies are open with railings, not exterior screen doors. Screen door centers and handing must be verified
+  in the field before engineering, fabrication or pricing; unit entrance and sliding-glass elements are separate.
+- **Ground floor / 2nd floor** can be selected in the individual building's 2D Plan view. The original report
+  focused on the second-floor balcony floor repairs; E-x07 now adds a dedicated ground-floor PDF plan.
 
 ## Field data included
 
