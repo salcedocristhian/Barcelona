@@ -338,7 +338,7 @@
       var name = b === 'club' ? 'Clubhouse' : 'Building ' + b, es = ordered.map(function (sd) { return sideElev(b, sd) + ' ' + ENAME[sideElev(b, sd)]; }).join(' and ');
       var sub = ['Phase ' + BLD[b].phase + ' · ' + (kind === 'long' ? 'long faces' : (b === 'club' ? 'faces with repairs' : 'end faces'))];
       if (b === 'club') sub.push('Dimensions from the aerial; the NV5 clubhouse drawing is not to scale. Entry location estimated.');
-      var hasField = b === '100' || fl.length;
+      var hasField = b === '100' || field.length;
       titleBlock({ no: no, title: name + ' · Elevations ' + es, sub: sub, key: [b, ordered], scale: s === 9 ? '1/8″ = 1′-0″' : '1/4″ = 1′-0″', basis: 'NV5 ' + BLD[b].permit, notes: NOTES_E(BLD[b].permit),
         legend: function (x, y) { if (b === 'club') legendCallouts(x, y, 10.5, 20); else { T(x, y - 2, 'Repair ID, code and description', 10.5, 'B'); T(x, y - 21, 'See register E-' + b[0] + '06', 10.5); } }, legendH: b === 'club' ? 70 : 48 });
     }
