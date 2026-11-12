@@ -413,7 +413,19 @@
         refs.map(function (r) { return '<button type="button" data-gp="' + esc(r) + '"><img loading="lazy" src="' + esc(photoURL(r, true) || photoURL(r)) + '" alt=""><i>' + (typeof r === 'number' ? r : (/^bal:/.test(r) ? r.slice(4) : '•')) + (usedBy(r).length ? ' ✓' : '') + '</i></button>'; }).join('') + '</div><p class="note">✓ = linked to a field repair. Tap a photo to open it.</p>');
     });
   }
+  function deleteDraft() {
+    var no = ensureMeta().no;
+    entries().forEach(function (e) { if (e.inDraft && e.draftNo === no) { var c = Object.assign({}, e); c.inDraft = false; putEntryQuiet(c); } });
+    S.meta = null; ensureMeta(); save(); refreshAll(); renderRecords(); toast('Pay App #' + no + ' draft deleted');
+  }
+  function deleteLastRecord() {
+    if (!S.records.length) return;
+    var rec = S.records.pop(), tag = 'Pay App #' + rec.no;
+    entries().forEach(function (e) { if (e.billed === tag) { var c = Object.assign({}, e); c.billed = null; c.status = 'Open'; c.inDraft = false; putEntryQuiet(c); } });
+    S.meta = null; ensureMeta(); save(); refreshAll(); renderRecords(); toast(tag + ' record deleted');
+  }
   $('#actSheet').addEventListener('click', function (ev) {
+    var cf = ev.target.closest('[data-confirm]'); if (cf) { closeAct(); if (cf.dataset.confirm === 'draft') deleteDraft(); else deleteLastRecord(); return; }
     var g = ev.target.closest('[data-gp]'); if (g) { var r = g.dataset.gp; showPhoto(/^\d+$/.test(r) ? +r : r); return; }
     var fl2 = ev.target.closest('[data-fl]'); if (fl2) { closeAct(); BG.goInside(S.insideB, +fl2.dataset.fl); return; }
     var o = ev.target.closest('[data-open]'); if (o) { ev.preventDefault(); closeAct(); openRepair(entryById(o.dataset.open)); return; }
@@ -504,6 +516,8 @@
       var m = ensureMeta(), c = P.compute(draftState()), n = entries().filter(function (e) { return e.inDraft && e.draftNo === m.no && e.qty > 0; }).length;
       h += '<button class="card" type="button" id="openDraft"><span class="ic good">' + ICON_PEN + '</span><span class="grow"><b>Next Pay App Draft</b><span>Pay App #' + m.no + ' · ' + n + ' field item' + (n === 1 ? '' : 's') + ' · this period ' + P.money(c.grand.paid[m.no - 1]) + '</span><br><span class="badge">Editable</span></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>';
     }
+    if (S.recTab === 'drafts') h += '<div class="group" style="margin-top:10px"><button class="listrow" type="button" id="delDraft" style="color:var(--danger)"><span class="grow">Delete this draft<small>Clears Pay App #' + ensureMeta().no + ': dates, added columns, cell edits and the “include in draft” marks. The repairs themselves stay.</small></span></button></div>';
+    else if (S.records.length) h += '<div class="group" style="margin-top:10px"><button class="listrow" type="button" id="delRec" style="color:var(--danger)"><span class="grow">Delete Pay App #' + lastRecord().no + ' record<small>Only the latest finalized pay app can be deleted. Its repairs go back to “not billed”. Pay App #3 and earlier cannot be deleted.</small></span></button></div>';
     $('#recList').innerHTML = h;
     var which = S.recTab === 'drafts' ? 'Pay App #' + ensureMeta().no + ' draft' : 'Pay App #' + lastRecord().no + ' record';
     $('#exportPdfSub').textContent = which; $('#openExcelSub').textContent = which + ' · same format as the original workbook';
@@ -536,6 +550,8 @@
     if (t.closest('#exportPdf')) { exportPDF(S.recTab === 'drafts' ? draftState() : lastRecord()); return; }
     if (t.closest('#openExcel')) { exportXLSX(S.recTab === 'drafts' ? draftState() : lastRecord()); return; }
     var rp = t.closest('[data-rpt]'); if (rp) { makeReport(rp.dataset.rpt); return; }
+    if (t.closest('#delDraft')) { act('<div class="mhead"><h3 id="actTitle">Delete the Pay App #' + ensureMeta().no + ' draft?</h3><button class="close" type="button" data-x aria-label="Close">✕</button></div><p class="note">This clears the draft dates, added columns, cell edits and which repairs are included. Repairs, photos and finalized pay apps are not touched. This cannot be undone; export a backup first if you are unsure.</p><div class="actions"><button class="btn" type="button" data-x>Cancel</button><button class="primary center" type="button" data-confirm="draft" style="background:var(--danger)">Delete draft</button></div>'); return; }
+    if (t.closest('#delRec')) { act('<div class="mhead"><h3 id="actTitle">Delete the Pay App #' + lastRecord().no + ' record?</h3><button class="close" type="button" data-x aria-label="Close">✕</button></div><p class="note">The finalized pay app is removed and its repairs go back to “not billed”. The current draft is cleared. This cannot be undone; export a backup first if you are unsure.</p><div class="actions"><button class="btn" type="button" data-x>Cancel</button><button class="primary center" type="button" data-confirm="record" style="background:var(--danger)">Delete record</button></div>'); return; }
   });
   $('#attachFile').addEventListener('change', function (ev) { var f = ev.target.files; if (!f || !f.length) return; storeFiles(f, S.attachB).then(function (l) { toast(l.length + ' file' + (l.length > 1 ? 's' : '') + ' attached to Bldg ' + S.attachB); renderPhotoReports(); }); ev.target.value = ''; });
 
@@ -970,7 +986,7 @@
           var q = abQty[r.unit], be = BALC.entries.filter(function (e) { return e.unit === 'Un ' + r.unit; })[0], sh = r.shapes[0], ph = be ? be.photos : [];
           var pick = ph.length > 2 ? [ph[0], ph[Math.floor(ph.length / 2)], ph[ph.length - 1]] : ph;
           var bl = '2nd-floor balcony ' + r.unit + ' · floor slab (above unit ' + (be ? be.below : '') + ')';
-          wallShapes.push({ b: ASB.building, side: sh.side, a0: sh.a0, a1: sh.a1, y0: BG.G.F2 + .35, y1: BG.G.EAVE - .9, color: tt.bf.color, kind: 'bf', label: r.id, photos: pick, rows: [{ id: r.id, unit: r.unit, loc: bl, type: 'bf', qty: q.bf + ' SF' }, { id: 'RB-' + r.unit, unit: r.unit, loc: bl, type: 'rb', qty: q.rb + ' LF' }, { id: 'DW-' + r.unit, unit: r.unit, loc: bl, type: 'dw', qty: q.dw + ' EA' }] });
+          wallShapes.push({ b: ASB.building, side: sh.side, a0: sh.a0, a1: sh.a1, y0: BG.G.F2 - 1.25, y1: BG.G.F2 + .35, color: tt.bf.color, kind: 'bf', label: r.id + ' · floor', photos: pick, rows: [{ id: r.id, unit: r.unit, loc: bl, type: 'bf', qty: q.bf + ' SF' }, { id: 'RB-' + r.unit, unit: r.unit, loc: bl, type: 'rb', qty: q.rb + ' LF' }, { id: 'DW-' + r.unit, unit: r.unit, loc: bl, type: 'dw', qty: q.dw + ' EA' }] });
           return;
         }
         var ph2 = []; r.shapes.forEach(function (sh) { var c = ccMatch(sh); if (c) (c.photos || []).forEach(function (n) { if (ph2.indexOf(n) < 0) ph2.push(n); }); });

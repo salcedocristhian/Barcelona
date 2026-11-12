@@ -140,28 +140,16 @@ class Model:
         self.wb('brick', ax, pc, d, s - hw - .4, s + hw + .4, y0 + h + .3, y0 + h + .85, 0, .16)
         self.wb('brick', ax, pc, d, s - hw - .3, s + hw + .3, y0 - .6, y0 - .25, 0, .2)
 
-    @staticmethod
-    def posts(a0, a1, door_at_a1):
-        # Mismos postes que el visor 3D: seccion de la puerta (3.1 ft) + 2 paneles (balcon de 11 ft)
-        # o + 3 paneles (balcon de esquina de 19 ft). Planta baja y 2do piso comparten postes.
-        dw = 3.1; npan = 3 if a1 - a0 > 15 else 2
-        if door_at_a1: dA = a1 - dw - .15; edge = [a0 + .12] + [a0 + (dA - a0) * k / npan for k in range(1, npan)] + [dA, a1 - .12]
-        else: dB = a0 + .15 + dw; edge = [a0 + .12, dB] + [dB + (a1 - dB) * k / npan for k in range(1, npan)] + [a1 - .12]
-        return sorted(edge)
-
-    def balc(self, ax, pc, d, a0, a1, depth, door_at_a1=None):
-        if door_at_a1 is None and 20 < a1 - a0 < 30:  # par de balcones (ej. 110/111): una unidad a cada lado del pilar
-            mid = (a0 + a1) / 2
-            self.balc(ax, pc, d, a0, mid - 1, depth, True); self.balc(ax, pc, d, mid + 1, a1, depth, False); return
-        if door_at_a1 is None: door_at_a1 = True
-        P = self.posts(a0, a1, door_at_a1)
+    def balc(self, ax, pc, d, a0, a1, depth):
         for fl in (1, 2):
             y0 = (fl - 1) * F2; y1 = F2 if fl == 1 else EAVE; top = y1 - .7; sy0 = y0 + (2.6 if fl == 1 else .3)
             self.wb('slab', ax, pc, d, a0, a1, top, y1, depth - .6, depth + .1)
             self.wb('slab', ax, pc, d, a0 - .1, a0 + .5, top, y1, 0, depth)
             self.wb('slab', ax, pc, d, a1 - .5, a1 + .1, top, y1, 0, depth)
-            for a in P:
-                self.wb('alum', ax, pc, d, a - .13, a + .13, y0, top, depth - .3, depth)
+            n = max(2, round((a1 - a0) / 6))
+            for i in range(n + 1):
+                a = a0 + (a1 - a0) * i / n
+                self.wb('alum', ax, pc, d, a - .15, a + .15, y0, top, depth - .3, depth)
             self.wb('alum', ax, pc, d, a0, a1, top - .25, top, depth - .2, depth + .02)
             if fl == 1:
                 self.wb('kick', ax, pc, d, a0, a1, y0, sy0, depth - .12, depth)
@@ -194,7 +182,7 @@ def build_block(B):
                     M.wb('trim', 'z', pc, dr, a0 - .2, a1 + .2, y0, y0 + 7.0, 0, .08)
                     M.wb('glass', 'z', pc, dr, a0, a1, y0, y0 + 6.8, 0, .12)
     for z0, z1 in EBZ:
-        M.balc('x', 0, -1, z0, z1, EB, z0 < CC); M.balc('x', L, 1, z0, z1, EB, z0 < CC)
+        M.balc('x', 0, -1, z0, z1, EB); M.balc('x', L, 1, z0, z1, EB)
     for fl in (1, 2):
         wy = 3.0 if fl == 1 else 12.3
         for s in [32.3, 69.3, 82.3, 119.3, 132.3, 169.3]:

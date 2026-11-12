@@ -50,7 +50,7 @@
     var M = this, Lt = F2 - 1.25, top2 = EAVE - .9, dw = 3.1;
     M.wb('slab', ax, pc, d, a0 - (pA0 ? 0 : .3), a1 + (pA1 ? 0 : .3), Lt, F2 + .35, 0, D0 + .3);
     M.wb('slab', ax, pc, d, a0, a1, top2, EAVE, D0 - .45, D0 + .15);
-    var dA = door ? a1 - dw - (pA1 ? 0 : .15) : a0 + (pA0 ? 0 : .15), dB = dA + dw, r0 = door ? a0 : dB, r1 = door ? dA : a1, nr = Math.max(1, Math.round((r1 - r0) / 3.8));
+    var dA = door ? a1 - dw - (pA1 ? 0 : .15) : a0 + (pA0 ? 0 : .15), dB = dA + dw, r0 = door ? a0 : dB, r1 = door ? dA : a1, nr = (a1 - a0 > 15 ? 4 : 3) - 1;
     var posts = [a0 + .12, a1 - .12, door ? dA : dB]; for (var k = 1; k < nr; k++) posts.push(r0 + (r1 - r0) * k / nr);
     M.wb('kick', ax, pc, d, r0, r1, 0, 2.9, D0 - .14, D0 - .06); M.wb('screen', ax, pc, d, r0, r1, 3.05, Lt, D0 - .12, D0 - .08); M.wb('alum', ax, pc, d, r0, r1, 2.85, 3.05, D0 - .22, D0);
     posts.forEach(function (p) { M.wb('alum', ax, pc, d, p - .13, p + .13, 0, Lt, D0 - .28, D0); });
@@ -59,7 +59,7 @@
     M.wb('screen', ax, pc, d, dA + .28, dB - .28, 3.4, 6.95, D0 - .12, D0 - .08); M.wb('screen', ax, pc, d, dA, dB, 7.2, Lt, D0 - .12, D0 - .08);
     var y0 = F2 + .35, ry = y0 + 3.5, nb = a1 - a0 > 15 ? 5 : (a1 - a0 > 9 ? 4 : 3);
     M.wb('screen', ax, pc, d, a0, a1, y0, top2, D0 - .26, D0 - .22);
-    for (k = 0; k <= nb; k++) { var a = a0 + .12 + (a1 - a0 - .24) * k / nb; M.wb('alum', ax, pc, d, a - .13, a + .13, y0, top2, D0 - .28, D0); }
+    posts.forEach(function (a) { M.wb('alum', ax, pc, d, a - .13, a + .13, y0, top2, D0 - .28, D0); });
     M.wb('alum', ax, pc, d, a0, a1, ry - .22, ry, D0 - .25, D0 + .02); M.wb('alum', ax, pc, d, a0, a1, y0, y0 + .2, D0 - .25, D0);
     for (var aa = a0 + .4; aa < a1 - .25; aa += .42) M.wb('picket', ax, pc, d, aa - .05, aa + .05, y0 + .2, ry - .22, D0 - .18, D0 - .1);
     [[a0, pA0], [a1, pA1]].forEach(function (q) { if (q[1]) return; var c0 = q[0] === a0 ? q[0] : q[0] - .12, c1 = c0 + .12;
@@ -138,7 +138,7 @@
       saveGraphicsState: function () { return RD.saveGraphicsState(); }, restoreGraphicsState: function () { return RD.restoreGraphicsState(); }, clip: function () { return RD.clip(); }, discardPath: function () { return RD.discardPath(); },
       addPage: function () { return RD.addPage([PW, PH2], 'landscape'); }, setPage: function (n) { return RD.setPage(n); }, internal: RD.internal, output: function (a) { return RD.output(a); }
     };
-    var TXT = [], CLIPB = null;
+    var TXT = [], CLIPB = null, NOLEV = false;
     function clipOn(x0, y0, x1, y1) { doc.saveGraphicsState(); doc.rect(x0, Y(y1), x1 - x0, y1 - y0, null); doc.clip(); doc.discardPath(); CLIPB = { x0: x0, y0: y0, x1: x1, y1: y1 }; }
     function clipOff() { CLIPB = null; doc.restoreGraphicsState(); }
     doc.addFileToVFS('DVC.ttf', o.fonts[0]); doc.addFont('DVC.ttf', 'R', 'normal'); doc.addFileToVFS('DVCB.ttf', o.fonts[1]); doc.addFont('DVCB.ttf', 'B', 'normal');
@@ -290,7 +290,7 @@
         else { fill(255); stroke(0); lw(1.1); if (st === 'near') dash([2.4, 1.8]); circle(cx, lane, r0, true, true); dash(); T(cx, lane - 4 * K, n, 11, 'B', 'c'); }
       });
       var xl = ox + umin * s - 8;
-      hts.forEach(function (hv) { var yy = oy + hv[0] * s; stroke(GRAY); lw(.4); dash([3, 2]); line(xl - 24, yy, xl, yy); dash(); fill(0); poly([[xl - 24, yy], [xl - 28, yy + 5], [xl - 20, yy + 5]], true, false); T(xl - 30, yy - 2.6 * K, hv[1], 7.5, 'R', 'r'); });
+      if (!NOLEV) hts.forEach(function (hv) { var yy = oy + hv[0] * s; stroke(GRAY); lw(.4); dash([3, 2]); line(xl - 24, yy, xl, yy); dash(); fill(0); poly([[xl - 24, yy], [xl - 28, yy + 5], [xl - 20, yy + 5]], true, false); T(xl - 30, yy - 2.6 * K, hv[1], 7.5, 'R', 'r'); });
       return [umin, umax];
     }
     function unitStrip(b, side, Lb, Db, ox, oy, s) {
@@ -354,19 +354,19 @@
       var M = b === 'club' ? buildClub() : buildBlock(BLD[b]), Lb = BLD[b].L, Db = BLD[b].D;
       var ordered = sides.slice().sort(function (a, c) { return sideElev(b, a) - sideElev(b, c); }), hts = heights(b);
       var xLeft = 230 + (K - 1) * 120, faceW = (ordered[0] === 'top' || ordered[0] === 'bottom') ? Lb + 2 * EB + 6 : Db + 16, topH = hts[hts.length - 1][0] + 1.8;
-      s = Math.min(s, (MAINR - xLeft - 90) / faceW, (H - 110 - 60 - 2 * (40 + 150) * K) / (2 * topH));
-      var laneH = (mode === 'repairs' ? 70 : 40) * K, tail = 150 * K, drawH = (hts[hts.length - 1][0] + 1.8) * s, blockH = laneH + drawH + tail, gap = 60, top = H - 50;
+      var TAILK = mode === 'repairs' ? 150 : 62; if (mode !== 'repairs') xLeft = 48 + 40 * K; s = Math.min(s, (MAINR - xLeft - 90) / faceW, (H - 110 - 60 - 2 * (40 + TAILK) * K) / (2 * topH));
+      var laneH = (mode === 'repairs' ? 70 : 40) * K, tail = TAILK * K, drawH = (hts[hts.length - 1][0] + 1.8) * s, blockH = laneH + drawH + tail, gap = 60, top = H - 50;
       var reps = mode === 'repairs' ? o.wallShapes.filter(function (r) { return r.b === b; }) : [];
       if (kind === 'long') { var room = top - 60 - 2 * blockH - gap; top -= Math.max(0, room / 2); }
       ordered.forEach(function (sd, i) {
         var e = sideElev(b, sd), btop = top - i * (blockH + gap), oy = btop - laneH - drawH;
         var umin = Math.min(Math.min.apply(null, M.boxes.map(function (bb) { return projBox(sd, Lb, Db, bb).u0; })), Math.min.apply(null, M.fr.map(function (f) { return Math.min.apply(null, projFr(sd, Lb, Db, f).poly.map(function (p) { return p[0]; })); })));
         var ox = xLeft - umin * s;
-        drawElevation(M, Lb, Db, sd, ox, oy, s, [], {}, hts, reps, null);
-        unitStrip(b, sd, Lb, Db, ox, oy, s);
+        NOLEV = mode !== 'repairs'; drawElevation(M, Lb, Db, sd, ox, oy, s, [], {}, hts, reps, null); NOLEV = false;
+        if (mode === 'repairs') unitStrip(b, sd, Lb, Db, ox, oy, s);
         var face = (sd === 'top' || sd === 'bottom') ? Lb : Db;
-        dimLine(ox, ox + face * s, oy - 48 * K, fft(face) + ' (' + fm(face) + ')');
-        var ty = oy - 80 * K, title = 'Elevation ' + e + ' · ' + ENAME[e];
+        if (mode === 'repairs') dimLine(ox, ox + face * s, oy - 48 * K, fft(face) + ' (' + fm(face) + ')');
+        var ty = oy - (mode === 'repairs' ? 80 : 30) * K, title = 'Elevation ' + e + ' · ' + ENAME[e];
         T(xLeft - 40, ty, title, 12, 'B'); var twd = tw(title, 12, 'B');
         var nrep = reps.filter(function (r) { return r.side === sd; }).length;
         T(xLeft - 40 + twd + 18, ty + 1, 'Scale: ' + scaleTxt(s), 7, 'R', 'l', GRAY);

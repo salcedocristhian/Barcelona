@@ -741,7 +741,7 @@ function balc(ax,pc,dir,a0,a1,depth,door,pierA0,pierA1){
  wb('slab',1,ax,pc,dir,a0-(pierA0?0:.3),a1+(pierA1?0:.3),Lt,F2+.35,0,D0+.3);
  wb('slab',2,ax,pc,dir,a0,a1,top2,G.EAVE,D0-.45,D0+.15);
  // ground-floor lanai: screen door with transom next to the pier, kick panels, mid rail, screens
- const dA=door?a1-dw-(pierA1?0:.15):a0+(pierA0?0:.15),dB=dA+dw,r0=door?a0:dB,r1=door?dA:a1,nr=(a1-a0>15?3:2);
+ const dA=door?a1-dw-(pierA1?0:.15):a0+(pierA0?0:.15),dB=dA+dw,r0=door?a0:dB,r1=door?dA:a1,nr=(a1-a0>15?4:3)-1;
  const posts=[a0+.12,a1-.12,door?dA:dB];for(let k=1;k<nr;k++)posts.push(r0+(r1-r0)*k/nr);
  for(const p of posts)wb('alum',1,ax,pc,dir,p-.13,p+.13,0,Lt,D0-.28,D0);
  wb('kick',1,ax,pc,dir,r0,r1,0,2.9,D0-.14,D0-.06);wb('alum',1,ax,pc,dir,r0,r1,2.85,3.05,D0-.22,D0);
@@ -751,9 +751,9 @@ function balc(ax,pc,dir,a0,a1,depth,door,pierA0,pierA1){
  wb('screen',1,ax,pc,dir,dA+.28,dB-.28,3.4,6.95,D0-.12,D0-.08);wb('screen',1,ax,pc,dir,dA,dB,7.2,Lt,D0-.12,D0-.08);
  for(const [sa,pier] of [[a0,pierA0],[a1,pierA1]]){if(pier)continue;const c0=sa===a0?sa:sa-.12,c1=c0+.12;
   wb('kick',1,ax,pc,dir,c0,c1,0,2.9,0,D0);wb('alum',1,ax,pc,dir,c0-.02,c1+.02,2.85,3.05,0,D0);wb('screen',1,ax,pc,dir,c0,c1,3.05,Lt,0,D0);wb('alum',1,ax,pc,dir,c0-.04,c1+.04,0,Lt,D0/2-.12,D0/2+.12);}
- // 2nd-floor balcony: same posts as the lanai below (door section + 2 panels, or + 3 on end balconies)
- const y0=F2+.35,ry=y0+3.5;
- for(const p of posts)wb('alum',2,ax,pc,dir,p-.13,p+.13,y0,top2,D0-.28,D0);
+ // 2nd-floor balcony: pickets below the handrail, screens up to the header
+ const y0=F2+.35,ry=y0+3.5,nb=a1-a0>15?5:(a1-a0>9?4:3);
+ for(const a of posts)wb('alum',2,ax,pc,dir,a-.13,a+.13,y0,top2,D0-.28,D0);
  wb('alum',2,ax,pc,dir,a0,a1,ry-.22,ry,D0-.25,D0+.02);wb('alum',2,ax,pc,dir,a0,a1,y0,y0+.2,D0-.25,D0);
  for(let a=a0+.4;a<a1-.25;a+=.42)wb('trim',2,ax,pc,dir,a-.05,a+.05,y0+.2,ry-.22,D0-.18,D0-.1);
  wb('screen',2,ax,pc,dir,a0,a1,y0,top2,D0-.26,D0-.22);
