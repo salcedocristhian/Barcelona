@@ -340,7 +340,7 @@
       if (b === 'club') sub.push('Dimensions from the aerial; the NV5 clubhouse drawing is not to scale. Entry location estimated.');
       var hasField = b === '100' || fl.length;
       titleBlock({ no: no, title: name + ' · Elevations ' + es, sub: sub, key: [b, ordered], scale: s === 9 ? '1/8″ = 1′-0″' : '1/4″ = 1′-0″', basis: 'NV5 ' + BLD[b].permit, notes: NOTES_E(BLD[b].permit),
-        legend: function (x, y) { T(x, y - 2, 'Repair ID, code and description', 10.5, 'B'); T(x, y - 21, 'See register E-' + b[0] + '06', 10.5); }, legendH: 48 });
+        legend: function (x, y) { if (b === 'club') legendCallouts(x, y, 10.5, 20); else { T(x, y - 2, 'Repair ID, code and description', 10.5, 'B'); T(x, y - 21, 'See register E-' + b[0] + '06', 10.5); } }, legendH: b === 'club' ? 70 : 48 });
     }
 
 
@@ -419,15 +419,15 @@
       BLDunits(b,1).forEach(function(u){var p=R(u.x0,u.x1,u.z0,u.z1,true),c=P((u.x0+u.x1)/2,(u.z0+u.z1)/2);T(c[0],c[1]+3,u.n,15,'B','c');});
       fill([238,238,238]);R(0,L,CT,CB,true);var pc=P(L/2,CC);T(pc[0],pc[1]-4,'CORRIDOR · 5′-0″',10.5,'B','c');
       var doors=0;
-      function D(X,Z,vertical){var p=P(X,Z),a=p[0],y=p[1];fill(255);stroke(PATCHS);lw(1.4);circle(a,y,9,true,true);T(a,y-4,'D',11.5,'B','c',ORANGE);doors++;}
+      function drawDoor(X,Z,vertical){var p=P(X,Z),a=p[0],y=p[1];fill(255);stroke(PATCHS);lw(1.4);circle(a,y,9,true,true);T(a,y-4,'D',11.5,'B','c',ORANGE);doors++;}
       function Lanai(x0,x1,z0,z1){fill([248,239,227]);var p=R(x0,x1,z0,z1,true),c=P((x0+x1)/2,(z0+z1)/2);T(c[0],c[1]-3,'LANAI',11,'B','c');}
       PAIRS.forEach(function(pp){
         [[pp-12,pp],[pp,pp+12]].forEach(function(xx){
           Lanai(xx[0],xx[1],0,RT);Lanai(xx[0],xx[1],RB,D);
-          D((xx[0]+xx[1])/2,0,false);D((xx[0]+xx[1])/2,D,false);
+          drawDoor((xx[0]+xx[1])/2,0,false);drawDoor((xx[0]+xx[1])/2,D,false);
         });
       });
-      EBZ.forEach(function(z){Lanai(-EB,0,z[0],z[1]);Lanai(L,L+EB,z[0],z[1]);D(-EB,(z[0]+z[1])/2,true);D(L+EB,(z[0]+z[1])/2,true);});
+      EBZ.forEach(function(z){Lanai(-EB,0,z[0],z[1]);Lanai(L,L+EB,z[0],z[1]);drawDoor(-EB,(z[0]+z[1])/2,true);drawDoor(L+EB,(z[0]+z[1])/2,true);});
       var near=o.marks.filter(function(m){return m.b===b&&m.f===1;});
       near.forEach(function(m){var c=P(m.X,m.Z);fill(255);stroke(0);lw(.8);circle(c[0],c[1],8,true,true);T(c[0],c[1]-3,String(BLD[b].num[m.id]||'?'),10.5,'B','c');});
       var lower=o.entries.filter(function(e){return e.b===b&&!e.patches&&Number(e.y0)<F2-.1;});
@@ -653,6 +653,11 @@
       var nm = function (ss) { return ss.map(function (sd) { return sideElev(b, sd) + ' ' + ENAME[sideElev(b, sd)]; }).join(' and '); };
       plan.push({ t: 'elev', b: b, sides: longS, s: 9, no: 'E-' + n + '01', kind: 'long', title: 'Building ' + b + ' · elevations ' + nm(longS) });
       plan.push({ t: 'elev', b: b, sides: endS, s: 18, no: 'E-' + n + '02', kind: 'end', title: 'Building ' + b + ' · elevations ' + nm(endS) });
+      // Keep E-x01..E-x05 stable; new sheets E-x06 (register) & E-x07 (ground).
+      var totalRows = o.marks.filter(function(m){return m.b === b;}).length + o.entries.filter(function(e){return e.b === b;}).length;
+      for (var ri = 0; ri < Math.max(1, Math.ceil(totalRows / 28)); ri++)
+        plan.push({t:'register', b:b, pg:ri, no:'E-'+n+'06', skip:ri>0, title:'Building '+b+' · Unified repair register'});
+      plan.push({t:'gplan', b:b, no:'E-'+n+'07', title:'Building '+b+' · Ground-floor plan · Screened lanais'});
       var bal = o.entries.filter(function (e) { return e.b === b && e.patches && e.patches.length; }).sort(function (a, c) { return a.code < c.code ? -1 : 1; });
       if (bal.length) {
         var dp = Math.ceil(bal.length / 6), lp = Math.ceil(bal.filter(function (e) { return (e.photos || []).length; }).length / 6) || 0;
@@ -677,6 +682,8 @@
     var clubNum = {}; o.marks.filter(function (m) { return m.b === 'club'; }).forEach(function (m, i) { clubNum[m.id] = i + 1; });
     plan.forEach(function (p) {
       if (p.t === 'elev') { elevationSheet(p.b, p.sides, p.s, p.no, p.b === 'club' ? clubNum : BLD[p.b].num, p.kind); return; }
+      if (p.t === 'register') { unifiedRegister(p.b,p.no,p.pg); return; }
+      if (p.t === 'gplan') { groundFloorPlan(p.b,p.no); return; }
       var n = p.b[0], nos = { detail: 'E-' + n + '04', elev: { top: 'E-' + n + '01', bottom: 'E-' + n + '01' } };
       if (p.t === 'bplan') balconyPlan(p.b, p.list, p.no, nos);
       if (p.t === 'bdet' && !p.skip) balconyDetails(p.b, p.list, p.no);
