@@ -183,16 +183,16 @@ textarea.inp{min-height:76px;resize:vertical}
 /* pay app viewer */
 .ptabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;flex:none}
 .pbody{flex:1;min-height:0;overflow:auto;border:1px solid var(--line);border-radius:12px}
-table.pt{border-collapse:separate;border-spacing:0;font-size:12px;width:max-content;min-width:100%}
-table.pt th,table.pt td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:5px 7px;text-align:center;white-space:nowrap}
+table.pt{border-collapse:separate;border-spacing:0;font-size:15px;line-height:1.45;width:max-content;min-width:100%}
+table.pt th,table.pt td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 10px;text-align:center;white-space:nowrap}
 table.pt th{position:sticky;top:0;background:#204579;color:#fff;font-weight:700;z-index:2;white-space:normal;min-width:62px}
-table.pt td.desc{text-align:left;white-space:normal;min-width:220px;max-width:340px}
+table.pt td.desc{text-align:left;white-space:normal;min-width:260px;max-width:440px}
 table.pt th.sticky,table.pt td.sticky{position:sticky;left:0;z-index:1;background:var(--surface)}
 table.pt th.sticky{z-index:3;background:#204579}
 table.pt tr.sec td{background:#DCE6F1;color:#204579;font-weight:700;text-align:left}
 table.pt tr.tot td{font-weight:700}
 table.pt td.cur{font-weight:700;background:color-mix(in srgb,var(--accent-soft) 60%,transparent)}
-table.pt input{width:64px;border:1px solid var(--line);border-radius:6px;padding:4px;text-align:center;background:var(--surface)}
+table.pt input{width:80px;border:1px solid var(--line);border-radius:6px;padding:4px;text-align:center;background:var(--surface)}
 table.pt input.ch{border-color:var(--accent);background:var(--accent-soft)}
 .pfoot{display:flex;gap:8px;flex-wrap:wrap;padding-top:10px;flex:none;align-items:center}
 .pfoot .grow{flex:1;font-size:13px;color:var(--muted)}
@@ -256,6 +256,11 @@ table.pt input.ch{border-color:var(--accent);background:var(--accent-soft)}
 @media (max-width:899px){.viewtitle,#hint{display:none!important}}
 .pill,.chip{white-space:nowrap}
 @media (prefers-reduced-motion: reduce){#sheet{transition:none}}
+/* Larger report-screen labels; scoped to avoid altering the 3D model and repair controls. */
+#reportsPage .listrow{font-size:17px;line-height:1.4}
+#reportsPage .listrow small{font-size:14.5px;line-height:1.4;white-space:normal}
+#reportsPage .sectionlabel{font-size:15px}
+#reportsPage .note{font-size:14px;line-height:1.5}
 </style>
 </head>
 <body>
