@@ -54,7 +54,18 @@
       var n = Math.max(2, Math.round((a1 - a0) / 6));
       for (var i = 0; i <= n; i++) { var a = a0 + (a1 - a0) * i / n; this.wb('alum', ax, pc, d, a - .15, a + .15, y0, top, depth - .3, depth); }
       this.wb('alum', ax, pc, d, a0, a1, top - .25, top, depth - .2, depth + .02);
-      if (fl === 1) { this.wb('kick', ax, pc, d, a0, a1, y0, sy0, depth - .12, depth); this.wb('alum', ax, pc, d, a0, a1, sy0 - .1, sy0 + .1, depth - .2, depth + .02); }
+      if (fl === 1) {
+        var ww = a1 - a0, centers = ww > 22 ? [a0 + ww * .25, a0 + ww * .75] : [(a0 + a1) / 2];
+        var ds = centers.map(function (v) { return [v - 1.5, v + 1.5]; }), prev = a0;
+        ds.forEach(function (d0) {
+          if (d0[0] > prev) { this.wb('kick', ax, pc, d, prev, d0[0], y0, sy0, depth - .12, depth); this.wb('alum', ax, pc, d, prev, d0[0], sy0 - .1, sy0 + .1, depth - .2, depth + .02); }
+          this.wb('lanaiDoor', ax, pc, d, d0[0], d0[1], y0 + .12, y0 + 7, depth - .14, depth + .06);
+          this.wb('alum', ax, pc, d, d0[0] - .1, d0[0] + .1, y0, top, depth - .25, depth);
+          this.wb('alum', ax, pc, d, d0[1] - .1, d0[1] + .1, y0, top, depth - .25, depth);
+          prev = d0[1];
+        }, this);
+        if (a1 > prev) { this.wb('kick', ax, pc, d, prev, a1, y0, sy0, depth - .12, depth); this.wb('alum', ax, pc, d, prev, a1, sy0 - .1, sy0 + .1, depth - .2, depth + .02); }
+      }
       else {
         var ry = y0 + 3.4; this.wb('rail', ax, pc, d, a0, a1, ry - .25, ry, depth - .25, depth + .05); this.wb('rail', ax, pc, d, a0, a1, y0 + .15, y0 + .35, depth - .25, depth + .05);
         for (var aa = a0 + .4; aa < a1 - .2; aa += .7) this.wb('picket', ax, pc, d, aa - .06, aa + .06, y0 + .3, ry - .2, depth - .15, depth - .03);
@@ -112,7 +123,7 @@
     else { a = srt([projU(side, Lb, Db, 0, z0 - o), projU(side, Lb, Db, 0, z1 + o)]); t = srt([projU(side, Lb, Db, 0, z0 + ins), projU(side, Lb, Db, 0, z1 - ins)]); near = side === 'left' ? x0 - o : Lb - (x1 + o); }
     return { k: 'roof', poly: [[a[0], yb], [t[0], yt], [t[1], yt], [a[1], yb]], near: near };
   }
-  var PRIO = { wall: 0, band: 1, glass: 2, door: 2, trim: 1.5, mullion: 3, shutter: 3, brick: 3, lattice: 3, slab: 1, alum: 4, kick: 4, rail: 5, picket: 5, step: 1, canopy: 6, awning: 6, bracket: 5, roof: 0 };
+  var PRIO = { wall: 0, band: 1, glass: 2, door: 2, lanaiDoor: 6, trim: 1.5, mullion: 3, shutter: 3, brick: 3, lattice: 3, slab: 1, alum: 4, kick: 4, rail: 5, picket: 5, step: 1, canopy: 6, awning: 6, bracket: 5, roof: 0 };
 
   /* ---------- report ---------- */
   function build(o) {
@@ -212,7 +223,8 @@
         if (w < .05 || h < .05) return;
         lw({ wall: 1.1, band: .6, slab: .6 }[k] || .45); stroke(0); fill(255); rect(x, y, w, h, true, true);
         if (k === 'shutter' && it.faceon && w > 2) { lw(.3); line(x + 1.5, y + h * .18, x + w - 1.5, y + h * .18); line(x + 1.5, y + h * .82, x + w - 1.5, y + h * .82); line(x + 1.5, y + h * .18, x + w - 1.5, y + h * .82); }
-        else if (k === 'glass' && it.faceon && w > 4) { lw(.25); stroke(GRAY); line(x + w * .2, y + h * .35, x + w * .35, y + h * .6); line(x + w * .28, y + h * .3, x + w * .46, y + h * .58); }
+        else if (k === 'lanaiDoor' && it.faceon) { lw(1); stroke(0); line(x + w * .1, y + h * .1, x + w * .9, y + h * .9); circle(x + w * .8, y + h * .5, 1.5, false, true); }
+         else if (k === 'glass' && it.faceon && w > 4) { lw(.25); stroke(GRAY); line(x + w * .2, y + h * .35, x + w * .35, y + h * .6); line(x + w * .28, y + h * .3, x + w * .46, y + h * .58); }
         else if (k === 'door' && it.faceon) { lw(.35); rect(x + w * .15, y + h * .55, w * .7, h * .35, false, true); rect(x + w * .15, y + h * .08, w * .7, h * .38, false, true); circle(x + w * .82, y + h * .5, Math.max(.8, w * .04), false, true); }
         else if (k === 'lattice' && it.faceon) {
           lw(.35);
@@ -235,7 +247,7 @@
         ua.sort(function (a, c) { return a - c; });
         var p0 = P(ua[0], fe.y0), p1 = P(ua[1], fe.y1);
         fill([219, 219, 219]); stroke(0); lw(.6); rect(p0[0], p0[1], p1[0] - p0[0], p1[1] - p0[1], true, true); hatch(p0[0], p0[1], p1[0] - p0[0], p1[1] - p0[1], GRAY, 4);
-        T((p0[0] + p1[0]) / 2, p0[1] - 9, flab(fe), 7.5, 'B', 'c', [128, 26, 13]);
+        T((p0[0] + p1[0]) / 2, p0[1] - 12, flab(fe), 11, 'B', 'c', [128, 26, 13]);
       });
       var pts = [];
       marks.forEach(function (m) {
@@ -318,34 +330,17 @@
         marks.forEach(function (m) { rows.push([numbering[m.id], m]); });
       });
       rows.sort(function (a, c) { return a[0] - c[0]; });
-      var tx, ty0, twid, ncol;
-      var fl = field.filter(function (fe) { return ordered.indexOf(fe.side) >= 0; });
-      if (kind === 'long') { tx = 48; ty0 = top - 2 * (blockH + gap) + 6; twid = (MAINR - 48 - 30) / 2; ncol = fl.length ? 1 : 2; }
-      else { tx = 1830; ty0 = top; twid = MAINR - 1830; ncol = 1; }
-      T(tx, ty0 - 4, 'Repairs on this sheet', 15, 'B');
-      var ylast = rows.length ? markTable(rows, tx, ty0 - 16, twid, 40, ncol) : ty0 - 30;
-      if (!rows.length) T(tx, ty0 - 30, 'No repairs marked on these elevations.', 11);
-      if (fl.length) {
-        var fx = kind === 'long' ? tx + twid + 30 : tx, fy = kind === 'long' ? ty0 : ylast - 30, reps = {};
-        fl.forEach(function (fe) { if (fe.report) reps[fe.report] = 1; });
-        T(fx, fy - 4, 'Field repairs seen in photos · CompanyCam' + (Object.keys(reps).length === 1 && /Nov 11, 2026/.test(Object.keys(reps)[0]) ? ' Nov 11, 2026' : ''), 15, 'B');
-        T(fx, fy - 18, 'Hatched areas on the elevations. Locations read from photos, approximate.', 9, 'R', 'l', GRAY);
-        var yy = fy - 34; fill(LIGHT); rect(fx, yy - 16, twid, 16, true, false);
-        [[5, 'No.'], [40, 'Location'], [100, 'Description'], [twid - 60, 'Photos']].forEach(function (h) { T(fx + h[0], yy - 11.5, h[1], 9.5, 'B'); }); yy -= 16;
-        fl.forEach(function (fe) {
-          var ls = wrap(fe.note || fe.notes || '', twid - 170, 9), rh = 12 * ls.length + 6; if (yy - rh < 40) return;
-          T(fx + 5, yy - 12, o.label(fe), 10.5, 'B'); T(fx + 40, yy - 12, fe.unit || '', 10.5);
-          ls.forEach(function (l, k) { T(fx + 100, yy - 12 - k * 12, l, 10); });
-          T(fx + twid - 60, yy - 12, (fe.photos || []).filter(function (r) { return typeof r === 'number'; }).join(', '), 9);
-          yy -= rh; stroke(LIGHT); lw(.6); line(fx, yy, fx + twid, yy);
-        });
+      // Elevations display callouts ONLY; full NV5 / CompanyCam register follows.
+      if (b !== 'club') {
+        T(50, 174, 'MARKED ELEVATIONS  ·  Full repair legend and register on sheet E-' + b[0] + '06', 17, 'B');
+        T(50, 149, 'Locations from CompanyCam are approximate; verify in the field.', 12, 'R', 'l', GRAY);
       }
       var name = b === 'club' ? 'Clubhouse' : 'Building ' + b, es = ordered.map(function (sd) { return sideElev(b, sd) + ' ' + ENAME[sideElev(b, sd)]; }).join(' and ');
       var sub = ['Phase ' + BLD[b].phase + ' · ' + (kind === 'long' ? 'long faces' : (b === 'club' ? 'faces with repairs' : 'end faces'))];
       if (b === 'club') sub.push('Dimensions from the aerial; the NV5 clubhouse drawing is not to scale. Entry location estimated.');
       var hasField = b === '100' || fl.length;
       titleBlock({ no: no, title: name + ' · Elevations ' + es, sub: sub, key: [b, ordered], scale: s === 9 ? '1/8″ = 1′-0″' : '1/4″ = 1′-0″', basis: 'NV5 ' + BLD[b].permit, notes: NOTES_E(BLD[b].permit),
-        legend: function (x, y) { legendCallouts(x, y, 9); if (hasField) { fill([219, 219, 219]); stroke(0); lw(.6); rect(x, y - 2 * 17 - 22, 16, 10, true, true); T(x + 23, y - 2 * 17 - 21.4, 'Field repair seen in photos (F#)', 9); } }, legendH: hasField ? 70 : 52 });
+        legend: function (x, y) { T(x, y - 2, 'Repair ID, code and description', 10.5, 'B'); T(x, y - 21, 'See register E-' + b[0] + '06', 10.5); }, legendH: 48 });
     }
 
     /* ---------- balcony sheets (E-x03 / x04 / x05) ---------- */
