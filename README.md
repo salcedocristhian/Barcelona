@@ -13,7 +13,7 @@ on a phone use **Add to Home Screen** to install it like an app.
 - **Repairs** – every NV5 and field repair, filtered by building and status, with photos and stage.
   **+** imports a CompanyCam report or photos for a building.
 - **Pay Apps** – Pay App #3 (read-only) and the editable next draft; Excel in the original workbook format and PDF.
-- **Reports** – the **Repair report** in the “Elevations Balcony Repairs” format: plan with repairs and summary table,
+- **Reports** – the repair report per building (or the full set) in the master-template format: cover and index, elevations E-x01/E-x02, and for buildings with balcony floor repairs the 2nd-floor plan E-x03, enlarged plans E-x04 and photo log E-x05.
   enlarged plans with each patch measured, photo log by repair with stage and date, and the elevations. Also the
   Typical Elevations PDF and the original Pay App #3 workbook.
 - **Settings** (gear icon) – backup, restore and reset of the data saved on the device.

@@ -526,7 +526,7 @@
     if (t.closest('#attachBtn') || t.closest('#importBtn')) { pickBuilding('Attach to which building?', function (b) { S.attachB = b; $('#attachFile').click(); }); return; }
     if (t.closest('#exportPdf')) { exportPDF(S.recTab === 'drafts' ? draftState() : lastRecord()); return; }
     if (t.closest('#openExcel')) { exportXLSX(S.recTab === 'drafts' ? draftState() : lastRecord()); return; }
-    if (t.closest('#genReport')) { generateRepairReport(); return; }
+    var rp = t.closest('[data-rpt]'); if (rp) { makeReport(rp.dataset.rpt); return; }
   });
   $('#attachFile').addEventListener('change', function (ev) { var f = ev.target.files; if (!f || !f.length) return; storeFiles(f, S.attachB).then(function (l) { toast(l.length + ' file' + (l.length > 1 ? 's' : '') + ' attached to Bldg ' + S.attachB); renderPhotoReports(); }); ev.target.value = ''; });
 
@@ -927,6 +927,35 @@
     });
   }
   function download(blob, name) { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000); return Promise.resolve(); }
+  /* ---------------- master-template report ---------------- */
+  function abToB64(ab) { var u = new Uint8Array(ab), s2 = '', CH = 0x8000; for (var i = 0; i < u.length; i += CH) s2 += String.fromCharCode.apply(null, u.subarray(i, i + CH)); return btoa(s2); }
+  var fontCache = null;
+  function loadFonts() {
+    if (fontCache) return Promise.resolve(fontCache);
+    if (window.__FONTS) return Promise.resolve(fontCache = window.__FONTS);
+    return Promise.all(['fonts/DejaVuSansCondensed.ttf', 'fonts/DejaVuSansCondensed-Bold.ttf'].map(function (u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error('font'); return r.arrayBuffer(); }).then(abToB64); })).then(function (f) { return (fontCache = f); });
+  }
+  function photoFull(ref) {
+    return (/^blob:/.test(String(ref)) ? IDB.getBlob(ref).then(function (b) { return b ? blobToData(b) : null; }) : (function () { var u = photoURL(ref, false); if (!u) return Promise.resolve(null); if (/^data:/.test(u)) return Promise.resolve(u); return fetch(u).then(function (r) { return r.blob(); }).then(blobToData); })())
+      .then(function (d) { if (!d) return null; return new Promise(function (res) { var im = new Image(); im.onload = function () { res({ data: d, w: im.naturalWidth, h: im.naturalHeight }); }; im.onerror = function () { res(null); }; im.src = d; }); }).catch(function () { return null; });
+  }
+  function makeReport(which) {
+    var scope = which === 'all' ? ['100', '200', '300', '400', 'club'] : [which];
+    toast('Building the report…', 12000);
+    var ents = entries().filter(function (e) { return scope.indexOf(e.b) >= 0; });
+    var refs = []; ents.forEach(function (e) { if (e.patches) (e.photos || []).forEach(function (r) { refs.push(r); }); });
+    var photos = {};
+    Promise.all([loadPDF(), logoData(), loadFonts()]).then(function (res) {
+      return Promise.all(refs.map(function (r) { return photoFull(r).then(function (p) { if (p) photos[r] = p; }); })).then(function () { return res; });
+    }).then(function (res) {
+      var meta = { '100': { title: BALC.title, sequence: BALC.sequence, verify: BALC.verify, planSub: BALC.planSub } };
+      var d = new Date(), dstr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+      var doc = window.BGReport.build({ jsPDF: window.jspdf.jsPDF, fonts: res[2], logo: res[1], date: dstr, scope: scope, entries: ents.map(function (e) { var x = Object.assign({}, e); x.reportShort = e.report && /BALCONIES/.test(e.report) ? '“BALCONIES”' : ''; return x; }),
+        marks: BG.MARKS.filter(function (m) { return scope.indexOf(m.b) >= 0; }), units: BG.units, label: entryLabel, photos: photos, balconyMeta: meta });
+      var name = which === 'all' ? 'Barcelona_Gardens_Repair_Report_All_Buildings.pdf' : 'Barcelona_Gardens_Repair_Report_' + (which === 'club' ? 'Clubhouse' : 'Bldg_' + which) + '.pdf';
+      return download(doc.output('blob'), name);
+    }).then(function () { toast('Report ready'); }).catch(function (e) { toast('Report failed: ' + e.message, 6000); });
+  }
   function heroView() { var B = BG.BLD['100']; BG.flyTo(new THREE.Vector3(B.c[0], 10, B.c[1] + 20), 190, new THREE.Vector3(-0.15, 0.32, 1).normalize()); }
   /* ---------------- boot ---------------- */
   IDB.open().then(function () { return IDB.get('state'); }).then(function (st) {

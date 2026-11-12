@@ -1,5 +1,5 @@
 {
- "source": "CompanyCam report \u201cBALCONIES\u201d, Oct 20\u201321, 2026",
+ "source": "CompanyCam report “BALCONIES”, Oct 20–21, 2026",
  "entries": [
   {
    "id": "bf100-119",
@@ -20,14 +20,14 @@
    "date": "2026-10-21",
    "time": "2026-10-21T13:37",
    "code": "BF-119",
-   "note": "Balcony 119 floor repair \u00b7 West face \u00b7 above unit 102 \u00b7 3 patches, \u22487.4 sq ft",
+   "note": "Balcony 119 floor repair · West face · above unit 102 · 3 patches, ≈7.4 sq ft",
    "nv5": "Not marked on NV5 sheets (field-identified)",
    "below": "102",
    "area": 7.4,
    "patches": [
     {
      "id": "P1",
-     "size": "2\u2032-2\u2033 \u00d7 1\u2032-5\u2033",
+     "size": "2′-2″ × 1′-5″",
      "area": 3.1,
      "desc": "Spall at front edge, rebar exposed",
      "dx0": 7.6,
@@ -41,7 +41,7 @@
     },
     {
      "id": "P2",
-     "size": "4\u2032-2\u2033 \u00d7 0\u2032-8\u2033",
+     "size": "4′-2″ × 0′-8″",
      "area": 2.7,
      "desc": "Slab-edge strip at outer corner",
      "dx0": 0.4,
@@ -55,7 +55,7 @@
     },
     {
      "id": "P3",
-     "size": "1\u2032-4\u2033 \u00d7 1\u2032-2\u2033",
+     "size": "1′-4″ × 1′-2″",
      "area": 1.6,
      "desc": "Small spall near side wall",
      "dx0": 0.5,
@@ -75,7 +75,29 @@
     "bal:11"
    ],
    "source": "companycam-balconies",
-   "inDraft": false
+   "inDraft": false,
+   "photoMeta": {
+    "bal:8": {
+     "time": "Oct 21, 1:37 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:9": {
+     "time": "Oct 21, 1:37 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:10": {
+     "time": "Oct 21, 1:37 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:11": {
+     "time": "Oct 21, 1:37 PM",
+     "stage": "Rebar exposed",
+     "w": 273
+    }
+   }
   },
   {
    "id": "bf100-120",
@@ -96,14 +118,14 @@
    "date": "2026-10-21",
    "time": "2026-10-21T14:00",
    "code": "BF-120",
-   "note": "Balcony 120 floor repair \u00b7 West face \u00b7 above unit 103 \u00b7 5 patches, \u224819.1 sq ft",
+   "note": "Balcony 120 floor repair · West face · above unit 103 · 5 patches, ≈19.1 sq ft",
    "nv5": "Not marked on NV5 sheets (field-identified)",
    "below": "103",
    "area": 19.1,
    "patches": [
     {
      "id": "P1",
-     "size": "5\u2032-0\u2033 \u00d7 1\u2032-6\u2033",
+     "size": "5′-0″ × 1′-6″",
      "area": 7.5,
      "desc": "Strip perpendicular to railing",
      "dx0": 8.2,
@@ -117,7 +139,7 @@
     },
     {
      "id": "P2",
-     "size": "1\u2032-4\u2033 \u00d7 1\u2032-4\u2033",
+     "size": "1′-4″ × 1′-4″",
      "area": 1.7,
      "desc": "Square patch at front corner",
      "dx0": 10.2,
@@ -131,7 +153,7 @@
     },
     {
      "id": "P3",
-     "size": "2\u2032-5\u2033 \u00d7 2\u2032-0\u2033",
+     "size": "2′-5″ × 2′-0″",
      "area": 4.8,
      "desc": "Rebar patch at railing (blue tape)",
      "dx0": 4.6,
@@ -145,7 +167,7 @@
     },
     {
      "id": "P4",
-     "size": "2\u2032-6\u2033 \u00d7 1\u2032-1\u2033",
+     "size": "2′-6″ × 1′-1″",
      "area": 2.7,
      "desc": "Patch at divider corner",
      "dx0": 0.5,
@@ -159,7 +181,7 @@
     },
     {
      "id": "P5",
-     "size": "1\u2032-8\u2033 \u00d7 1\u2032-5\u2033",
+     "size": "1′-8″ × 1′-5″",
      "area": 2.4,
      "desc": "Patch at threshold, backer board",
      "dx0": 5.0,
@@ -179,7 +201,29 @@
     "bal:33"
    ],
    "source": "companycam-balconies",
-   "inDraft": false
+   "inDraft": false,
+   "photoMeta": {
+    "bal:30": {
+     "time": "Oct 21, 2:00 PM",
+     "stage": "Rebar exposed",
+     "w": 364
+    },
+    "bal:31": {
+     "time": "Oct 21, 2:00 PM",
+     "stage": "Rebar exposed",
+     "w": 115
+    },
+    "bal:32": {
+     "time": "Oct 21, 2:00 PM",
+     "stage": "Rebar exposed",
+     "w": 115
+    },
+    "bal:33": {
+     "time": "Oct 21, 2:00 PM",
+     "stage": "Rebar exposed",
+     "w": 115
+    }
+   }
   },
   {
    "id": "bf100-121",
@@ -200,14 +244,14 @@
    "date": "2026-10-21",
    "time": "2026-10-21T17:18",
    "code": "BF-121",
-   "note": "Balcony 121 floor repair \u00b7 West face \u00b7 above unit 104 \u00b7 5 patches, \u224822.7 sq ft",
+   "note": "Balcony 121 floor repair · West face · above unit 104 · 5 patches, ≈22.7 sq ft",
    "nv5": "Not marked on NV5 sheets (field-identified)",
    "below": "104",
    "area": 22.7,
    "patches": [
     {
      "id": "P1",
-     "size": "10\u2032-8\u2033 \u00d7 1\u2032-1\u2033",
+     "size": "10′-8″ × 1′-1″",
      "area": 11.8,
      "desc": "Continuous strip along front railing",
      "dx0": 0.7,
@@ -221,7 +265,7 @@
     },
     {
      "id": "P2",
-     "size": "3\u2032-5\u2033 \u00d7 1\u2032-0\u2033",
+     "size": "3′-5″ × 1′-0″",
      "area": 3.4,
      "desc": "Strip from side, mid-depth",
      "dx0": 0.6,
@@ -235,7 +279,7 @@
     },
     {
      "id": "P3",
-     "size": "3\u2032-1\u2033 \u00d7 1\u2032-0\u2033",
+     "size": "3′-1″ × 1′-0″",
      "area": 3.1,
      "desc": "Strip from divider, mid-depth",
      "dx0": 8.3,
@@ -249,7 +293,7 @@
     },
     {
      "id": "P4",
-     "size": "2\u2032-5\u2033 \u00d7 1\u2032-0\u2033",
+     "size": "2′-5″ × 1′-0″",
      "area": 2.4,
      "desc": "Short strip near door",
      "dx0": 1.8,
@@ -263,7 +307,7 @@
     },
     {
      "id": "P5",
-     "size": "2\u2032-0\u2033 \u00d7 1\u2032-0\u2033",
+     "size": "2′-0″ × 1′-0″",
      "area": 2.0,
      "desc": "Short strip near door",
      "dx0": 9.0,
@@ -287,7 +331,49 @@
     "bal:39"
    ],
    "source": "companycam-balconies",
-   "inDraft": false
+   "inDraft": false,
+   "photoMeta": {
+    "bal:12": {
+     "time": "Oct 21, 1:39 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:13": {
+     "time": "Oct 21, 1:39 PM",
+     "stage": "Rebar exposed",
+     "w": 273
+    },
+    "bal:14": {
+     "time": "Oct 21, 1:39 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:15": {
+     "time": "Oct 21, 1:39 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:16": {
+     "time": "Oct 21, 1:39 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:37": {
+     "time": "Oct 21, 5:18 PM",
+     "stage": "Patched",
+     "w": 154
+    },
+    "bal:38": {
+     "time": "Oct 21, 5:18 PM",
+     "stage": "Patched",
+     "w": 154
+    },
+    "bal:39": {
+     "time": "Oct 21, 5:19 PM",
+     "stage": "Patched",
+     "w": 273
+    }
+   }
   },
   {
    "id": "bf100-123",
@@ -308,14 +394,14 @@
    "date": "2026-10-21",
    "time": "2026-10-21T17:20",
    "code": "BF-123",
-   "note": "Balcony 123 floor repair \u00b7 West face \u00b7 above unit 106 \u00b7 3 patches, \u224815.0 sq ft",
+   "note": "Balcony 123 floor repair · West face · above unit 106 · 3 patches, ≈15.0 sq ft",
    "nv5": "Not marked on NV5 sheets (field-identified)",
    "below": "106",
    "area": 15.0,
    "patches": [
     {
      "id": "P1",
-     "size": "9\u2032-10\u2033 \u00d7 1\u2032-1\u2033",
+     "size": "9′-10″ × 1′-1″",
      "area": 10.8,
      "desc": "Continuous strip along front railing",
      "dx0": 1.0,
@@ -329,7 +415,7 @@
     },
     {
      "id": "P2",
-     "size": "2\u2032-8\u2033 \u00d7 0\u2032-10\u2033",
+     "size": "2′-8″ × 0′-10″",
      "area": 2.2,
      "desc": "Short strip at side",
      "dx0": 0.7,
@@ -343,7 +429,7 @@
     },
     {
      "id": "P3",
-     "size": "2\u2032-6\u2033 \u00d7 0\u2032-10\u2033",
+     "size": "2′-6″ × 0′-10″",
      "area": 2.0,
      "desc": "Short strip at side",
      "dx0": 0.7,
@@ -366,7 +452,44 @@
     "bal:42"
    ],
    "source": "companycam-balconies",
-   "inDraft": false
+   "inDraft": false,
+   "photoMeta": {
+    "bal:22": {
+     "time": "Oct 21, 1:43 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:23": {
+     "time": "Oct 21, 1:43 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:24": {
+     "time": "Oct 21, 1:43 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:25": {
+     "time": "Oct 21, 1:43 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:40": {
+     "time": "Oct 21, 5:20 PM",
+     "stage": "Patched",
+     "w": 154
+    },
+    "bal:41": {
+     "time": "Oct 21, 5:20 PM",
+     "stage": "Patched",
+     "w": 154
+    },
+    "bal:42": {
+     "time": "Oct 21, 5:20 PM",
+     "stage": "Patched",
+     "w": 154
+    }
+   }
   },
   {
    "id": "bf100-124",
@@ -387,14 +510,14 @@
    "date": "2026-10-21",
    "time": "2026-10-21T17:16",
    "code": "BF-124",
-   "note": "Balcony 124 floor repair \u00b7 West face \u00b7 above unit 107 \u00b7 4 patches, \u224821.0 sq ft",
-   "nv5": "NV5 repair 8 (FL) \u2013 balcony 124 floor, waterproofing required",
+   "note": "Balcony 124 floor repair · West face · above unit 107 · 4 patches, ≈21.0 sq ft",
+   "nv5": "NV5 repair 8 (FL) – balcony 124 floor, waterproofing required",
    "below": "107",
    "area": 21.0,
    "patches": [
     {
      "id": "P1",
-     "size": "9\u2032-8\u2033 \u00d7 1\u2032-0\u2033",
+     "size": "9′-8″ × 1′-0″",
      "area": 9.7,
      "desc": "Continuous strip along slab edge",
      "dx0": 1.2,
@@ -408,7 +531,7 @@
     },
     {
      "id": "P2",
-     "size": "5\u2032-6\u2033 \u00d7 1\u2032-0\u2033",
+     "size": "5′-6″ × 1′-0″",
      "area": 5.5,
      "desc": "Strip, stepped",
      "dx0": 5.4,
@@ -422,7 +545,7 @@
     },
     {
      "id": "P3",
-     "size": "3\u2032-7\u2033 \u00d7 0\u2032-11\u2033",
+     "size": "3′-7″ × 0′-11″",
      "area": 3.2,
      "desc": "Strip, stepped",
      "dx0": 7.3,
@@ -436,7 +559,7 @@
     },
     {
      "id": "P4",
-     "size": "2\u2032-11\u2033 \u00d7 0\u2032-11\u2033",
+     "size": "2′-11″ × 0′-11″",
      "area": 2.6,
      "desc": "Strip, stepped",
      "dx0": 8.0,
@@ -460,7 +583,49 @@
     "bal:35"
    ],
    "source": "companycam-balconies",
-   "inDraft": false
+   "inDraft": false,
+   "photoMeta": {
+    "bal:4": {
+     "time": "Oct 20, 1:50 PM",
+     "stage": "Demolition (untagged)",
+     "w": 364
+    },
+    "bal:17": {
+     "time": "Oct 21, 1:41 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:18": {
+     "time": "Oct 21, 1:41 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:19": {
+     "time": "Oct 21, 1:41 PM",
+     "stage": "Rebar exposed",
+     "w": 273
+    },
+    "bal:20": {
+     "time": "Oct 21, 1:41 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:21": {
+     "time": "Oct 21, 1:41 PM",
+     "stage": "Rebar exposed",
+     "w": 154
+    },
+    "bal:34": {
+     "time": "Oct 21, 5:16 PM",
+     "stage": "Patched",
+     "w": 154
+    },
+    "bal:35": {
+     "time": "Oct 21, 5:16 PM",
+     "stage": "Patched",
+     "w": 273
+    }
+   }
   },
   {
    "id": "bf100-129",
@@ -481,14 +646,14 @@
    "date": "2026-10-21",
    "time": "2026-10-21T13:46",
    "code": "BF-129",
-   "note": "Balcony 129 floor repair \u00b7 East face \u00b7 above unit 112 \u00b7 4 patches, \u224834.2 sq ft",
+   "note": "Balcony 129 floor repair · East face · above unit 112 · 4 patches, ≈34.2 sq ft",
    "nv5": "Not marked on NV5 sheets (field-identified)",
    "below": "112",
    "area": 34.2,
    "patches": [
     {
      "id": "P1",
-     "size": "10\u2032-11\u2033 \u00d7 1\u2032-0\u2033",
+     "size": "10′-11″ × 1′-0″",
      "area": 10.9,
      "desc": "Trench along door wall",
      "dx0": 0.6,
@@ -502,7 +667,7 @@
     },
     {
      "id": "P2",
-     "size": "5\u2032-5\u2033 \u00d7 1\u2032-0\u2033",
+     "size": "5′-5″ × 1′-0″",
      "area": 5.4,
      "desc": "Trench",
      "dx0": 3.6,
@@ -516,7 +681,7 @@
     },
     {
      "id": "P3",
-     "size": "8\u2032-2\u2033 \u00d7 1\u2032-1\u2033",
+     "size": "8′-2″ × 1′-1″",
      "area": 9.0,
      "desc": "Trench, debris",
      "dx0": 2.0,
@@ -530,7 +695,7 @@
     },
     {
      "id": "P4",
-     "size": "7\u2032-5\u2033 \u00d7 1\u2032-2\u2033",
+     "size": "7′-5″ × 1′-2″",
      "area": 8.9,
      "desc": "Trench, debris",
      "dx0": 2.4,
@@ -550,7 +715,43 @@
     "bal:29"
    ],
    "source": "companycam-balconies",
-   "inDraft": false
+   "inDraft": false,
+   "photoMeta": {
+    "bal:26": {
+     "time": "Oct 21, 1:46 PM",
+     "stage": "Demolition",
+     "w": 154
+    },
+    "bal:27": {
+     "time": "Oct 21, 1:46 PM",
+     "stage": "Demolition",
+     "w": 154
+    },
+    "bal:28": {
+     "time": "Oct 21, 1:46 PM",
+     "stage": "Demolition",
+     "w": 154
+    },
+    "bal:29": {
+     "time": "Oct 21, 1:46 PM",
+     "stage": "Demolition",
+     "w": 273
+    }
+   }
   }
- ]
+ ],
+ "title": "Photo log · balcony floor repairs (CompanyCam “BALCONIES”, Oct 20–21, 2026)",
+ "sequence": [
+  "Saw-cut perimeter and remove deteriorated concrete to sound substrate (Oct 20–21).",
+  "Expose reinforcement; steel cleaned and coated (red coating visible in photos 17–25).",
+  "Place repair mortar flush with the slab (photos 34–42, Oct 21, 5:16–5:20 PM).",
+  "Pending, not in photos: cure, surface prep and balcony waterproofing per NV5 / manufacturer."
+ ],
+ "verify": [
+  "Photo 8 is tagged “Unit 119”, but the report cover lists units 120, 121, 123, 124, 129. Confirm 119 is in scope.",
+  "Photos 1–4 (Oct 20, J. Betancur) are not tagged; trench layout and planter match balcony 124.",
+  "Photos 5–7 are not tied to a unit (photo 5 shows a tiled ground-floor porch). Not plotted.",
+  "BF-119, 120 and 129: no closure (patch) photos yet."
+ ],
+ "planSub": "Top view. North to the left; West face (Elevation 1) at the bottom, East face (Elevation 3) at the top. Highlighted balconies have floor repairs documented in the CompanyCam report “BALCONIES”."
 }
