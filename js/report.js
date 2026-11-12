@@ -538,16 +538,16 @@
           T(px, ptop - 29, 'Enlarged plan (top view) · Scale 1/2″ = 1′-0″', 11.5, 'R', 'l', GRAY);
           var s36 = 36, gx = px + 145, gtop = ptop - 110;
           function Pd(dx, dy) { return [gx + dx * s36, gtop - dy * s36]; }
-          // building wall (top) with sliding door
-          T(gx + 216, gtop + 43, 'BUILDING WALL', 11, 'B', 'c'); T(gx + 216, gtop + 29, 'SLIDING GLASS DOOR', 10, 'R', 'c', GRAY);
-          fill(255); stroke(0); lw(.8); rect(gx - 24, gtop, 456 + 24, 24, true, true); hatch(gx - 24, gtop, 128 + 24, 24, [70, 70, 70], 5); hatch(gx + 128 + 210, gtop, 456 - 128 - 210 + 24, 24, [70, 70, 70], 5);
-          fill(255); rect(gx + 128, gtop + 2, 210, 20, true, true); line(gx + 128, gtop + 12, gx + 338, gtop + 12); line(gx + 200, gtop + 8, gx + 240, gtop + 8);
+          // solid building wall (second-floor balcony; door removed per field clarification)
+          T(gx + 216, gtop + 43, 'EXTERIOR BUILDING WALL', 11, 'B', 'c'); T(gx + 216, gtop + 29, 'NO ACCESS DOOR SHOWN · 2ND FLOOR', 10, 'R', 'c', GRAY);
+          fill(255); stroke(0); lw(.8); rect(gx - 24, gtop, 456 + 24, 24, true, true); hatch(gx - 24, gtop, 456 + 24, 24, [70, 70, 70], 5);
+          // No sliding-glass opening is drawn at this second-floor balcony. Verify any windows in the field.
           // slab
           fill(246); stroke(0); lw(.8); rect(gx, gtop - 288, 432, 288, true, true);
-          // side wall with storage door (left)
+          // side wall (second-floor, no storage-access door assumed)
           fill(255); rect(gx - 24, gtop - 288, 24, 288, true, true); hatch(gx - 24, gtop - 36, 24, 36, [70, 70, 70], 5); hatch(gx - 24, gtop - 288, 24, 158, [70, 70, 70], 5);
-          stroke(GRAY); lw(.6); dash([3, 3]); var arc = []; for (var t = 0; t <= 20; t++) { var an = Math.PI / 2 * t / 20; arc.push([gx + 90 * Math.sin(an), gtop - 36 - 90 + 90 * Math.cos(an)]); } poly(arc, false, true); dash(); stroke(0); lw(.8); line(gx, gtop - 126, gx + 90, gtop - 126);
-          doc.setFont('R', 'normal'); doc.setFontSize(7); doc.setTextColor(107, 107, 107); doc.text('SIDE WALL · STORAGE DOOR', gx - 30, Y(gtop - 230), { angle: 90 }); doc.text('DIVIDER RAILING', gx + 446, Y(gtop - 190), { angle: 90 });
+          stroke(0); lw(.8); // No diagrammatic swing arc or door leaf on the upper-floor side wall.
+          doc.setFont('R', 'normal'); doc.setFontSize(7); doc.setTextColor(107, 107, 107); doc.text('SIDE WALL · NO DOOR SHOWN', gx - 30, Y(gtop - 230), { angle: 90 }); doc.text('DIVIDER RAILING', gx + 446, Y(gtop - 190), { angle: 90 });
           // divider railing (right) and front railing (bottom)
           stroke(0); lw(.8); line(gx + 432, gtop, gx + 432, gtop - 288); line(gx + 437, gtop, gx + 437, gtop - 288); for (var yy = gtop - 6; yy > gtop - 288; yy -= 9) line(gx + 432, yy, gx + 437, yy);
           line(gx, gtop - 288, gx + 432, gtop - 288); line(gx, gtop - 294, gx + 437, gtop - 294); for (var xx = gx + 6; xx < gx + 432; xx += 9) line(xx, gtop - 288, xx, gtop - 294);
