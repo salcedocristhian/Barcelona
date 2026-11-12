@@ -13,12 +13,9 @@ on a phone use **Add to Home Screen** to install it like an app.
 - **Repairs** – every NV5 and field repair, filtered by building and status, with photos and stage.
   **+** imports a CompanyCam report or photos for a building.
 - **Pay Apps** – Pay App #3 (read-only) and the editable next draft; Excel in the original workbook format and PDF.
-- **Reports** – legible 36×24″ PDF set: cover/index, marked elevation sheets E-x01/E-x02
-  without crowded tables, unified NV5 + CompanyCam repair register E-x06 (continued sheets as needed),
-  and ground-floor screened-lanai plan E-x07. When balcony floor repairs are documented, the existing
-  second-floor plan E-x03, enlarged details E-x04 and photo log E-x05 are preserved.
-  Fonts, row heights and wrapping are adjusted for improved on-screen and print readability.
-  The original Typical Elevations PDF and Pay App #3 workbook remain available.
+- **Reports** – engineering report supporting the pay application, per building or for all buildings, in large print by default: cover with quantities by repair type, typical elevations (no marks), repair locations highlighted on the walls, one repair table (ID, unit, location, type, quantity), balcony aerial views with the repair areas, and the balcony photo log.
+  enlarged plans with each patch measured, photo log by repair with stage and date, and the elevations. Also the
+  Typical Elevations PDF and the original Pay App #3 workbook.
 - **Settings** (gear icon) – backup, restore and reset of the data saved on the device.
 
 ## Model
@@ -27,15 +24,13 @@ on a phone use **Add to Home Screen** to install it like an app.
 - Site checked against the satellite views with the 50 ft scale bar; angled stalls along the drives.
 - Clubhouse with five-arch arcades at both ends and hip tile roof; oval pool with coping, fence and lounge chairs;
   courtyard with two shuffleboard courts, flagpole, lamps and grills (sizes approximate).
+- Lanais and balconies as built: ground-floor screen enclosures with kick panels and a screen door with transom next to the stucco pier between each pair; 2nd-floor enclosures with pickets below the handrail and screens up to the header; projecting slab band between floors.
 - Corridor interiors (carpet, paneled unit doors, sconces, life-safety devices) for walking inside.
 - Heights estimated from photos (9′-4″ floor to floor, 18′-8″ eave, 22′-4″ roof).
-- First-floor **lanais** show exterior screen enclosures with schematic screen-access doors; second-floor
-  balconies are open with railings, not exterior screen doors. Screen door centers and handing must be verified
-  in the field before engineering, fabrication or pricing; unit entrance and sliding-glass elements are separate.
-- **Ground floor / 2nd floor** can be selected in the individual building's 2D Plan view. The original report
-  focused on the second-floor balcony floor repairs; E-x07 now adds a dedicated ground-floor PDF plan.
 
 ## Field data included
+
+- **As-built repairs Bldg 100** – quantities by unit (balcony floors, column & beam, #5 rebar, dowels, stucco) with their locations on the walls.
 
 - **ELEVATIONS BLDG 100** – CompanyCam, Nov 11, 2026, 49 photos; 33 wall and slab-edge repairs placed on the faces (approximate).
 - **BALCONIES** – CompanyCam, Oct 20–21, 2026, 35 photos; balcony floors BF-119, 120, 121, 123, 124 and 129 with every patch measured (±6″).

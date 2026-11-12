@@ -10,7 +10,15 @@
   var BALC = JSON.parse(document.getElementById('fieldBalc').textContent);
   FIELD.entries.forEach(function (e) { e.report = 'ELEVATIONS BLDG 100 · Nov 11, 2026'; });
   BALC.entries.forEach(function (e) { e.source = 'companycam'; e.report = 'BALCONIES · Oct 20–21, 2026'; });
-  FIELD.entries = FIELD.entries.concat(BALC.entries);
+  var ASB = JSON.parse(document.getElementById('asbuilt100').textContent);
+  var CC_ALL = FIELD.entries.filter(function (e) { return /^cc100/.test(e.id); });
+  function hexOf(c) { return (c[0] << 16) | (c[1] << 8) | c[2]; }
+  var abQty = {}; ASB.repairs.forEach(function (r) { (abQty[r.unit] = abQty[r.unit] || { bf: 0, rb: 0, dw: 0 })[r.type] = r.qty; });
+  BALC.entries.forEach(function (e) { var q = abQty[e.unit.replace('Un ', '')]; if (q && q.bf) { e.qty = q.bf; e.abType = 'bf'; } });
+  var abEntries = [];
+  ASB.repairs.forEach(function (r) { if (r.type !== 'cb' && r.type !== 'st') return; r.shapes.forEach(function (sh, k) {
+    abEntries.push({ id: 'ab-' + r.id + '-' + k, code: r.id, b: ASB.building, side: sh.side, p: sh.side === 'top' || sh.side === 'left' ? 0 : (sh.side === 'bottom' ? BG.G.D : BG.G.L), a0: sh.a0, a1: sh.a1, y0: sh.y0, y1: sh.y1, kind: r.type === 'cb' ? 'slab' : 'stucco', unit: 'Un ' + r.unit, sow: r.type === 'cb' ? '4E/4F' : '4S', qty: k === 0 ? r.qty : null, status: 'Completed', note: r.loc + (r.shapes.length > 1 ? ' (area ' + (k + 1) + ' of ' + r.shapes.length + ')' : ''), source: 'companycam', report: 'As-built repairs · Bldg ' + ASB.building, abType: r.type, photos: [], inDraft: false }); }); });
+  FIELD.entries = FIELD.entries.filter(function (e) { return ASB.ccLinked.indexOf(e.id) < 0; }).concat(BALC.entries, abEntries);
   var THREE = window.THREE;
 
   var SOW = {}; P.UNIT_ITEMS.forEach(function (c) { var it = BASE.sheets['100'].items[c]; SOW[c] = { desc: it.desc, unit: it.unit }; });
@@ -132,7 +140,8 @@
   var hatchTex = (function () { var c = document.createElement('canvas'); c.width = c.height = 64; var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, 64, 64); g.strokeStyle = '#555'; g.lineWidth = 3; for (var i = -64; i < 128; i += 16) { g.beginPath(); g.moveTo(i, 64); g.lineTo(i + 64, 0); g.stroke(); } var t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; })();
   var COL = { Observed: 0xBEC5CC, Open: 0xF2B8A4, 'In progress': 0xF2C46D, Completed: 0x8FD1A4 };
   function floorColor(e) { var t = (e.stage || '').toLowerCase(); if (e.billed) return 0x8FD1A4; if (/patched/.test(t)) return 0x8B9096; if (/rebar/.test(t)) return 0xB5533C; return 0x6E5A48; }
-  function statusColor(e) { if (e.billed) return 0x8FD1A4; if (e.inDraft) return 0xF09A7E; return COL[e.status] || COL.Observed; }
+  function statusColor(e) {
+    if (e.abType && ASB.types[e.abType]) return hexOf(ASB.types[e.abType].color); if (e.billed) return 0x8FD1A4; if (e.inDraft) return 0xF09A7E; return COL[e.status] || COL.Observed; }
   function rebuildPatches() {
     patchMeshes.forEach(function (m) { patchGroup.remove(m); m.geometry.dispose(); }); patchMeshes = [];
     entries().forEach(function (e) {
@@ -319,7 +328,7 @@
     if (sug.indexOf(e.sow) < 0) sug.unshift(e.sow); sug = sug.slice(0, 4);
     var cols = sh.cols.slice(); if (e.unit && cols.indexOf(e.unit) < 0) cols.push(e.unit);
     var el = BG.ENAME[sideElev(e.b, e.side)] || '';
-    var src = e.source === 'companycam' ? 'CompanyCam “' + esc(e.report || '') + '”' : (e.source === 'nv5' ? 'From NV5 mark ' + esc(e.nv5 || '') : 'Added ' + esc(e.date));
+    var src = e.source === 'companycam' ? (/^As-built/.test(e.report || '') ? esc(e.report) : 'CompanyCam “' + esc(e.report || '') + '”') : (e.source === 'nv5' ? 'From NV5 mark ' + esc(e.nv5 || '') : 'Added ' + esc(e.date));
     var editable = !e.billed;
     if (e.patches && e.qty == null) e.qty = e.area;
     var h = '<div class="mhead"><svg class="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg><h3 id="repTitle">Selected Repair ' + (editable ? '<span class="tagok">Future reports editable</span>' : '<span class="tagok" style="background:var(--surface-2);color:var(--muted)">Billed</span>') + '</h3><button class="close" type="button" data-x aria-label="Close">✕</button></div>';
@@ -939,23 +948,57 @@
     return (/^blob:/.test(String(ref)) ? IDB.getBlob(ref).then(function (b) { return b ? blobToData(b) : null; }) : (function () { var u = photoURL(ref, false); if (!u) return Promise.resolve(null); if (/^data:/.test(u)) return Promise.resolve(u); return fetch(u).then(function (r) { return r.blob(); }).then(blobToData); })())
       .then(function (d) { if (!d) return null; return new Promise(function (res) { var im = new Image(); im.onload = function () { res({ data: d, w: im.naturalWidth, h: im.naturalHeight }); }; im.onerror = function () { res(null); }; im.src = d; }); }).catch(function () { return null; });
   }
-  function makeReport(which) {
+  function makeReport(which, large) {
+    if (large == null) large = !document.getElementById('largePrint') || document.getElementById('largePrint').checked;
     var scope = which === 'all' ? ['100', '200', '300', '400', 'club'] : [which];
     toast('Building the report…', 12000);
     var ents = entries().filter(function (e) { return scope.indexOf(e.b) >= 0; });
     var refs = []; ents.forEach(function (e) { if (e.patches) (e.photos || []).forEach(function (r) { refs.push(r); }); });
     var photos = {};
-    Promise.all([loadPDF(), logoData(), loadFonts()]).then(function (res) {
-      return Promise.all(refs.map(function (r) { return photoFull(r).then(function (p) { if (p) photos[r] = p; }); })).then(function () { return res; });
+    var trefs = []; CC_ALL.forEach(function (c) { (c.photos || []).forEach(function (n) { if (trefs.indexOf(n) < 0) trefs.push(n); }); }); refs.forEach(function (r) { if (trefs.indexOf(r) < 0) trefs.push(r); }); var thumbs = {}; trefs.forEach(function (r) { if (refs.indexOf(r) < 0) refs.push(r); });
+    var nvPlan = window.__NV5PLAN ? Promise.resolve(window.__NV5PLAN) : fetch('data/nv5-bldg100-2nd-floor.png').then(function (r) { if (!r.ok) throw 0; return r.blob(); }).then(blobToData).catch(function () { return null; });
+    Promise.all([loadPDF(), logoData(), loadFonts(), Promise.resolve(null), nvPlan]).then(function (res) {
+      return Promise.all(refs.map(function (r) { return photoFull(r).then(function (p) { if (p) photos[r] = p; }); }).concat(trefs.map(function (r) { return imgData(r).then(function (d) { if (d) thumbs[r] = { data: d }; }); }))).then(function () { res[3] = thumbs; return res; });
     }).then(function (res) {
       var meta = { '100': { title: BALC.title, sequence: BALC.sequence, verify: BALC.verify, planSub: BALC.planSub } };
       var d = new Date(), dstr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
-      var doc = window.BGReport.build({ jsPDF: window.jspdf.jsPDF, fonts: res[2], logo: res[1], date: dstr, scope: scope, entries: ents.map(function (e) { var x = Object.assign({}, e); x.reportShort = e.report && /BALCONIES/.test(e.report) ? '“BALCONIES”' : ''; return x; }),
+      var tt = ASB.types, wallShapes = [], others = [], fq = function (v) { return String(Math.round(v * 10) / 10); };
+      var ccMatch = function (sh) { return CC_ALL.filter(function (c) { return c.side === sh.side && Math.abs(c.a0 - sh.a0) < .01 && Math.abs(c.a1 - sh.a1) < .01; })[0]; };
+      ASB.repairs.forEach(function (r) {
+        if (r.type === 'rb' || r.type === 'dw') return;
+        if (r.type === 'bf') {
+          var q = abQty[r.unit], be = BALC.entries.filter(function (e) { return e.unit === 'Un ' + r.unit; })[0], sh = r.shapes[0], ph = be ? be.photos : [];
+          var pick = ph.length > 2 ? [ph[0], ph[Math.floor(ph.length / 2)], ph[ph.length - 1]] : ph;
+          var bl = '2nd-floor balcony ' + r.unit + ' · floor slab (above unit ' + (be ? be.below : '') + ')';
+          wallShapes.push({ b: ASB.building, side: sh.side, a0: sh.a0, a1: sh.a1, y0: BG.G.F2 + .35, y1: BG.G.EAVE - .9, color: tt.bf.color, kind: 'bf', label: r.id, photos: pick, rows: [{ id: r.id, unit: r.unit, loc: bl, type: 'bf', qty: q.bf + ' SF' }, { id: 'RB-' + r.unit, unit: r.unit, loc: bl, type: 'rb', qty: q.rb + ' LF' }, { id: 'DW-' + r.unit, unit: r.unit, loc: bl, type: 'dw', qty: q.dw + ' EA' }] });
+          return;
+        }
+        var ph2 = []; r.shapes.forEach(function (sh) { var c = ccMatch(sh); if (c) (c.photos || []).forEach(function (n) { if (ph2.indexOf(n) < 0) ph2.push(n); }); });
+        r.shapes.forEach(function (sh, k) { wallShapes.push({ b: ASB.building, side: sh.side, a0: sh.a0, a1: sh.a1, y0: sh.y0, y1: sh.y1, color: tt[r.type].color, kind: r.type, label: k === 0 ? r.id : null, photos: k === 0 ? ph2 : [], rows: k === 0 ? [{ id: r.id, unit: r.unit, loc: r.loc.replace(/^\w+ face · /, ''), type: r.type, qty: fq(r.qty) + ' ' + r.uom }] : null }); });
+      });
+      CC_ALL.forEach(function (c, idx) {
+        return; // repairs without a pay-app quantity are not shown in the report
+        if (ASB.ccLinked.indexOf(c.id) >= 0 || scope.indexOf(c.b) < 0) return;
+        var id = 'F' + (idx + 1), kname = { stucco: 'Stucco repair', slab: 'Slab edge repair', band: 'Slab band repair' }[c.kind] || 'Repair';
+        wallShapes.push({ b: c.b, side: c.side, a0: c.a0, a1: c.a1, y0: c.y0, y1: c.y1, color: [105, 105, 105], kind: 'other', label: id, photos: c.photos || [], rows: [{ id: id, unit: c.unit.replace('Un ', ''), loc: c.note, type: 'other', qty: 'Not quantified' }] });
+        others.push({ b: c.b, id: id, unit: c.unit.replace('Un ', ''), loc: BG.ENAME[sideElev(c.b, c.side)] + ' face · ' + c.note, type: kname });
+      });
+      var doc = window.BGReport.build({ nv5plan: res[4] ? { '100': { data: res[4], meta: { Xa: -7.4074, Xb: 209.0593, Za: -1.4370, Zb: 81.1556 } } } : null, others: others, thumbs: res[3], asb: ASB, wallShapes: wallShapes, qtyOf: function (u) { return abQty[u] || { bf: 0, rb: 0, dw: 0 }; }, large: large, jsPDF: window.jspdf.jsPDF, fonts: res[2], logo: res[1], date: dstr, scope: scope, entries: ents.map(function (e) { var x = Object.assign({}, e); x.reportShort = e.report && /BALCONIES/.test(e.report) ? '“BALCONIES”' : ''; return x; }),
         marks: BG.MARKS.filter(function (m) { return scope.indexOf(m.b) >= 0; }), units: BG.units, label: entryLabel, photos: photos, balconyMeta: meta });
-      var name = which === 'all' ? 'Barcelona_Gardens_Repair_Report_All_Buildings.pdf' : 'Barcelona_Gardens_Repair_Report_' + (which === 'club' ? 'Clubhouse' : 'Bldg_' + which) + '.pdf';
+      window.__repIssues = doc.__issues || [];
+      var name = (which === 'all' ? 'Barcelona_Gardens_Repair_Report_All_Buildings' : 'Barcelona_Gardens_Repair_Report_' + (which === 'club' ? 'Clubhouse' : 'Bldg_' + which)) + (large ? '_Large_Print' : '') + '.pdf';
       return download(doc.output('blob'), name);
     }).then(function () { toast('Report ready'); }).catch(function (e) { toast('Report failed: ' + e.message, 6000); });
   }
+  /* pulsing highlight of the selected repair (all areas with the same ID) */
+  setInterval(function () {
+    var se = S.sel ? entryById(S.sel) : null, code = se && se.code, t = Date.now() / 260, a = .5 + .5 * Math.sin(t);
+    patchMeshes.forEach(function (m) {
+      var e = entryById(m.userData.entry), on = se && (m.userData.entry === S.sel || (code && e && e.code === code));
+      if (!m.material || !m.material.emissive) return;
+      if (on) { m.material.emissive.setRGB(.55 * a, .3 * a, .05 * a); } else { m.material.emissive.setHex(m.userData.floor ? 0x111111 : 0); }
+    });
+  }, 50);
   function heroView() { var B = BG.BLD['100']; BG.flyTo(new THREE.Vector3(B.c[0], 10, B.c[1] + 20), 190, new THREE.Vector3(-0.15, 0.32, 1).normalize()); }
   /* ---------------- boot ---------------- */
   IDB.open().then(function () { return IDB.get('state'); }).then(function (st) {
@@ -963,5 +1006,5 @@
   }).catch(function () {}).then(function () {
     ensureMeta(); BG.state.b = '100'; BG.syncUI(); heroView(); refreshAll(); setTab('model');
   });
-  window.BGApp = { S: S, entries: entries, draftState: draftState, openPay: openPay };
+  window.BGApp = { S: S, entries: entries, draftState: draftState, openPay: openPay, makeReport: makeReport };
 })();
