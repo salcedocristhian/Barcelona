@@ -1,82 +1,58 @@
-# Barcelona Gardens · Restoration Viewer
+# Barcelona Gardens · Restoration App
 
-Interactive 3D model, floor plans and elevations of **Barcelona Gardens Condominium**
-(101 E McNab Rd, Pompano Beach, FL 33060) showing the NV5 concrete and stucco repair
-locations for the MTD Painting & Construction restoration project (MTD2025-016).
+Field app for the **Barcelona Gardens Condominium** concrete and stucco restoration
+(MTD Painting & Construction, project MTD2025-016, 101 E McNab Rd, Pompano Beach, FL 33060).
 
-It is a single static web page. It runs in any modern browser on phones, tablets and
-computers, with no server code, build step or account needed.
+It is a static web app: no server, no build step. It runs on iPhone, Android, tablets and
+computers. On a phone, open it in the browser and use **Add to Home Screen** to install it like an app.
 
-## What's in this repository
+## What it does
+
+- **Home** – large 3D model of the property, switch to elevations, open the last pay application record, start a **New Field Report**.
+- **Model** – full viewer: 3D, floor plans and elevations (1 West, 2 South, 3 East, 4 North), NV5 repair marks, field repairs, life-safety devices, distance-to-exit check, black-and-white technical elevations.
+- **Field reports** – tap the face of a building to place a repair, pick the SOW item (4A–4V), unit/location, quantity, status, notes and photos, then **Save to Draft**.
+- **Records** – Pay App #3 (read-only technical record, no contract prices) and the editable **next pay app draft**. The draft starts from the quantities to date, adds field repairs, lets you edit any cell or add unit columns, and moves quantities over the contract quantity to change-order lines.
+- **Exports** – Technical quantities Excel (without contract prices) (Summary + Bldg 100–400 sheets, same formulas and styles), PDF of the pay application, and a **Field Repair Report** PDF with the elevations, numbered repairs and photo thumbnails.
+- **Photo reports** – Building 100 CompanyCam report (Nov 11, 2026, 49 photos) is included and placed on the elevations. Attach photos or a CompanyCam PDF for Building 200 and the others from **Records › Attach**.
+
+## Publish with GitHub Pages
+
+1. Create a repository on GitHub.
+2. Upload **the contents of this folder** so `index.html` is at the top level (**Add file › Upload files**).
+3. **Settings › Pages › Deploy from a branch**, branch `main`, folder `/ (root)`, save.
+4. After a minute the app is at `https://<user-or-org>.github.io/<repository>/`.
+
+Private repositories need a paid GitHub plan for Pages.
+
+## Where your data is saved
+
+There is no server. Drafts, finalized pay apps, field repairs and photos you add are saved **in the browser of the device** where you add them (IndexedDB). Use **Account › Export backup** to keep a copy or move it to another device, and **Restore from backup** there.
+
+## Files
 
 | Path | Contents |
 | --- | --- |
-| `index.html` | The viewer: 3D model, plans, elevations, black-and-white elevation mode, repair details and exit-distance check |
-| `vendor/three/` | three.js r128 and its OrbitControls and BufferGeometryUtils helpers (MIT license), served locally so the 3D view does not depend on an outside CDN |
-| `docs/Barcelona_Gardens_Typical_Elevations.pdf` | 36×24″ sheet set with the typical elevations of each building |
-| `docs/mtd-logo.png` | Original MTD company logo used in the report / technical drawings |
-| `assets/barcelona-icon-*.png` | Barcelona Gardens app logo in iPhone / web icon sizes |
-| `assets/barcelona-logo-original.jpeg` | Supplied original Barcelona Gardens icon image |
-| `manifest.webmanifest` | Installable web-app metadata for mobile browsers |
-| `data/nv5-repair-marks.json` | The 105 NV5 repair marks with their measured plan positions |
-| `tools/` | Python scripts that generate the PDF from the same data |
-| `.nojekyll` | Tells GitHub Pages to serve the files as they are |
-
-## Publish it with GitHub Pages
-
-1. Create a new repository named **Barcelona** on GitHub (private only if GitHub Pages is supported by your plan; public makes the public viewer accessible). Do not pre-create a README if uploading an existing package.
-2. Unzip this package and upload **the contents of the folder** (not the folder itself) to the repository, so `index.html` sits at the top level. On github.com you can drag the files into **Add file › Upload files**.
-3. Go to **Settings › Pages**. Under **Build and deployment**, choose **Deploy from a branch**, select the `main` branch and the `/ (root)` folder, and save.
-4. After a minute or two the page is live at `https://<your-user-or-org>.github.io/<repository-name>/`.
-
-Share that link; it opens on any device. On an iPhone, open the GitHub Pages address in **Safari** and use **Share → Add to Home Screen**. The supplied Barcelona building image appears as the home-screen icon. The app is a web app, not a native App Store app.
-
-The top **Open Report PDF** link and the sidebar **Technical Report** section open the attached 10-sheet PDF, which is stored in `docs/`. These links work with the same relative paths on GitHub Pages. The existing interactive 3D, plan and elevation code remains unchanged.
-
-## Open it without GitHub
-
-Opening `index.html` directly from your computer also works in most browsers. If the 3D view stays blank, serve the folder locally instead:
-
-```bash
-cd barcelona-gardens-viewer
-python3 -m http.server 8000
-# then open http://localhost:8000
-```
-
-## Regenerate the PDF
-
-Requires Python 3 with `reportlab` and the DejaVu Sans Condensed font (installed by default on most Linux systems; on macOS or Windows, edit the font paths at the top of `tools/elev_pdf.py`).
-
-```bash
-pip install reportlab
-cd tools
-python3 elev_pdf2.py
-```
-
-The PDF is written to `docs/Barcelona_Gardens_Typical_Elevations.pdf`.
+| `index.html` | App shell and 3D/plan/elevation viewer |
+| `js/app.js` | Field reports, records, drafts, exports, storage |
+| `js/payapp.js` | Pay application engine (same calculations and workbook layout as the original) |
+| `data/payapp-base.json` | Pay App #3 technical quantity data only; all prices/payment amounts omitted |
+| `data/field-bldg100.json` | 33 field repairs read from the Bldg 100 CompanyCam photos |
+| `data/nv5-repair-marks.json` | 105 NV5 repair marks with measured positions |
+| `photos/bldg100/` | The 49 CompanyCam photos (and thumbnails) |
+| `docs/` | Typical Elevations PDF (36×24″), sanitized Pay App #3 technical quantity workbook, MTD logo |
+| `vendor/` | three.js r128, ExcelJS 4.4.0, jsPDF 2.5.1 + AutoTable 3.8.2 (MIT licenses included) |
+| `tools/` | Python scripts that regenerate the elevations PDF |
 
 ## Data sources and limits
 
-- **Building plans:** measured from the NV5 AutoCAD drawings (scale 3/16″ = 1′-0″). Length 201′-7″, depth 78′-4″, 25′-0″ units, 5′-0″ corridor. All four buildings are identical.
-- **Repair locations:** NV5 Concrete/Stucco Repair Location Plans, permits BP25-00004816 (Bldg 100), BP25-00004987 (Bldg 200 and clubhouse), BP25-00005001 (Bldg 300) and BP25-00004990 (Bldg 400).
-- **Heights:** estimated from site photos (floor-to-floor 9′-4″, eave 18′-8″, roof 22′-4″). No drawing gives heights, so the height of each mark is approximate.
-- **Site layout, clubhouse, pool and parking:** aerial view calibrated to the measured building length.
-- **Life-safety devices:** from the typical diagram in the MTD phasing plan, which is not to scale.
+- Building plans measured from the NV5 AutoCAD drawings (3/16″ = 1′-0″); all four buildings identical.
+- Repair marks from the NV5 repair location plans (permits BP25-00004816, -00004987, -00005001, -00004990).
+- Bldg 100 field repairs placed from the CompanyCam photos, which have no captions: positions are approximate and editable.
+- Heights estimated from photos (9′-4″ floor to floor, 18′-8″ eave, 22′-4″ roof).
+- Reference tool for coordination; it does not replace the signed NV5 drawings or the engineer's approval of quantities.
 
-This is a reference tool for coordination. It does not replace the signed NV5 drawings.
+## PUBLIC SITE FINANCIAL PRIVACY NOTICE
 
+This is a public GitHub repository. The uploaded ZIP contained a confidential Pay App #3 workbook and monetary values duplicated in JSON and HTML. They have been withheld/redacted from this public deployment. Public financial exports are deliberately disabled, while field repair PDFs, technical quantities, photos, NV5 marks, models and editable field records remain available. To enable financial Pay App exports, use a secured private backend/account rather than publishing financial figures on GitHub Pages.
 
-## Field Records / Pay Application #3 (November 2026 enhancement)
-
-The application includes an **interactive, mobile-friendly Field Records** bottom sheet connected to the existing NV5 repair marks in 3D, plan and elevation views. Select any mark and choose **Edit field record** to record an observed condition, SOW line item, actual field quantity (with units), field status, observer, date, notes and guided verification steps. Updates recolor corresponding 3D/plan markers immediately on the current device.
-
-**Records > Pay App #3** contains a frozen **technical** extract of the provided Excel workbook, with measured quantities through **October 24, 2026**, for the period ending October 31, 2026. Four building tabs and 26 SOW codes are supported. Use the **Scope / PDF** tab to inspect contractual SOW descriptions, export/import an editable JSON field draft, download a safe Excel technical record or open a separate **revised field report** and save it as PDF through the browser's Print dialog.
-
-### Data, approvals and privacy
-
-- The original workbook contains **unit prices, contract values and payments**. These have **not** been committed to this public repository. The public dataset is `data/pay-app-3-quantities-public.json`; the sanitized technical spreadsheet is `docs/Barcelona_Pay_App_3_Technical_Quantities.xlsx`.
-- **Pay App quantities are field-measured billing backup**, not automatically work accepted, engineer-approved or completed. Do **not** add quantity-over-contract (CO) overages to measured totals; those overages are already part of the source totals.
-- NV5 repair marks, source unit quantities and new field records have **different provenance**. No measurements are automatically attributed to a particular NV5 mark merely because they share a building or unit number. Association requires field confirmation.
-- The original 10-sheet `Barcelona_Gardens_Typical_Elevations.pdf` remains **unchanged**. The revised field report is a separate print-ready document generated from the field draft.
-- This is a **static GitHub Pages application**. Field edits persist in **this browser's localStorage only** and update the interface immediately on that device. They are **not** server-synced across PMs/devices. Export JSON backups to preserve and transfer revisions. For shared real-time records, a secure authenticated backend and audit trail must be implemented.
-
+The previous main branch is preserved in `backup-before-barcelona-zip-2026-11-11`; existing public technical records remain untouched.

@@ -10,6 +10,9 @@ from elev_pdf import (MARKS, BLD, L, D, WE, RT, RB, PAIRS, PH, EB, EBZ, F2, EAVE
                       build_club, side_elev, dirW, toWorld, fft, fm, rot)
 
 W, H = 36 * 72, 24 * 72
+import json as _json, os as _os
+FIELD = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'data', 'field-bldg100.json')))['entries']
+FIELD_LABEL = {e['id']: 'F%d' % (i + 1) for i, e in enumerate(FIELD)}
 GRAY = Color(.42, .42, .42)
 LIGHT = Color(.88, .88, .88)
 LOGO = ImageReader(os.path.join(HERE, '..', 'docs', 'mtd-logo.png'))
@@ -42,6 +45,7 @@ def scale_label(s):
 
 
 # ---------------- elevación ----------------
+FIELD_SIDE = {}
 def draw_elevation(c, M, Lb, Db, side, ox, oy, s, marks, numbering, heights):
     items = [proj_box(side, Lb, Db, b) for b in M.boxes] + [proj_fr(side, Lb, Db, f) for f in M.fr]
     items.sort(key=lambda it: (-it['near'], PRIO.get(it['k'], 1)))
@@ -103,6 +107,17 @@ def draw_elevation(c, M, Lb, Db, side, ox, oy, s, marks, numbering, heights):
     ue = [it['u1'] for it in items if 'u1' in it] + [p[0] for it in items if 'poly' in it for p in it['poly']]
     umin, umax = min(us), max(ue)
     c.setLineWidth(2.6); c.setStrokeColor(black); c.line(ox + (umin - 1) * s, oy, ox + (umax + 4) * s, oy)
+    # field repairs (photos)
+    for fe in FIELD_SIDE.get('list', []):
+        if fe['side'] != side: continue
+        u0, u1 = sorted((proj_u(side, Lb, Db, fe['a0'], 0) if side in ('top', 'bottom') else proj_u(side, Lb, Db, 0, fe['a0']), proj_u(side, Lb, Db, fe['a1'], 0) if side in ('top', 'bottom') else proj_u(side, Lb, Db, 0, fe['a1'])))
+        x0, y0 = P(u0, fe['y0']); x1, y1 = P(u1, fe['y1'])
+        c.saveState(); c.setFillColor(Color(.86, .86, .86)); c.setStrokeColor(black); c.setLineWidth(.6)
+        p = c.beginPath(); p.rect(x0, y0, x1 - x0, y1 - y0); c.drawPath(p, fill=1, stroke=1); c.clipPath(p, stroke=0)
+        c.setStrokeColor(GRAY); c.setLineWidth(.4); k = -(y1 - y0)
+        while k < (x1 - x0): c.line(x0 + k, y0, x0 + k + (y1 - y0), y1); k += 4
+        c.restoreState()
+        T(c, (x0 + x1) / 2, y0 - 9, FIELD_LABEL[fe['id']], 7.5, 'B', 'c', Color(.5, .1, .05))
     # marcas
     pts = []
     for m in marks:
@@ -265,7 +280,11 @@ def title_block(c, info, page, total):
     # leyenda
     y -= 18; T(c, x0 + pad, y, 'Legend', 8.5, 'R', 'l', GRAY); y -= 18
     callout_legend(c, x0 + pad, y, 9)
-    y -= 2 * 17 + 18; sep(y)
+    y -= 2 * 17 + 18
+    if info.get('field'):
+        c.setFillColor(Color(.86, .86, .86)); c.setStrokeColor(black); c.setLineWidth(.6); c.rect(x0 + pad, y - 4, 16, 10, fill=1, stroke=1)
+        T(c, x0 + pad + 23, y - 3.4, 'Field repair seen in photos (F#)', 9); y -= 18
+    sep(y)
     # notas
     y -= 18; T(c, x0 + pad, y, 'Notes', 8.5, 'R', 'l', GRAY); y -= 14
     notes = ['Plan geometry measured from NV5 CAD drawings (3/16″ = 1′-0″).',
@@ -328,6 +347,7 @@ def mark_table(c, rows, x, y_top, col_w, y_bottom, ncols=1, gutter=30):
         T(c, xx + 5, y - 13.6, fft(m['dist']), 10, 'B' if st == 'conf' else 'R')
         y -= rh
         c.setStrokeColor(LIGHT); c.setLineWidth(.6); c.line(cx, y, cx + col_w, y)
+    return y
 
 
 def heights_for(b):
@@ -349,6 +369,7 @@ def elevation_sheet(c, b, sides, s, no, page, total, numbering, kind):
     block_h = lane_h + draw_h + tail
     gap = 34
     top = H - 40
+    FIELD_SIDE['list'] = FIELD if b == '100' else []
     for i, sd in enumerate(ordered):
         e = side_elev(b, sd)
         marks = [m for m in MARKS if m['b'] == b and m['side'] == sd]
@@ -376,13 +397,30 @@ def elevation_sheet(c, b, sides, s, no, page, total, numbering, kind):
     else:
         tx, ty0, tw_, yb, ncol = 1830, top, MAINR - 1830, 40, 1
     T(c, tx, ty0 - 4, 'Repairs on this sheet', 15, 'B')
-    if rows: mark_table(c, rows, tx, ty0 - 16, tw_, yb, ncol)
-    else: T(c, tx, ty0 - 30, 'No repairs marked on these elevations.', 11)
+    ylast = mark_table(c, rows, tx, ty0 - 16, tw_, yb, 1 if (b == '100' and kind == 'long') else ncol) if rows else ty0 - 30
+    if not rows: T(c, tx, ty0 - 30, 'No repairs marked on these elevations.', 11)
+    fl = [fe for fe in (FIELD if b == '100' else []) if fe['side'] in sides]
+    if fl:
+        fx, fy = (tx + tw_ + 30, ty0) if kind == 'long' else (tx, ylast - 30)
+        T(c, fx, fy - 4, 'Field repairs seen in photos · CompanyCam Nov 11, 2026', 13, 'B')
+        T(c, fx, fy - 18, 'Hatched areas on the elevations. Locations read from photos, approximate.', 9, 'R', 'l', GRAY)
+        yy = fy - 34
+        c.setFillColor(LIGHT); c.rect(fx, yy - 16, tw_, 16, fill=1, stroke=0)
+        for xo, hd in [(5, 'No.'), (40, 'Location'), (100, 'Description'), (tw_ - 60, 'Photos')]: T(c, fx + xo, yy - 11.5, hd, 9.5, 'B')
+        yy -= 16
+        for fe in fl:
+            lines = wrap(fe['note'], tw_ - 170, 9)
+            rh = 12 * len(lines) + 6
+            if yy - rh < 40: break
+            T(c, fx + 5, yy - 12, FIELD_LABEL[fe['id']], 9.5, 'B'); T(c, fx + 40, yy - 12, fe['unit'], 9.5)
+            for i2, ln in enumerate(lines): T(c, fx + 100, yy - 12 - i2 * 12, ln, 9)
+            T(c, fx + tw_ - 60, yy - 12, ', '.join(str(x) for x in fe['photos']), 9)
+            yy -= rh; c.setStrokeColor(LIGHT); c.setLineWidth(.6); c.line(fx, yy, fx + tw_, yy)
     name = 'Clubhouse' if b == 'club' else f'Building {b}'
     es = ' and '.join(f'{side_elev(b, sd)} {ENAME[side_elev(b, sd)]}' for sd in ordered)
     sub = [f'Phase {BLD[b]["phase"]} · ' + ('long faces' if kind == 'long' else ('faces with repairs' if b == 'club' else 'end faces'))]
     if b == 'club': sub.append('Dimensions from the aerial; the NV5 clubhouse drawing is not to scale. Entry location estimated.')
-    title_block(c, dict(title=f'{name} · Elevations {es}', sub=sub, key=(b, ordered), no=no, scale=G_scale(s), base=f"NV5 {BLD[b]['permit']}", permit=BLD[b]['permit']), page, total)
+    title_block(c, dict(field=(b == '100'), title=f'{name} · Elevations {es}', sub=sub, key=(b, ordered), no=no, scale=G_scale(s), base=f"NV5 {BLD[b]['permit']}", permit=BLD[b]['permit']), page, total)
     c.showPage()
 
 

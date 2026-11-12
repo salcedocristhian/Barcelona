@@ -5,260 +5,400 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Barcelona Gardens · Restoration Viewer</title>
 <meta name="description" content="3D model, plans and elevations of Barcelona Gardens Condominium with NV5 concrete and stucco repair locations.">
-<meta name="theme-color" content="#1D5FA7">
+<meta name="theme-color" content="#F6F1EB">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Barcelona">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/barcelona-icon-64.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/barcelona-icon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#E6EBEF; --surface:#FFFFFF; --surface-2:#F2F5F7; --ink:#15202A; --muted:#4F5D69; --line:#CBD4DB;
-  --accent:#1D5FA7; --accent-ink:#FFFFFF; --danger:#C8102E; --near:#B35C00; --scene:#D7E0E7;
-  --p-unit:#FFFFFF; --p-balc:#E3E8EC; --p-corr:#EEF2F5; --p-ground:#D9DFE4; --p-asphalt:#C3CBD1; --p-street:#AEB6BD;
+  --bg:#F6F1EB; --surface:#FFFFFF; --surface-2:#F7F2EC; --ink:#211B17; --muted:#6F655D; --line:#E9E0D7;
+  --accent:#D4563A; --accent-2:#E9774F; --accent-ink:#FFFFFF; --accent-soft:#FCE6DD; --good:#2F8A4E; --good-soft:#E3F2E7;
+  --danger:#C8102E; --near:#B35C00; --scene:#D9E4EC; --shadow:0 8px 28px rgba(60,35,20,.12);
+  --p-unit:#FFFFFF; --p-balc:#ECE6DF; --p-corr:#F4EFE9; --p-ground:#E6E0D9; --p-asphalt:#CFC8C1; --p-street:#BDB5AD;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0E1318; --surface:#161D24; --surface-2:#1D262E; --ink:#E5EBF0; --muted:#9DABB7; --line:#2C3843;
-    --accent:#76AEEA; --accent-ink:#0E1318; --danger:#FF5A6E; --near:#F0A040; --scene:#1A232C;
-    --p-unit:#1C252D; --p-balc:#26313A; --p-corr:#212B34; --p-ground:#1A2229; --p-asphalt:#25303A; --p-street:#2F3B46;
+    --bg:#13100E; --surface:#1D1916; --surface-2:#26201C; --ink:#F4EEE9; --muted:#B4A89F; --line:#3A312B;
+    --accent:#F0795A; --accent-2:#F59674; --accent-ink:#1A0F0A; --accent-soft:#3A2219; --good:#5CC27E; --good-soft:#18301F;
+    --danger:#FF5A6E; --near:#F0A040; --scene:#1B232B; --shadow:0 8px 28px rgba(0,0,0,.45);
+    --p-unit:#221D1A; --p-balc:#2C2622; --p-corr:#27211D; --p-ground:#1A1614; --p-asphalt:#2C2724; --p-street:#36302B;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0E1318; --surface:#161D24; --surface-2:#1D262E; --ink:#E5EBF0; --muted:#9DABB7; --line:#2C3843;
-  --accent:#76AEEA; --accent-ink:#0E1318; --danger:#FF5A6E; --near:#F0A040; --scene:#1A232C;
-  --p-unit:#1C252D; --p-balc:#26313A; --p-corr:#212B34; --p-ground:#1A2229; --p-asphalt:#25303A; --p-street:#2F3B46;
+  --bg:#13100E; --surface:#1D1916; --surface-2:#26201C; --ink:#F4EEE9; --muted:#B4A89F; --line:#3A312B;
+  --accent:#F0795A; --accent-2:#F59674; --accent-ink:#1A0F0A; --accent-soft:#3A2219; --good:#5CC27E; --good-soft:#18301F;
+  --danger:#FF5A6E; --near:#F0A040; --scene:#1B232B; --shadow:0 8px 28px rgba(0,0,0,.45);
+  --p-unit:#221D1A; --p-balc:#2C2622; --p-corr:#27211D; --p-ground:#1A1614; --p-asphalt:#2C2724; --p-street:#36302B;
   color-scheme:dark;
 }
-html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
-body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:15px/1.45 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-button,input{font:inherit;color:inherit}
-.cond{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif}
-.app{display:grid;grid-template-rows:auto auto minmax(0,1fr);height:100%}
-.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding:14px 20px 10px;background:var(--surface);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:14px}
-.brand img{height:48px;width:auto;display:block}
-.brand img.project-icon{width:48px;height:48px;object-fit:cover;border-radius:13px;flex:none;box-shadow:0 1px 4px #0002}
-.brand #mtdLogo[hidden]{display:none!important}
-.report-link{display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;min-height:40px;border:1px solid var(--line);border-radius:9px;text-decoration:none;font-weight:600;color:var(--ink);background:var(--surface);white-space:nowrap}
-.report-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.report-link:hover{border-color:var(--accent);color:var(--accent)}
-.report-card{border:1px solid var(--line);background:var(--surface-2);border-radius:10px;padding:12px}
-.report-card p{margin:5px 0 10px;font-size:13px;color:var(--muted)}
-.report-actions{display:flex;gap:8px;flex-wrap:wrap}
-.report-actions a{font-size:13px;text-decoration:none;color:var(--accent);font-weight:600;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
-.top h1{margin:0;font-size:20px;font-weight:600;letter-spacing:-.005em}
-#titleBlock .tbl{display:flex;align-items:center;gap:8px;border-top:0}
-#titleBlock .tbl img{height:30px;width:auto}
-.top p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
-.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:3px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line)}
-.seg button{border:0;background:transparent;padding:9px 14px;min-height:40px;border-radius:7px;font-weight:500;cursor:pointer;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
-.seg button:focus-visible,.btn:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--line)}
-.bar .lbl{font-size:13px;color:var(--muted)}
-.chip{border:1px solid var(--line);background:var(--surface);padding:8px 13px;min-height:40px;border-radius:999px;cursor:pointer;font-weight:500;display:inline-flex;align-items:center;gap:7px}
-.chip .sw{width:10px;height:10px;border-radius:3px;display:inline-block}
-.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.summary{margin-left:auto;font-size:13px;color:var(--muted)}
-main.layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;min-height:0}
-.stage{position:relative;min-height:0;background:var(--scene);overflow:hidden}
+body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font:15px/1.42 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+.cond{font-variant-numeric:tabular-nums}
+.app{display:flex;flex-direction:column;height:100%}
+/* top bar */
+.appbar{display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--bg)}
+.appbar img.icon{width:36px;height:36px;border-radius:9px;box-shadow:0 1px 3px #0003;flex:none}
+.appbar .ttl{min-width:0;flex:1}
+.appbar h1{margin:0;font-size:17px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar p{margin:0;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#mtdLogo{height:30px;width:auto;flex:none}
+/* views */
+.views{flex:1;min-height:0;position:relative}
+.view{position:absolute;inset:0;display:none}
+.view.on{display:flex}
+#workspace{flex-direction:column}
+.stage{position:relative;flex:1;min-height:220px;background:var(--scene);overflow:hidden}
 #three{position:absolute;inset:0}
 #three canvas{display:block;width:100%;height:100%;touch-action:none}
-#planWrap{position:absolute;inset:0;overflow:auto;background:var(--surface)}
+#planWrap{position:absolute;inset:0;overflow:auto;background:var(--surface);padding-top:96px}
 #planWrap svg{display:block;width:100%;height:auto;min-width:100%}
 .ov{position:absolute;pointer-events:none}
-.ov .card{pointer-events:auto}
-.viewtitle{left:14px;top:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;max-width:calc(100% - 120px)}
-.viewtitle b{display:block;font-size:14px;font-weight:600}
-.viewtitle span{font-size:12.5px;color:var(--muted)}
-#compass{right:14px;top:12px;width:58px;height:58px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center}
-.tools{right:14px;bottom:14px;display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;pointer-events:auto;max-width:calc(100% - 28px)}
-.btn{border:1px solid var(--line);background:var(--surface);padding:9px 13px;min-height:42px;border-radius:9px;cursor:pointer;font-weight:500}
-.btn[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
-.hint{left:14px;bottom:14px;font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;max-width:46%}
+.stage-top{position:absolute;top:10px;left:10px;right:10px;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;z-index:3}
+.stage-top>*{pointer-events:auto}
+.toprow{display:flex;align-items:center;gap:8px;width:100%;justify-content:space-between}
+.glass{background:color-mix(in srgb,var(--surface) 88%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:var(--shadow);border:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:999px}
+.seg button{border:0;background:transparent;padding:7px 14px;min-height:36px;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;color:var(--muted);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.14)}
+.seg.small button{padding:5px 11px;min-height:32px;font-size:13px}
+.pill{border:0;border-radius:999px;padding:8px 14px;min-height:40px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.iconbtn{width:42px;height:42px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;flex:none}
+.iconbtn svg,.fab svg,.rowbtn svg,.primary svg,.listrow svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.seg button:focus-visible,.pill:focus-visible,.iconbtn:focus-visible,.fab:focus-visible,.btn:focus-visible,.chip:focus-visible,.primary:focus-visible,.rowbtn:focus-visible,.listrow:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tools{position:absolute;right:12px;top:118px;display:flex;flex-direction:column;gap:10px;pointer-events:auto;z-index:2}
+.fab{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.fab[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.fab span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#compass{right:12px;top:62px;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;z-index:2}
+.viewtitle{left:12px;bottom:12px;border-radius:12px;padding:7px 11px;max-width:calc(100% - 90px);z-index:2}
+.viewtitle b{display:block;font-size:13px;font-weight:600}
+.viewtitle span{font-size:12px;color:var(--muted)}
+.hint{left:12px;bottom:62px;font-size:12px;color:var(--muted);border-radius:10px;padding:6px 10px;max-width:60%}
 #levels{inset:0}
 .lv{position:absolute;left:0;right:0;border-top:1px dashed var(--muted);opacity:.75}
-.lv span{position:absolute;left:10px;top:-19px;font-size:11.5px;background:var(--surface);padding:1px 6px;border-radius:4px;color:var(--ink);white-space:nowrap}
-#scalebar{left:14px;bottom:70px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px}
+.lv span{position:absolute;left:10px;top:-19px;font-size:11px;background:var(--surface);padding:1px 6px;border-radius:4px;color:var(--ink);white-space:nowrap}
+#scalebar{left:12px;bottom:60px;background:var(--surface);border-radius:10px;padding:6px 10px;font-size:12px}
 #scalebar i{display:block;height:6px;margin-top:4px;background:repeating-linear-gradient(90deg,var(--ink) 0 25%,transparent 25% 50%);border:1px solid var(--ink)}
-.panel{overflow:auto;border-left:1px solid var(--line);background:var(--surface)}
-.panel section{padding:16px 18px;border-bottom:1px solid var(--line)}
-.panel h2{margin:0 0 10px;font-size:15px;font-weight:600}
-.empty{color:var(--muted);font-size:14px;margin:0}
-.fcode{font-size:26px;font-weight:600;line-height:1.1}
-.fmean{margin:4px 0 10px;font-weight:500}
-.kv{display:grid;grid-template-columns:118px 1fr;gap:5px 10px;font-size:13.5px;margin:0}
-.kv dt{color:var(--muted)}
-.kv dd{margin:0}
-.alert{margin:12px 0 0;padding:9px 11px;border-radius:8px;font-size:13.5px}
-.alert.conf{background:color-mix(in srgb,var(--danger) 12%,transparent);color:var(--ink);border:1px solid var(--danger)}
+.banner{position:absolute;left:12px;right:12px;bottom:12px;z-index:4;border-radius:16px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.banner b{display:block;font-size:14px}.banner span{font-size:12.5px;color:var(--muted)}
+.banner .grow{flex:1;min-width:0}
+/* sheets */
+.sheet{background:var(--surface);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(60,35,20,.10);padding:6px 16px 14px;overflow:auto;-webkit-overflow-scrolling:touch;position:relative;z-index:5}
+.handle{display:block;width:44px;height:5px;border-radius:3px;background:var(--line);margin:4px auto 10px;border:0;padding:0;cursor:pointer}
+#homeSheet{max-height:46%}
+#modelSheet{max-height:40%;transition:max-height .25s}
+#modelSheet.expanded{max-height:78%}
+.sheet section{padding:12px 0;border-top:1px solid var(--line)}
+.sheet section:first-of-type{border-top:0}
+.sheet h2{margin:0 0 8px;font-size:15px;font-weight:700}
+.rowbtn{width:100%;display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:13px 14px;min-height:54px;cursor:pointer;text-align:left;font-weight:600;font-size:15.5px;margin-bottom:10px}
+.rowbtn .grow{flex:1}.rowbtn small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.primary{width:100%;display:flex;align-items:center;gap:12px;border:0;border-radius:16px;padding:14px 16px;min-height:54px;cursor:pointer;font-weight:700;font-size:16px;color:#fff;background:linear-gradient(180deg,var(--accent-2),var(--accent));box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 35%,transparent);text-align:left}
+.primary .grow{flex:1}
+.primary.center{justify-content:center;text-align:center}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 12px}
+.stat{flex:1;min-width:92px;background:var(--surface-2);border-radius:14px;padding:9px 11px}
+.stat b{display:block;font-size:17px}.stat span{font-size:12px;color:var(--muted)}
+.homehead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 10px}
+.homehead b{font-size:17px}.homehead span{display:block;font-size:12.5px;color:var(--muted)}
+/* tab bar */
+.appbar{order:0}.views{order:2}.tabbar{order:3;display:flex;justify-content:space-around;background:var(--surface);border-top:1px solid var(--line);padding:6px 4px 4px;position:relative;z-index:6}
+.tab{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--muted);padding:4px 10px;min-width:64px;min-height:48px;cursor:pointer}
+.tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-current="page"]{color:var(--accent)}
+/* pages */
+.page{overflow:auto;-webkit-overflow-scrolling:touch;flex-direction:column}
+.pagein{width:100%;max-width:760px;margin:0 auto;padding:10px 16px 30px}
+.pagehead{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px}
+.pagehead h1{margin:0;font-size:32px;font-weight:800;letter-spacing:-.02em}
+.plus{width:44px;height:44px;border-radius:50%;border:0;background:var(--accent-soft);color:var(--accent);font-size:26px;line-height:1;cursor:pointer}
+.seg2{display:flex;background:var(--surface-2);border-radius:999px;padding:4px;margin-bottom:14px}
+.seg2 button{flex:1;border:0;background:transparent;border-radius:999px;padding:9px;font-weight:600;color:var(--muted);cursor:pointer;min-height:40px}
+.seg2 button[aria-pressed="true"]{background:linear-gradient(180deg,var(--accent-2),var(--accent));color:#fff}
+.card{background:var(--surface);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:14px;cursor:pointer;border:0;width:100%;text-align:left}
+.card .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;flex:none;background:var(--accent-soft);color:var(--accent)}
+.card .ic svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.card .ic.good{background:var(--good-soft);color:var(--good)}
+.card .grow{flex:1;min-width:0}.card b{display:block;font-size:17px}.card span{font-size:13px;color:var(--muted)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--good-soft);color:var(--good);margin-top:5px}
+.badge.lock{background:var(--surface-2);color:var(--muted)}
+.group{background:var(--surface);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+.listrow{width:100%;display:flex;align-items:center;gap:14px;border:0;background:transparent;padding:15px 16px;min-height:54px;cursor:pointer;text-align:left;font-weight:600;font-size:15.5px;border-top:1px solid var(--line)}
+.listrow:first-child{border-top:0}
+.listrow .grow{flex:1;min-width:0}.listrow small{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+.fi{width:30px;height:30px;border-radius:7px;display:grid;place-items:center;font-size:10px;font-weight:800;color:#fff;flex:none}
+.fi.pdf{background:#E0442E}.fi.xls{background:#1E7A45}.fi.rep{background:var(--surface-2);color:var(--ink)}
+.sectionlabel{font-size:13px;font-weight:700;color:var(--muted);text-transform:none;margin:20px 4px 8px}
+.chev{opacity:.5}
+/* modal sheets */
+.modal{position:fixed;inset:0;z-index:40;background:rgba(25,15,10,.38);display:none;align-items:flex-end;justify-content:center}
+.modal.on{display:flex}
+.msheet{background:var(--surface);width:100%;max-width:560px;max-height:90%;overflow:auto;-webkit-overflow-scrolling:touch;border-radius:26px 26px 0 0;padding:6px 18px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:var(--shadow)}
+.modal.full .msheet{max-width:1180px;height:94%;max-height:94%;display:flex;flex-direction:column;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.mhead{display:flex;align-items:center;gap:10px;margin:2px 0 12px}
+.mhead h3{margin:0;font-size:18px;flex:1;display:flex;align-items:center;gap:8px}
+.mhead .close{width:36px;height:36px;border-radius:50%;border:0;background:var(--surface-2);cursor:pointer;font-size:18px}
+.target{width:22px;height:22px;flex:none;stroke:var(--accent);fill:none;stroke-width:2}
+.tagok{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--good-soft);color:var(--good)}
+.field{display:grid;grid-template-columns:90px 1fr;align-items:center;gap:10px;margin:10px 0}
+.field>label{font-weight:600;font-size:14px}
+.inp{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;min-height:44px}
+textarea.inp{min-height:76px;resize:vertical}
+.qty{display:flex;gap:8px}.qty .inp{flex:1}.qty .u{min-width:64px;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;font-weight:600;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);padding:8px 13px;min-height:40px;border-radius:999px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.chip .sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding:4px 0}
+.thumbs button{border:0;padding:0;background:none;cursor:pointer;flex:none;position:relative}
+.thumbs img{width:76px;height:76px;object-fit:cover;border-radius:12px;display:block}
+.thumbs .add{width:76px;height:76px;border-radius:12px;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:12px;font-weight:600}
+.note{font-size:12.5px;color:var(--muted);margin:6px 0}
+.actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface);padding:10px 14px;min-height:44px;border-radius:12px;cursor:pointer;font-weight:600}
+.btn.danger{color:var(--danger)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+/* pay app viewer */
+.ptabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;flex:none}
+.pbody{flex:1;min-height:0;overflow:auto;border:1px solid var(--line);border-radius:12px}
+table.pt{border-collapse:separate;border-spacing:0;font-size:12px;width:max-content;min-width:100%}
+table.pt th,table.pt td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:5px 7px;text-align:center;white-space:nowrap}
+table.pt th{position:sticky;top:0;background:#204579;color:#fff;font-weight:700;z-index:2;white-space:normal;min-width:62px}
+table.pt td.desc{text-align:left;white-space:normal;min-width:220px;max-width:340px}
+table.pt th.sticky,table.pt td.sticky{position:sticky;left:0;z-index:1;background:var(--surface)}
+table.pt th.sticky{z-index:3;background:#204579}
+table.pt tr.sec td{background:#DCE6F1;color:#204579;font-weight:700;text-align:left}
+table.pt tr.tot td{font-weight:700}
+table.pt td.cur{font-weight:700;background:color-mix(in srgb,var(--accent-soft) 60%,transparent)}
+table.pt input{width:64px;border:1px solid var(--line);border-radius:6px;padding:4px;text-align:center;background:var(--surface)}
+table.pt input.ch{border-color:var(--accent);background:var(--accent-soft)}
+.pfoot{display:flex;gap:8px;flex-wrap:wrap;padding-top:10px;flex:none;align-items:center}
+.pfoot .grow{flex:1;font-size:13px;color:var(--muted)}
+.dates{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;flex:none}
+.dates label{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:12px;z-index:60;font-weight:600;font-size:14px;max-width:90%;display:none}
+.toast.on{display:block}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.gallery button{border:0;padding:0;background:none;cursor:pointer;position:relative}
+.gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block}
+.gallery i{position:absolute;left:5px;top:5px;background:#000a;color:#fff;font-style:normal;font-size:11px;font-weight:700;padding:1px 6px;border-radius:6px}
+.bigimg{width:100%;border-radius:14px;display:block}
+/* old viewer bits still used */
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.list button{width:100%;text-align:left;border:1px solid var(--line);background:var(--surface-2);border-radius:12px;padding:9px 11px;cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.list button .d{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}
+.tag{font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:999px;margin-left:6px}
+.tag.conf{background:var(--danger);color:#fff}.tag.near{background:var(--near);color:#fff}
+.layers label{display:flex;align-items:center;gap:10px;min-height:40px;cursor:pointer}
+.layers input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent)}
+.layers input[type=range]{width:100%;accent-color:var(--accent)}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;font-size:13px;margin-top:6px}
+.small{font-size:13px;color:var(--muted)}.empty{color:var(--muted);font-size:14px;margin:0}
+.fcode{font-size:24px;font-weight:700;line-height:1.1}.fmean{margin:4px 0 10px;font-weight:500}
+.kv{display:grid;grid-template-columns:104px 1fr;gap:5px 10px;font-size:13.5px;margin:0}.kv dt{color:var(--muted)}.kv dd{margin:0}
+.alert{margin:12px 0 0;padding:9px 11px;border-radius:12px;font-size:13.5px}
+.alert.conf{background:color-mix(in srgb,var(--danger) 12%,transparent);border:1px solid var(--danger)}
 .alert.near{background:color-mix(in srgb,var(--near) 12%,transparent);border:1px solid var(--near)}
 .alert.ok{background:var(--surface-2);border:1px solid var(--line)}
 .row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.list button{width:100%;text-align:left;border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:9px 11px;cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
-.list button .d{font-size:12.5px;color:var(--muted);white-space:nowrap}
-.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:baseline}
-.tag{font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:999px;margin-left:6px}
-.tag.conf{background:var(--danger);color:#fff}
-.tag.near{background:var(--near);color:#fff}
-.layers label{display:flex;align-items:center;gap:10px;min-height:38px;cursor:pointer}
-.layers input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
-.layers input[type=range]{width:100%;accent-color:var(--accent)}
-.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;font-size:13px;margin-top:6px}
-.small{font-size:13px;color:var(--muted)}
+.verify li{font-size:13.5px;padding:8px 10px;border-radius:12px;background:color-mix(in srgb,var(--near) 10%,transparent);border:1px solid color-mix(in srgb,var(--near) 45%,transparent)}
 .src p{margin:0 0 9px;font-size:13.5px}
-.src p b{font-weight:600}
-.verify li{font-size:13.5px;padding:8px 10px;border-radius:8px;background:color-mix(in srgb,var(--near) 10%,transparent);border:1px solid color-mix(in srgb,var(--near) 45%,transparent)}
-.p-unit{fill:var(--p-unit);stroke:var(--ink);stroke-width:.35}
-.p-balc{fill:var(--p-balc);stroke:var(--muted);stroke-width:.3}
-.p-corr{fill:var(--p-corr);stroke:var(--ink);stroke-width:.35}
-.p-out{fill:none;stroke:var(--ink);stroke-width:.9}
-.p-txt{fill:var(--ink);font-family:"IBM Plex Sans Condensed",sans-serif}
-.p-mut{fill:var(--muted);font-family:"IBM Plex Sans Condensed",sans-serif}
-.p-dim{stroke:var(--muted);stroke-width:.25;fill:none}
-.p-mark{cursor:pointer}
-.p-bldg{cursor:pointer}
-.p-bldg:hover rect{stroke-width:1.6}
+#bchips{display:flex;flex-wrap:wrap;gap:6px}
+.p-unit{fill:var(--p-unit);stroke:var(--ink);stroke-width:.35}.p-balc{fill:var(--p-balc);stroke:var(--muted);stroke-width:.3}
+.p-corr{fill:var(--p-corr);stroke:var(--ink);stroke-width:.35}.p-txt{fill:var(--ink)}.p-mut{fill:var(--muted)}
+.p-dim{stroke:var(--muted);stroke-width:.25;fill:none}.p-mark,.p-bldg,.p-field{cursor:pointer}
 .nogl{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
 .stage.tech{--surface:#FFFFFF;--ink:#000000;--muted:#333333;--line:#000000;background:#FFFFFF;color:#000}
-.stage.tech .lv{border-top:1px solid #000;opacity:1}
-.stage.tech .lv span{border:1px solid #000;color:#000;background:#fff}
-.stage.tech .viewtitle,.stage.tech #scalebar,.stage.tech .btn{border-color:#000;color:#000;background:#fff}
-.stage.tech .viewtitle span{color:#333}
-.stage.tech .btn[aria-pressed="true"]{background:#000;color:#fff}
+.stage.tech .lv{border-top:1px solid #000;opacity:1}.stage.tech .lv span{border:1px solid #000;color:#000;background:#fff}
 #techLabels{inset:0}
-#techLabels b{position:absolute;transform:translate(-50%,-165%);font:600 11px "IBM Plex Sans Condensed",sans-serif;color:#000;background:#fff;padding:0 3px;white-space:nowrap}
-#titleBlock{right:14px;bottom:70px;background:#fff;color:#000;border:1.5px solid #000;font-size:12px;max-width:min(270px,calc(100% - 170px))}
-#titleBlock div{padding:4px 9px;border-top:1px solid #000}
-#titleBlock div:first-child{border-top:0;font-weight:600}
-@media (max-width:880px){
-  .app{height:auto;display:block}
-  main.layout{display:block}
-  .stage{height:62vh;min-height:360px}
-  .panel{border-left:0;overflow:visible}
-  .summary{margin-left:0;width:100%}
-  .hint{display:none}
-  .top{padding:12px 14px 8px}.bar{padding:8px 14px}
-  .brand img{height:38px}
+#techLabels b{position:absolute;transform:translate(-50%,-165%);font:600 11px -apple-system,sans-serif;color:#000;background:#fff;padding:0 3px;white-space:nowrap}
+#titleBlock{right:12px;bottom:60px;background:#fff;color:#000;border:1.5px solid #000;font-size:12px;max-width:min(270px,calc(100% - 170px))}
+#titleBlock div{padding:4px 9px;border-top:1px solid #000}#titleBlock div:first-child{border-top:0;font-weight:600}
+#titleBlock .tbl{display:flex;align-items:center;gap:8px}#titleBlock .tbl img{height:28px;width:auto}
+/* tab-specific */
+.app[data-tab="home"] #modelSheet,.app[data-tab="model"] #homeSheet{display:none}
+.app[data-tab="home"] [data-view="plan"]{display:none}
+.app[data-tab="home"] .viewtitle,.app[data-tab="home"] #hint{display:none}
+.app[data-tab="home"] #bchipsWrap{display:none}
+/* desktop */
+@media (min-width:900px){
+  #workspace{flex-direction:row}
+  .sheet{border-radius:0;max-height:none!important;width:400px;flex:none;box-shadow:none;border-left:1px solid var(--line)}
+  .handle{display:none}
+  .modal{align-items:center}
+  .msheet{border-radius:24px;padding-bottom:18px}
+  .tabbar{order:1;justify-content:flex-start;gap:6px;border-top:0;border-bottom:1px solid var(--line);padding:2px 12px}
+  .tab{flex-direction:row;gap:8px;font-size:14px;min-height:44px}
+  .tab svg{width:20px;height:20px}
+  .toast{bottom:24px}
 }
-@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto}}
+@media (max-width:440px){.seg button{padding:7px 10px;font-size:13.5px}.pill{padding:8px 11px}.app[data-tab="model"] .viewtitle,.app[data-tab="model"] #hint{display:none}}
+.pill,.chip{white-space:nowrap}
+@media (prefers-reduced-motion: reduce){#modelSheet{transition:none}}
 </style>
 </head>
 <body>
-<div class="app">
-  <header class="top">
-    <div class="brand">
-      <img class="project-icon" src="assets/barcelona-icon-192.png" width="48" height="48" alt="Barcelona Gardens app icon">
-      <img id="mtdLogo" hidden src="data:image/png;base64,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" alt="MTD Painting &amp; Construction" width="203" height="108">
-      <div>
-      <h1>Barcelona Gardens</h1>
-      <p>Concrete &amp; Stucco Restoration Viewer · 101 E McNab Rd, Pompano Beach</p>
-      </div>
-    </div>
-    <div class="seg" role="group" aria-label="View">
-      <button type="button" data-view="3d" aria-pressed="true">3D</button>
-      <button type="button" data-view="plan" aria-pressed="false">Plan</button>
-      <button type="button" data-view="elev" aria-pressed="false">Elevations</button>
-    </div>
-    <a class="report-link" href="docs/Barcelona_Gardens_Typical_Elevations.pdf" target="_blank" rel="noopener" aria-label="Open Barcelona Gardens technical report PDF in a new tab">Open Report PDF ↗</a>
+<div class="app" data-tab="home">
+  <header class="appbar">
+    <img class="icon" src="assets/barcelona-icon-192.png" width="36" height="36" alt="">
+    <div class="ttl"><h1>Barcelona Gardens</h1><p>Restoration · 101 E McNab Rd, Pompano Beach</p></div>
+    <img id="mtdLogo" src="docs/mtd-logo.png" alt="MTD Painting &amp; Construction" width="203" height="108">
   </header>
-  <div class="bar">
-    <div class="chips" id="bchips" role="group" aria-label="Building"></div>
-    <div class="seg" id="floorSeg" role="group" aria-label="Floor" hidden>
-      <button type="button" data-floor="1" aria-pressed="true">Ground floor</button>
-      <button type="button" data-floor="2" aria-pressed="false">2nd floor</button>
-    </div>
-    <div class="seg" id="elevSeg" role="group" aria-label="Elevation" hidden>
-      <button type="button" data-elev="1" aria-pressed="true">1 West</button>
-      <button type="button" data-elev="2" aria-pressed="false">2 South</button>
-      <button type="button" data-elev="3" aria-pressed="false">3 East</button>
-      <button type="button" data-elev="4" aria-pressed="false">4 North</button>
-    </div>
-    <span class="summary" id="summary"></span>
-  </div>
-  <main class="layout">
-    <section class="stage" id="stage" aria-label="Site view">
-      <div id="three"></div>
-      <div id="planWrap" hidden></div>
-      <div class="ov" id="levels" hidden></div>
-      <div class="ov" id="techLabels" hidden></div>
-      <div class="ov" id="titleBlock" hidden></div>
-      <div class="ov viewtitle"><b id="vtTitle">3D model</b><span id="vtSub">Drag to orbit · pinch or scroll to zoom</span></div>
-      <div class="ov" id="compass" aria-label="North"><svg width="40" height="40" viewBox="-20 -20 40 40" aria-hidden="true"><g id="compassNeedle"><polygon points="0,-12 5,6 0,2 -5,6" fill="var(--danger)"></polygon><text x="0" y="-13" font-size="8" text-anchor="middle" fill="var(--ink)" font-weight="600">N</text></g></svg></div>
-      <div class="ov" id="scalebar" hidden><span id="sbText">20′-0″</span><i id="sbBar"></i></div>
-      <div class="ov hint" id="hint">Tap a mark to see its details.</div>
-      <div class="ov tools" id="tools3d">
-        <button class="btn" type="button" id="bReset">Overview</button>
-        <button class="btn" type="button" id="bXray" aria-pressed="false">X-ray</button>
-        <button class="btn" type="button" id="bCut" aria-pressed="false">Hide 2nd floor</button>
-      </div>
-      <div class="ov tools" id="toolsPlan" hidden>
-        <button class="btn" type="button" id="zOut" aria-label="Zoom out">−</button>
-        <button class="btn" type="button" id="zIn" aria-label="Zoom in">+</button>
-      </div>
-      <div class="ov tools" id="toolsElev" hidden>
-        <button class="btn" type="button" id="bTech" aria-pressed="false">Black &amp; white</button>
-        <button class="btn" type="button" id="bFit">Fit view</button>
-      </div>
-    </section>
-    <aside class="panel" aria-label="Details">
-      <section id="reportPanel" aria-label="Technical report">
-        <h2>Technical Report</h2>
-        <div class="report-card">
-          <strong>Typical Elevations · Concrete &amp; Stucco Repairs</strong>
-          <p>MTD reference report · 10 sheets · November 11, 2026. Includes building elevations and numbered repair locations. Coordination reference only; not a replacement for signed NV5 drawings.</p>
-          <div class="report-actions">
-            <a href="docs/Barcelona_Gardens_Typical_Elevations.pdf" target="_blank" rel="noopener">View PDF ↗</a>
-            <a href="docs/Barcelona_Gardens_Typical_Elevations.pdf" download="Barcelona_Gardens_Typical_Elevations.pdf">Download PDF ↓</a>
+  <nav class="tabbar" aria-label="Main">
+    <button class="tab" data-tab="home" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+    <button class="tab" data-tab="model"><svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg>Model</button>
+    <button class="tab" data-tab="records"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>Records</button>
+    <button class="tab" data-tab="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Account</button>
+  </nav>
+  <div class="views">
+    <div class="view on" id="workspace">
+      <section class="stage" id="stage" aria-label="Site view">
+        <div id="three"></div>
+        <div id="planWrap" hidden></div>
+        <div class="ov" id="levels" hidden></div>
+        <div class="ov" id="techLabels" hidden></div>
+        <div class="ov" id="titleBlock" hidden></div>
+        <div class="stage-top">
+          <div class="toprow">
+            <button class="pill glass" id="bldPill" type="button" aria-haspopup="dialog"><span id="bldPillText">Site</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="seg glass" role="group" aria-label="View">
+              <button type="button" data-view="3d" aria-pressed="true">3D Model</button>
+              <button type="button" data-view="plan" aria-pressed="false">Plan</button>
+              <button type="button" data-view="elev" aria-pressed="false">Elevations</button>
+            </div>
+            <button class="iconbtn glass" id="moreBtn" type="button" aria-label="More options"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></button>
+          </div>
+          <div class="seg small glass" id="floorSeg" role="group" aria-label="Floor" hidden>
+            <button type="button" data-floor="1" aria-pressed="true">Ground floor</button>
+            <button type="button" data-floor="2" aria-pressed="false">2nd floor</button>
+          </div>
+          <div class="seg small glass" id="elevSeg" role="group" aria-label="Elevation" hidden>
+            <button type="button" data-elev="1" aria-pressed="true">1 West</button>
+            <button type="button" data-elev="2" aria-pressed="false">2 South</button>
+            <button type="button" data-elev="3" aria-pressed="false">3 East</button>
+            <button type="button" data-elev="4" aria-pressed="false">4 North</button>
           </div>
         </div>
+        <div class="ov glass" id="compass" aria-label="North"><svg width="40" height="40" viewBox="-20 -20 40 40" aria-hidden="true"><g id="compassNeedle"><polygon points="0,-12 5,6 0,2 -5,6" fill="var(--danger)"></polygon><text x="0" y="-13" font-size="8" text-anchor="middle" fill="var(--ink)" font-weight="600">N</text></g></svg></div>
+        <div class="ov glass viewtitle"><b id="vtTitle">3D model</b><span id="vtSub">Drag to orbit · pinch or scroll to zoom</span></div>
+        <div class="ov glass hint" id="hint">Tap a mark to see its details.</div>
+        <div class="ov" id="scalebar" hidden><span id="sbText">20′-0″</span><i id="sbBar"></i></div>
+        <div class="tools" id="tools3d">
+          <button class="fab glass" type="button" id="bReset" title="Overview" aria-label="Overview"><svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg></button>
+          <button class="fab glass" type="button" id="bFocus" title="Focus building" aria-label="Focus selected building"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+          <button class="fab glass" type="button" id="bXray" aria-pressed="false" title="X-ray" aria-label="X-ray"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5" stroke-dasharray="2 2.5"/></svg></button>
+          <button class="fab glass" type="button" id="bCut" aria-pressed="false" title="Hide 2nd floor" aria-label="Hide 2nd floor"><svg viewBox="0 0 24 24"><path d="M3 15l9 5 9-5"/><path d="M3 9l9 5 9-5-9-5z" stroke-dasharray="2 2.5"/></svg></button>
+        </div>
+        <div class="tools" id="toolsPlan" hidden>
+          <button class="fab glass" type="button" id="zIn" aria-label="Zoom in"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button class="fab glass" type="button" id="zOut" aria-label="Zoom out"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+        </div>
+        <div class="tools" id="toolsElev" hidden>
+          <button class="fab glass" type="button" id="bTech" aria-pressed="false" title="Black &amp; white" aria-label="Black and white drawing"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+          <button class="fab glass" type="button" id="bFit" title="Fit view" aria-label="Fit view"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        </div>
+        <div class="banner glass" id="placeBanner" hidden>
+          <svg class="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg>
+          <div class="grow"><b id="placeTitle">New field report</b><span id="placeText">Tap the face of the building where the repair is.</span></div>
+          <button class="btn" type="button" id="placeAttach">Photos</button>
+          <button class="btn" type="button" id="placeDone">Done</button>
+        </div>
       </section>
-      <section id="ficha"><h2>Mark details</h2><p class="empty">Tap a mark in the model, the plan or the list below.</p></section>
-      <section>
-        <h2 id="confTitle">Near exits</h2>
-        <p class="small" id="confNote" style="margin:0 0 10px"></p>
-        <ul class="list" id="confList"></ul>
-      </section>
-      <section class="layers">
-        <h2>Layers</h2>
-        <label><input type="checkbox" id="lMarks" checked> Repair marks</label>
-        <label><input type="checkbox" id="lDev" checked> Life-safety devices</label>
-        <label><input type="checkbox" id="lPhase"> Color walls by phase</label>
-        <label><input type="checkbox" id="lOnly"> Only marks near exits</label>
-        <label for="rRad" style="display:block;min-height:0;margin-top:8px">Distance to exit: <b id="rVal" class="cond"></b></label>
-        <input type="range" id="rRad" min="5" max="30" step="1" value="15">
-        <div class="legend" id="legend"></div>
-      </section>
-      <section>
-        <h2>To verify</h2>
-        <ul class="list verify" id="verify"></ul>
-      </section>
-      <section class="src">
-        <h2>Where each measurement comes from</h2>
-        <p><b>Building floor plans:</b> measured from NV5 CAD drawings (scale 3/16″ = 1′-0″). Length 201′-7″, depth 78′-4″, 25′-0″ units and a 5′-0″ corridor. All four buildings are identical.</p>
-        <p><b>Orientation:</b> from the north arrow on each NV5 sheet.</p>
-        <p><b>Plan location of each mark:</b> from the NV5 drawing for its building; the sheet is listed in the details.</p>
-        <p><b>Heights:</b> estimated from photos (floor-to-floor 9′-4″, eave 18′-8″, roof 22′-4″). No drawing gives heights, so each mark’s height is approximate.</p>
-        <p><b>Site, clubhouse, pool and parking:</b> aerial view calibrated to the measured building length. Accuracy is within a few feet.</p>
-        <p><b>Life-safety devices:</b> from the typical diagram in the phasing plan, which is not to scale. Assumed identical in all four buildings and on both floors.</p>
-        <p><b>Windows, entrances and finishes:</b> from photos of Building 100, applied to all.</p>
-      </section>
-    </aside>
-  </main>
+      <aside class="sheet" id="homeSheet" aria-label="Home">
+        <span class="handle" aria-hidden="true"></span>
+        <div class="homehead"><div><b id="homeTitle">Barcelona Gardens</b><span id="homeMeta"></span></div></div>
+        <div class="stats" id="homeStats"></div>
+        <button class="rowbtn" type="button" id="openRecord"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="grow" id="openRecordText">Pay App 3 — Record</span><svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button class="primary" type="button" id="newReport"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></svg><span class="grow">New Field Report</span><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+      </aside>
+      <aside class="sheet" id="modelSheet" aria-label="Details">
+        <button class="handle" type="button" id="sheetHandle" aria-label="Expand or collapse details"></button>
+        <section id="bchipsWrap"><div class="small" id="summary" style="margin-bottom:8px"></div><div id="bchips" role="group" aria-label="Building"></div></section>
+        <section id="ficha"><h2>Mark details</h2><p class="empty">Tap a mark in the model, the plan or the list below.</p></section>
+        <section id="fieldList"></section>
+        <section><h2 id="confTitle">Near exits</h2><p class="small" id="confNote" style="margin:0 0 10px"></p><ul class="list" id="confList"></ul></section>
+        <section class="layers" id="layersSec">
+          <h2>Layers</h2>
+          <label><input type="checkbox" id="lMarks" checked> NV5 repair marks</label>
+          <label><input type="checkbox" id="lField" checked> Field repairs (photos)</label>
+          <label><input type="checkbox" id="lDev" checked> Life-safety devices</label>
+          <label><input type="checkbox" id="lPhase"> Color walls by phase</label>
+          <label><input type="checkbox" id="lOnly"> Only marks near exits</label>
+          <label for="rRad" style="display:block;min-height:0;margin-top:8px">Distance to exit: <b id="rVal" class="cond"></b></label>
+          <input type="range" id="rRad" min="5" max="30" step="1" value="15">
+          <div class="legend" id="legend"></div>
+        </section>
+        <section><h2>To verify</h2><ul class="list verify" id="verify"></ul></section>
+        <section class="src">
+          <h2>Where each measurement comes from</h2>
+          <p><b>Building floor plans:</b> measured from NV5 CAD drawings (scale 3/16″ = 1′-0″). Length 201′-7″, depth 78′-4″, 25′-0″ units and a 5′-0″ corridor. All four buildings are identical.</p>
+          <p><b>Orientation:</b> from the north arrow on each NV5 sheet.</p>
+          <p><b>Plan location of each mark:</b> from the NV5 drawing for its building; the sheet is listed in the details.</p>
+          <p><b>Field repairs:</b> Building 100 repairs are placed from the CompanyCam report of Nov 11, 2026 (49 photos, no captions). Positions are read from the photos and are approximate; edit any of them from its details.</p>
+          <p><b>Heights:</b> estimated from photos (floor-to-floor 9′-4″, eave 18′-8″, roof 22′-4″).</p>
+          <p><b>Site, clubhouse, pool and parking:</b> aerial view calibrated to the measured building length.</p>
+          <p><b>Life-safety devices:</b> from the typical diagram in the phasing plan, which is not to scale.</p>
+        </section>
+      </aside>
+    </div>
+    <div class="view page" id="recordsPage">
+      <div class="pagein">
+        <div class="pagehead"><h1>Records</h1><button class="plus" type="button" id="recPlus" aria-label="Attach photos or a report">+</button></div>
+        <div class="seg2" role="group" aria-label="Records or drafts"><button type="button" data-rec="records" aria-pressed="true">Records</button><button type="button" data-rec="drafts" aria-pressed="false">Drafts</button></div>
+        <div id="recList"></div>
+        <div class="group">
+          <button class="listrow" type="button" id="exportPdf"><span class="fi pdf">PDF</span><span class="grow">Export PDF<small id="exportPdfSub"></small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="listrow" type="button" id="openExcel"><span class="fi xls">X</span><span class="grow">Open Excel Record<small id="openExcelSub"></small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="listrow" type="button" id="genReport"><span class="fi rep"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span class="grow">Generate Updated Report<small>Elevations with field repairs and photos</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="sectionlabel">Field photo reports</div>
+        <div class="group" id="photoReports"></div>
+        <div class="sectionlabel">Documents</div><p class="note" style="margin:0 0 12px">Public technical record: contract prices, payment amounts and financial exports are intentionally excluded. Field-repair PDF export remains available.</p>
+        <div class="group">
+          <a class="listrow" href="docs/Barcelona_Gardens_Typical_Elevations.pdf" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="fi pdf">PDF</span><span class="grow">Typical Elevations · 36×24″<small>Concrete &amp; stucco repairs per NV5, with Bldg 100 field repairs</small></span></a>
+          <a class="listrow" href="docs/Barcelona_Pay_App_3_Technical_Quantities.xlsx" download style="text-decoration:none;color:inherit"><span class="fi xls">X</span><span class="grow">Pay App #3 · Technical quantity record<small>Quantities through October 24, 2026 · No pricing</small></span></a>
+        </div>
+      </div>
+    </div>
+    <div class="view page" id="settingsPage">
+      <div class="pagein">
+        <div class="pagehead"><h1>Account</h1></div>
+        <div class="group">
+          <div class="listrow" style="cursor:default"><span class="grow">MTD Painting &amp; Construction Corp.<small>Project MTD2025-016 · Barcelona Gardens Condominium</small></span></div>
+          <div class="listrow" style="cursor:default"><span class="grow">Data on this device<small id="storageInfo">Checking…</small></span></div>
+        </div>
+        <div class="sectionlabel">Backup</div>
+        <div class="group">
+          <button class="listrow" type="button" id="backupBtn"><span class="grow">Export backup<small>Drafts, records, field repairs and photos in one file</small></span></button>
+          <button class="listrow" type="button" id="restoreBtn"><span class="grow">Restore from backup<small>Load a backup file from another device</small></span></button>
+          <button class="listrow" type="button" id="resetBtn" style="color:var(--danger)"><span class="grow">Reset data on this device<small>Keeps Pay App #3 and the Bldg 100 photo report</small></span></button>
+        </div>
+        <p class="note">This app runs from GitHub Pages without a server. Drafts, records and photos you add are saved only in this browser on this device. Export a backup to move them to another device or to keep a copy.</p>
+        <input type="file" id="restoreFile" accept="application/json,.json" hidden>
+      </div>
+    </div>
+  </div>
 </div>
 
+<div class="modal" id="repairModal" role="dialog" aria-modal="true" aria-labelledby="repTitle"><div class="msheet" id="repairSheet"></div></div>
+<div class="modal full" id="payModal" role="dialog" aria-modal="true" aria-labelledby="payTitle"><div class="msheet" id="paySheet"></div></div>
+<div class="modal" id="actModal" role="dialog" aria-modal="true" aria-labelledby="actTitle"><div class="msheet" id="actSheet"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="photoFile" accept="image/*" multiple hidden>
+<input type="file" id="attachFile" accept="image/*,application/pdf" multiple hidden>
+
+<script type="application/json" id="payappBase">{"project":"Barcelona Gardens Restoration (MTD2025-016) - 101 E. McNab Road, Pompano Beach, FL 33060","contract":"Restoration Contract MTD2025-016-12","coTitle":"Change Order MTD2025-016-25 - Extra Quantities Pay App 3 (quantities over the contract quantity, at contract unit prices)","payApps":[{"no":1,"label":"Pay App #1"},{"no":2,"label":"Pay App #2"},{"no":3,"label":"Pay App #3","through":"2026-10-24","period":"2026-10-31","title3":"Schedule of Values - Billing by Pay Application (Pay App #3 quantities from the Bldg 100 and Bldg 200 backup)","title4":"Pay Application #3 - Quantities through October 24, 2026 (period to October 31, 2026)"}],"rows":[{"no":1,"b":"100","code":"1","name":"Video & Precondition Survey","desc":"Bldg 100 - Item 1 - Video & Precondition Survey","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":2,"b":"100","code":"2A","name":"Mobilization","desc":"Bldg 100 - Item 2A - Mobilization","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":3,"b":"100","code":"2B","name":"General Conditions","desc":"Bldg 100 - Item 2B - General Conditions","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":4,"b":"100","code":"3","name":"Shoring","desc":"Bldg 100 - Item 3 - Shoring","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":5,"b":"100","code":"4A","name":"Overhead Ceiling Spall Repairs","desc":"Bldg 100 - 4A - Overhead Ceiling Spall Repairs","unit":"SF","qty":30,"price":0,"paid":[0,0,0]},{"no":6,"b":"100","code":"4B","name":"Partial Depth Floor Repairs","desc":"Bldg 100 - 4B - Partial Depth Floor Repairs","unit":"SF","qty":50,"price":0,"paid":[0,0,0]},{"no":7,"b":"100","code":"4C","name":"Full Depth Floor Repairs","desc":"Bldg 100 - 4C - Full Depth Floor Repairs","unit":"SF","qty":10,"price":0,"paid":[0,0,0]},{"no":8,"b":"100","code":"4D","name":"Slab Edge Repairs back to 8\"","desc":"Bldg 100 - 4D - Slab Edge Repairs back to 8\"","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":9,"b":"100","code":"4E","name":"Concrete Column Repairs","desc":"Bldg 100 - 4E - Concrete Column Repairs","unit":"CF","qty":5,"price":0,"paid":[0,0,0]},{"no":10,"b":"100","code":"4F","name":"Concrete Beam Repairs","desc":"Bldg 100 - 4F - Concrete Beam Repairs","unit":"CF","qty":8,"price":0,"paid":[0,0,0]},{"no":11,"b":"100","code":"4G","name":"Rust Spot Repairs","desc":"Bldg 100 - 4G - Rust Spot Repairs","unit":"EA","qty":30,"price":0,"paid":[0,0,0]},{"no":12,"b":"100","code":"4H","name":"Shutters (Accordion) Remove & Reinstall","desc":"Bldg 100 - 4H - Shutters (Accordion) Remove & Reinstall","unit":"LF","qty":12,"price":0,"paid":[0,0,0]},{"no":13,"b":"100","code":"4I","name":"Shutters Bottom/Top Track Removal & Reinstall","desc":"Bldg 100 - 4I - Shutters Bottom/Top Track Removal & Reinstall","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":14,"b":"100","code":"4J","name":"Crack Repair - Route & Apply Sealant","desc":"Bldg 100 - 4J - Crack Repair - Route & Apply Sealant","unit":"LF","qty":50,"price":0,"paid":[0,0,0]},{"no":15,"b":"100","code":"4K","name":"#5 Reinforcing Bar Replacement","desc":"Bldg 100 - 4K - #5 Reinforcing Bar Replacement","unit":"LF","qty":20,"price":0,"paid":[0,0,0]},{"no":16,"b":"100","code":"4L","name":"Dowel & Epoxy Reinforcing Bar","desc":"Bldg 100 - 4L - Dowel & Epoxy Reinforcing Bar","unit":"EA","qty":2,"price":0,"paid":[0,0,0]},{"no":17,"b":"100","code":"4M","name":"Tile or Laminate Removal","desc":"Bldg 100 - 4M - Tile or Laminate Removal","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":18,"b":"100","code":"4N","name":"Surface Prep for Affected Balcony Waterproofing","desc":"Bldg 100 - 4N - Surface Prep for Affected Balcony Waterproofing","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":19,"b":"100","code":"4O","name":"Balcony Waterproofing","desc":"Bldg 100 - 4O - Balcony Waterproofing","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":20,"b":"100","code":"4P","name":"Window Sills Chip & Repair","desc":"Bldg 100 - 4P - Window Sills Chip & Repair","unit":"LF","qty":10,"price":0,"paid":[0,0,0]},{"no":21,"b":"100","code":"4Q","name":"Post Pocket Detail","desc":"Bldg 100 - 4Q - Post Pocket Detail","unit":"EA","qty":6,"price":0,"paid":[0,0,0]},{"no":22,"b":"100","code":"4R","name":"Oxidized Shutter Fasteners","desc":"Bldg 100 - 4R - Oxidized Shutter Fasteners","unit":"EA","qty":10,"price":0,"paid":[0,0,0]},{"no":23,"b":"100","code":"4S","name":"Remove Delaminated Stucco Repairs","desc":"Bldg 100 - 4S - Remove Delaminated Stucco Repairs","unit":"SF","qty":100,"price":0,"paid":[0,0,0]},{"no":24,"b":"100","code":"4T","name":"Cementitious Waterproofing","desc":"Bldg 100 - 4T - Cementitious Waterproofing","unit":"SF","qty":10,"price":0,"paid":[0,0,0]},{"no":25,"b":"100","code":"4U","name":"Wall Cracks - Rout & Apply Sto RFP","desc":"Bldg 100 - 4U - Wall Cracks - Rout & Apply Sto RFP","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":26,"b":"100","code":"4V","name":"Remove Screen from Screen Enclosed Units","desc":"Bldg 100 - 4V - Remove Screen from Screen Enclosed Units","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":27,"b":"100","code":"6","name":"Permits (4%)","desc":"Bldg 100 - Item 6 - Permits (4%)","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":28,"b":"200","code":"1","name":"Video & Precondition Survey","desc":"Bldg 200 - Item 1 - Video & Precondition Survey","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":29,"b":"200","code":"2A","name":"Mobilization","desc":"Bldg 200 - Item 2A - Mobilization","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":30,"b":"200","code":"2B","name":"General Conditions","desc":"Bldg 200 - Item 2B - General Conditions","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":31,"b":"200","code":"3","name":"Shoring","desc":"Bldg 200 - Item 3 - Shoring","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":32,"b":"200","code":"4A","name":"Overhead Ceiling Spall Repairs","desc":"Bldg 200 - 4A - Overhead Ceiling Spall Repairs","unit":"SF","qty":30,"price":0,"paid":[0,0,0]},{"no":33,"b":"200","code":"4B","name":"Partial Depth Floor Repairs","desc":"Bldg 200 - 4B - Partial Depth Floor Repairs","unit":"SF","qty":50,"price":0,"paid":[0,0,0]},{"no":34,"b":"200","code":"4C","name":"Full Depth Floor Repairs","desc":"Bldg 200 - 4C - Full Depth Floor Repairs","unit":"SF","qty":10,"price":0,"paid":[0,0,0]},{"no":35,"b":"200","code":"4D","name":"Slab Edge Repairs back to 8\"","desc":"Bldg 200 - 4D - Slab Edge Repairs back to 8\"","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":36,"b":"200","code":"4E","name":"Concrete Column Repairs","desc":"Bldg 200 - 4E - Concrete Column Repairs","unit":"CF","qty":5,"price":0,"paid":[0,0,0]},{"no":37,"b":"200","code":"4F","name":"Concrete Beam Repairs","desc":"Bldg 200 - 4F - Concrete Beam Repairs","unit":"CF","qty":8,"price":0,"paid":[0,0,0]},{"no":38,"b":"200","code":"4G","name":"Rust Spot Repairs","desc":"Bldg 200 - 4G - Rust Spot Repairs","unit":"EA","qty":30,"price":0,"paid":[0,0,0]},{"no":39,"b":"200","code":"4H","name":"Shutters (Accordion) Remove & Reinstall","desc":"Bldg 200 - 4H - Shutters (Accordion) Remove & Reinstall","unit":"LF","qty":12,"price":0,"paid":[0,0,0]},{"no":40,"b":"200","code":"4I","name":"Shutters Bottom/Top Track Removal & Reinstall","desc":"Bldg 200 - 4I - Shutters Bottom/Top Track Removal & Reinstall","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":41,"b":"200","code":"4J","name":"Crack Repair - Route & Apply Sealant","desc":"Bldg 200 - 4J - Crack Repair - Route & Apply Sealant","unit":"LF","qty":50,"price":0,"paid":[0,0,0]},{"no":42,"b":"200","code":"4K","name":"#5 Reinforcing Bar Replacement","desc":"Bldg 200 - 4K - #5 Reinforcing Bar Replacement","unit":"LF","qty":20,"price":0,"paid":[0,0,0]},{"no":43,"b":"200","code":"4L","name":"Dowel & Epoxy Reinforcing Bar","desc":"Bldg 200 - 4L - Dowel & Epoxy Reinforcing Bar","unit":"EA","qty":2,"price":0,"paid":[0,0,0]},{"no":44,"b":"200","code":"4M","name":"Tile or Laminate Removal","desc":"Bldg 200 - 4M - Tile or Laminate Removal","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":45,"b":"200","code":"4N","name":"Surface Prep for Affected Balcony Waterproofing","desc":"Bldg 200 - 4N - Surface Prep for Affected Balcony Waterproofing","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":46,"b":"200","code":"4O","name":"Balcony Waterproofing","desc":"Bldg 200 - 4O - Balcony Waterproofing","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":47,"b":"200","code":"4P","name":"Window Sills Chip & Repair","desc":"Bldg 200 - 4P - Window Sills Chip & Repair","unit":"LF","qty":10,"price":0,"paid":[0,0,0]},{"no":48,"b":"200","code":"4Q","name":"Post Pocket Detail","desc":"Bldg 200 - 4Q - Post Pocket Detail","unit":"EA","qty":6,"price":0,"paid":[0,0,0]},{"no":49,"b":"200","code":"4R","name":"Oxidized Shutter Fasteners","desc":"Bldg 200 - 4R - Oxidized Shutter Fasteners","unit":"EA","qty":10,"price":0,"paid":[0,0,0]},{"no":50,"b":"200","code":"4S","name":"Remove Delaminated Stucco Repairs","desc":"Bldg 200 - 4S - Remove Delaminated Stucco Repairs","unit":"SF","qty":100,"price":0,"paid":[0,0,0]},{"no":51,"b":"200","code":"4T","name":"Cementitious Waterproofing","desc":"Bldg 200 - 4T - Cementitious Waterproofing","unit":"SF","qty":10,"price":0,"paid":[0,0,0]},{"no":52,"b":"200","code":"4U","name":"Wall Cracks - Rout & Apply Sto RFP","desc":"Bldg 200 - 4U - Wall Cracks - Rout & Apply Sto RFP","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":53,"b":"200","code":"4V","name":"Remove Screen from Screen Enclosed Units","desc":"Bldg 200 - 4V - Remove Screen from Screen Enclosed Units","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":54,"b":"200","code":"6","name":"Permits (4%)","desc":"Bldg 200 - Item 6 - Permits (4%)","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":55,"b":"300","code":"1","name":"Video & Precondition Survey","desc":"Bldg 300 - Item 1 - Video & Precondition Survey","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":56,"b":"300","code":"2A","name":"Mobilization","desc":"Bldg 300 - Item 2A - Mobilization","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":57,"b":"300","code":"2B","name":"General Conditions","desc":"Bldg 300 - Item 2B - General Conditions","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":58,"b":"300","code":"3","name":"Shoring","desc":"Bldg 300 - Item 3 - Shoring","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":59,"b":"300","code":"4A","name":"Overhead Ceiling Spall Repairs","desc":"Bldg 300 - 4A - Overhead Ceiling Spall Repairs","unit":"SF","qty":30,"price":0,"paid":[0,0,0]},{"no":60,"b":"300","code":"4B","name":"Partial Depth Floor Repairs","desc":"Bldg 300 - 4B - Partial Depth Floor Repairs","unit":"SF","qty":50,"price":0,"paid":[0,0,0]},{"no":61,"b":"300","code":"4C","name":"Full Depth Floor Repairs","desc":"Bldg 300 - 4C - Full Depth Floor Repairs","unit":"SF","qty":10,"price":0,"paid":[0,0,0]},{"no":62,"b":"300","code":"4D","name":"Slab Edge Repairs back to 8\"","desc":"Bldg 300 - 4D - Slab Edge Repairs back to 8\"","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":63,"b":"300","code":"4E","name":"Concrete Column Repairs","desc":"Bldg 300 - 4E - Concrete Column Repairs","unit":"CF","qty":5,"price":0,"paid":[0,0,0]},{"no":64,"b":"300","code":"4F","name":"Concrete Beam Repairs","desc":"Bldg 300 - 4F - Concrete Beam Repairs","unit":"CF","qty":8,"price":0,"paid":[0,0,0]},{"no":65,"b":"300","code":"4G","name":"Rust Spot Repairs","desc":"Bldg 300 - 4G - Rust Spot Repairs","unit":"EA","qty":30,"price":0,"paid":[0,0,0]},{"no":66,"b":"300","code":"4H","name":"Shutters (Accordion) Remove & Reinstall","desc":"Bldg 300 - 4H - Shutters (Accordion) Remove & Reinstall","unit":"LF","qty":12,"price":0,"paid":[0,0,0]},{"no":67,"b":"300","code":"4I","name":"Shutters Bottom/Top Track Removal & Reinstall","desc":"Bldg 300 - 4I - Shutters Bottom/Top Track Removal & Reinstall","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":68,"b":"300","code":"4J","name":"Crack Repair - Route & Apply Sealant","desc":"Bldg 300 - 4J - Crack Repair - Route & Apply Sealant","unit":"LF","qty":50,"price":0,"paid":[0,0,0]},{"no":69,"b":"300","code":"4K","name":"#5 Reinforcing Bar Replacement","desc":"Bldg 300 - 4K - #5 Reinforcing Bar Replacement","unit":"LF","qty":20,"price":0,"paid":[0,0,0]},{"no":70,"b":"300","code":"4L","name":"Dowel & Epoxy Reinforcing Bar","desc":"Bldg 300 - 4L - Dowel & Epoxy Reinforcing Bar","unit":"EA","qty":2,"price":0,"paid":[0,0,0]},{"no":71,"b":"300","code":"4M","name":"Tile or Laminate Removal","desc":"Bldg 300 - 4M - Tile or Laminate Removal","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":72,"b":"300","code":"4N","name":"Surface Prep for Affected Balcony Waterproofing","desc":"Bldg 300 - 4N - Surface Prep for Affected Balcony Waterproofing","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":73,"b":"300","code":"4O","name":"Balcony Waterproofing","desc":"Bldg 300 - 4O - Balcony Waterproofing","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":74,"b":"300","code":"4P","name":"Window Sills Chip & Repair","desc":"Bldg 300 - 4P - Window Sills Chip & Repair","unit":"LF","qty":10,"price":0,"paid":[0,0,0]},{"no":75,"b":"300","code":"4Q","name":"Post Pocket Detail","desc":"Bldg 300 - 4Q - Post Pocket Detail","unit":"EA","qty":6,"price":0,"paid":[0,0,0]},{"no":76,"b":"300","code":"4R","name":"Oxidized Shutter Fasteners","desc":"Bldg 300 - 4R - Oxidized Shutter Fasteners","unit":"EA","qty":10,"price":0,"paid":[0,0,0]},{"no":77,"b":"300","code":"4S","name":"Remove Delaminated Stucco Repairs","desc":"Bldg 300 - 4S - Remove Delaminated Stucco Repairs","unit":"SF","qty":100,"price":0,"paid":[0,0,0]},{"no":78,"b":"300","code":"4T","name":"Cementitious Waterproofing","desc":"Bldg 300 - 4T - Cementitious Waterproofing","unit":"SF","qty":10,"price":0,"paid":[0,0,0]},{"no":79,"b":"300","code":"4U","name":"Wall Cracks - Rout & Apply Sto RFP","desc":"Bldg 300 - 4U - Wall Cracks - Rout & Apply Sto RFP","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":80,"b":"300","code":"4V","name":"Remove Screen from Screen Enclosed Units","desc":"Bldg 300 - 4V - Remove Screen from Screen Enclosed Units","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":81,"b":"300","code":"6","name":"Permits (4%)","desc":"Bldg 300 - Item 6 - Permits (4%)","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":82,"b":"400","code":"1","name":"Video & Precondition Survey","desc":"Bldg 400 - Item 1 - Video & Precondition Survey","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":83,"b":"400","code":"2A","name":"Mobilization","desc":"Bldg 400 - Item 2A - Mobilization","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":84,"b":"400","code":"2B","name":"General Conditions","desc":"Bldg 400 - Item 2B - General Conditions","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":85,"b":"400","code":"3","name":"Shoring","desc":"Bldg 400 - Item 3 - Shoring","unit":"LS","qty":1,"price":0,"paid":[0,0,0]},{"no":86,"b":"400","code":"4A","name":"Overhead Ceiling Spall Repairs","desc":"Bldg 400 - 4A - Overhead Ceiling Spall Repairs","unit":"SF","qty":30,"price":0,"paid":[0,0,0]},{"no":87,"b":"400","code":"4B","name":"Partial Depth Floor Repairs","desc":"Bldg 400 - 4B - Partial Depth Floor Repairs","unit":"SF","qty":50,"price":0,"paid":[0,0,0]},{"no":88,"b":"400","code":"4C","name":"Full Depth Floor Repairs","desc":"Bldg 400 - 4C - Full Depth Floor Repairs","unit":"SF","qty":10,"price":0,"paid":[0,0,0]},{"no":89,"b":"400","code":"4D","name":"Slab Edge Repairs back to 8\"","desc":"Bldg 400 - 4D - Slab Edge Repairs back to 8\"","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":90,"b":"400","code":"4E","name":"Concrete Column Repairs","desc":"Bldg 400 - 4E - Concrete Column Repairs","unit":"CF","qty":5,"price":0,"paid":[0,0,0]},{"no":91,"b":"400","code":"4F","name":"Concrete Beam Repairs","desc":"Bldg 400 - 4F - Concrete Beam Repairs","unit":"CF","qty":8,"price":0,"paid":[0,0,0]},{"no":92,"b":"400","code":"4G","name":"Rust Spot Repairs","desc":"Bldg 400 - 4G - Rust Spot Repairs","unit":"EA","qty":30,"price":0,"paid":[0,0,0]},{"no":93,"b":"400","code":"4H","name":"Shutters (Accordion) Remove & Reinstall","desc":"Bldg 400 - 4H - Shutters (Accordion) Remove & Reinstall","unit":"LF","qty":12,"price":0,"paid":[0,0,0]},{"no":94,"b":"400","code":"4I","name":"Shutters Bottom/Top Track Removal & Reinstall","desc":"Bldg 400 - 4I - Shutters Bottom/Top Track Removal & Reinstall","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":95,"b":"400","code":"4J","name":"Crack Repair - Route & Apply Sealant","desc":"Bldg 400 - 4J - Crack Repair - Route & Apply Sealant","unit":"LF","qty":50,"price":0,"paid":[0,0,0]},{"no":96,"b":"400","code":"4K","name":"#5 Reinforcing Bar Replacement","desc":"Bldg 400 - 4K - #5 Reinforcing Bar Replacement","unit":"LF","qty":20,"price":0,"paid":[0,0,0]},{"no":97,"b":"400","code":"4L","name":"Dowel & Epoxy Reinforcing Bar","desc":"Bldg 400 - 4L - Dowel & Epoxy Reinforcing Bar","unit":"EA","qty":2,"price":0,"paid":[0,0,0]},{"no":98,"b":"400","code":"4M","name":"Tile or Laminate Removal","desc":"Bldg 400 - 4M - Tile or Laminate Removal","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":99,"b":"400","code":"4N","name":"Surface Prep for Affected Balcony Waterproofing","desc":"Bldg 400 - 4N - Surface Prep for Affected Balcony Waterproofing","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":100,"b":"400","code":"4O","name":"Balcony Waterproofing","desc":"Bldg 400 - 4O - Balcony Waterproofing","unit":"SF","qty":200,"price":0,"paid":[0,0,0]},{"no":101,"b":"400","code":"4P","name":"Window Sills Chip & Repair","desc":"Bldg 400 - 4P - Window Sills Chip & Repair","unit":"LF","qty":10,"price":0,"paid":[0,0,0]},{"no":102,"b":"400","code":"4Q","name":"Post Pocket Detail","desc":"Bldg 400 - 4Q - Post Pocket Detail","unit":"EA","qty":6,"price":0,"paid":[0,0,0]},{"no":103,"b":"400","code":"4R","name":"Oxidized Shutter Fasteners","desc":"Bldg 400 - 4R - Oxidized Shutter Fasteners","unit":"EA","qty":10,"price":0,"paid":[0,0,0]},{"no":104,"b":"400","code":"4S","name":"Remove Delaminated Stucco Repairs","desc":"Bldg 400 - 4S - Remove Delaminated Stucco Repairs","unit":"SF","qty":100,"price":0,"paid":[0,0,0]},{"no":105,"b":"400","code":"4T","name":"Cementitious Waterproofing","desc":"Bldg 400 - 4T - Cementitious Waterproofing","unit":"SF","qty":10,"price":0,"paid":[0,0,0]},{"no":106,"b":"400","code":"4U","name":"Wall Cracks - Rout & Apply Sto RFP","desc":"Bldg 400 - 4U - Wall Cracks - Rout & Apply Sto RFP","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":107,"b":"400","code":"4V","name":"Remove Screen from Screen Enclosed Units","desc":"Bldg 400 - 4V - Remove Screen from Screen Enclosed Units","unit":"LF","qty":40,"price":0,"paid":[0,0,0]},{"no":108,"b":"400","code":"6","name":"Permits (4%)","desc":"Bldg 400 - Item 6 - Permits (4%)","unit":"LS","qty":1,"price":0,"paid":[0,0,0]}],"cos":[{"no":"CO-1","b":"100","code":"4C","desc":"Bldg 100 - 4C - Full Depth Floor Repairs (over 10 SF contract qty)","unit":"SF","qty":81,"price":0,"contract":10.0,"paid":[0,0,0]},{"no":"CO-2","b":"100","code":"4E/4F","desc":"Bldg 100 - 4E/4F - Concrete Column and Beam Repairs (over 13 CF contract qty)","unit":"CF","qty":16.5,"price":0,"contract":13.0,"paid":[0,0,0]},{"no":"CO-3","b":"100","code":"4K","desc":"Bldg 100 - 4K - #5 Reinforcing Bar Replacement (over 20 LF contract qty)","unit":"LF","qty":70,"price":0,"contract":20.0,"paid":[0,0,0]},{"no":"CO-4","b":"100","code":"4L","desc":"Bldg 100 - 4L - Dowel & Epoxy Reinforcing Bar (over 2 EA contract qty)","unit":"EA","qty":75,"price":0,"contract":2.0,"paid":[0,0,0]},{"no":"CO-5","b":"100","code":"4S","desc":"Bldg 100 - 4S - Remove Delaminated Stucco Repairs (over 100 SF contract qty)","unit":"SF","qty":41,"price":0,"contract":100.0,"paid":[0,0,0]},{"no":"CO-6","b":"200","code":"4S","desc":"Bldg 200 - 4S - Remove Delaminated Stucco Repairs (over 100 SF contract qty)","unit":"SF","qty":52,"price":0,"contract":100.0,"paid":[0,0,0]}],"sheets":{"100":{"cols":["Prior Work","Un 101","Un 105","Un 107","Un 108","Un 109","Un 110","Un 111","Un 112","Un 114","Un 117","Un 120","Un 121","Un 123","Un 124","Un 129"],"ls":{"1":1,"2A":1,"2B":1,"3":1,"6":0},"items":{"4A":{"desc":"Overhead Ceiling Spall Repairs","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4B":{"desc":"Partial Depth Floor Repairs","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4C":{"desc":"Full Depth Floor Repairs","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,12,22,16,20,21]},"4D":{"desc":"Slab Edge Repairs back to 8\"","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4E/4F":{"desc":"Concrete Column and Beam Repairs","unit":"CF","v":[13,0,2.5,0,0,0.5,3,3.5,3.5,3.5,0,0,0,0,0,0]},"4G":{"desc":"Rust Spot Repairs","unit":"EA","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4H":{"desc":"Shutters (Accordion) Remove & Reinstall","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4I":{"desc":"Shutters Bottom/Top Track Removal & Reinstall","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4J":{"desc":"Crack Repair - Route & Apply Sealant","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4K":{"desc":"#5 Reinforcing Bar Replacement","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,12,21,16,20,21]},"4L":{"desc":"Dowel & Epoxy Reinforcing Bar","unit":"EA","v":[0,0,0,0,0,0,0,0,0,0,0,7,20,12,18,20]},"4M":{"desc":"Tile or Laminate Removal","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4N":{"desc":"Surface Prep for Affected Balcony Waterproofing","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4O":{"desc":"Balcony Waterproofing","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4P":{"desc":"Window Sills Chip & Repair","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4Q":{"desc":"Post Pocket Detail","unit":"EA","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4R":{"desc":"Oxidized Shutter Fasteners","unit":"EA","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4S":{"desc":"Remove Delaminated Stucco Repairs","unit":"SF","v":[100,12,0,15,4,0,0,0,0,0,10,0,0,0,0,0]},"4T":{"desc":"Cementitious Waterproofing","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4U":{"desc":"Wall Cracks - Rout & Apply Sto RFP","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"4V":{"desc":"Remove Screen from Screen Enclosed Units","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},"note":"Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."},"200":{"cols":["Pool Side","Entrance","Un 204","Un 206","Un 207","Un 208","Un 209","Un 210","Un 211","Un 212","Un 214","Un 216"],"ls":{"1":1,"2A":1,"2B":1,"3":0,"6":0},"items":{"4A":{"desc":"Overhead Ceiling Spall Repairs","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4B":{"desc":"Partial Depth Floor Repairs","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4C":{"desc":"Full Depth Floor Repairs","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4D":{"desc":"Slab Edge Repairs back to 8\"","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4E/4F":{"desc":"Concrete Column and Beam Repairs","unit":"CF","v":[0,0,0,0,5.5,0,0,2,0,0,0,5]},"4G":{"desc":"Rust Spot Repairs","unit":"EA","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4H":{"desc":"Shutters (Accordion) Remove & Reinstall","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4I":{"desc":"Shutters Bottom/Top Track Removal & Reinstall","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4J":{"desc":"Crack Repair - Route & Apply Sealant","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4K":{"desc":"#5 Reinforcing Bar Replacement","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4L":{"desc":"Dowel & Epoxy Reinforcing Bar","unit":"EA","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4M":{"desc":"Tile or Laminate Removal","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4N":{"desc":"Surface Prep for Affected Balcony Waterproofing","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4O":{"desc":"Balcony Waterproofing","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4P":{"desc":"Window Sills Chip & Repair","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4Q":{"desc":"Post Pocket Detail","unit":"EA","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4R":{"desc":"Oxidized Shutter Fasteners","unit":"EA","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4S":{"desc":"Remove Delaminated Stucco Repairs","unit":"SF","v":[4,3,16,14,20,5,6,25,11,6,10,32]},"4T":{"desc":"Cementitious Waterproofing","unit":"SF","v":[0,0,0,0,0,0,0,0,0,0,0,0]},"4U":{"desc":"Wall Cracks - Rout & Apply Sto RFP","unit":"LF","v":[0,5,2,5,0,2,0,0,0,0,0,0]},"4V":{"desc":"Remove Screen from Screen Enclosed Units","unit":"LF","v":[0,0,0,0,0,0,0,0,0,0,0,0]}},"note":"Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."},"300":{"cols":["Loc 1","Loc 2","Loc 3","Loc 4","Loc 5","Loc 6"],"ls":{"1":0,"2A":0.5461914285714285,"2B":0,"3":0,"6":0},"items":{"4A":{"desc":"Overhead Ceiling Spall Repairs","unit":"SF","v":[0,0,0,0,0,0]},"4B":{"desc":"Partial Depth Floor Repairs","unit":"SF","v":[0,0,0,0,0,0]},"4C":{"desc":"Full Depth Floor Repairs","unit":"SF","v":[0,0,0,0,0,0]},"4D":{"desc":"Slab Edge Repairs back to 8\"","unit":"LF","v":[0,0,0,0,0,0]},"4E/4F":{"desc":"Concrete Column and Beam Repairs","unit":"CF","v":[0,0,0,0,0,0]},"4G":{"desc":"Rust Spot Repairs","unit":"EA","v":[0,0,0,0,0,0]},"4H":{"desc":"Shutters (Accordion) Remove & Reinstall","unit":"LF","v":[0,0,0,0,0,0]},"4I":{"desc":"Shutters Bottom/Top Track Removal & Reinstall","unit":"LF","v":[0,0,0,0,0,0]},"4J":{"desc":"Crack Repair - Route & Apply Sealant","unit":"LF","v":[0,0,0,0,0,0]},"4K":{"desc":"#5 Reinforcing Bar Replacement","unit":"LF","v":[0,0,0,0,0,0]},"4L":{"desc":"Dowel & Epoxy Reinforcing Bar","unit":"EA","v":[0,0,0,0,0,0]},"4M":{"desc":"Tile or Laminate Removal","unit":"SF","v":[0,0,0,0,0,0]},"4N":{"desc":"Surface Prep for Affected Balcony Waterproofing","unit":"SF","v":[0,0,0,0,0,0]},"4O":{"desc":"Balcony Waterproofing","unit":"SF","v":[0,0,0,0,0,0]},"4P":{"desc":"Window Sills Chip & Repair","unit":"LF","v":[0,0,0,0,0,0]},"4Q":{"desc":"Post Pocket Detail","unit":"EA","v":[0,0,0,0,0,0]},"4R":{"desc":"Oxidized Shutter Fasteners","unit":"EA","v":[0,0,0,0,0,0]},"4S":{"desc":"Remove Delaminated Stucco Repairs","unit":"SF","v":[0,0,0,0,0,0]},"4T":{"desc":"Cementitious Waterproofing","unit":"SF","v":[0,0,0,0,0,0]},"4U":{"desc":"Wall Cracks - Rout & Apply Sto RFP","unit":"LF","v":[0,0,0,0,0,0]},"4V":{"desc":"Remove Screen from Screen Enclosed Units","unit":"LF","v":[0,0,0,0,0,0]}},"note":"Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."},"400":{"cols":["Loc 1","Loc 2","Loc 3","Loc 4","Loc 5","Loc 6"],"ls":{"1":0,"2A":0.5461914285714285,"2B":0,"3":0,"6":0},"items":{"4A":{"desc":"Overhead Ceiling Spall Repairs","unit":"SF","v":[0,0,0,0,0,0]},"4B":{"desc":"Partial Depth Floor Repairs","unit":"SF","v":[0,0,0,0,0,0]},"4C":{"desc":"Full Depth Floor Repairs","unit":"SF","v":[0,0,0,0,0,0]},"4D":{"desc":"Slab Edge Repairs back to 8\"","unit":"LF","v":[0,0,0,0,0,0]},"4E/4F":{"desc":"Concrete Column and Beam Repairs","unit":"CF","v":[0,0,0,0,0,0]},"4G":{"desc":"Rust Spot Repairs","unit":"EA","v":[0,0,0,0,0,0]},"4H":{"desc":"Shutters (Accordion) Remove & Reinstall","unit":"LF","v":[0,0,0,0,0,0]},"4I":{"desc":"Shutters Bottom/Top Track Removal & Reinstall","unit":"LF","v":[0,0,0,0,0,0]},"4J":{"desc":"Crack Repair - Route & Apply Sealant","unit":"LF","v":[0,0,0,0,0,0]},"4K":{"desc":"#5 Reinforcing Bar Replacement","unit":"LF","v":[0,0,0,0,0,0]},"4L":{"desc":"Dowel & Epoxy Reinforcing Bar","unit":"EA","v":[0,0,0,0,0,0]},"4M":{"desc":"Tile or Laminate Removal","unit":"SF","v":[0,0,0,0,0,0]},"4N":{"desc":"Surface Prep for Affected Balcony Waterproofing","unit":"SF","v":[0,0,0,0,0,0]},"4O":{"desc":"Balcony Waterproofing","unit":"SF","v":[0,0,0,0,0,0]},"4P":{"desc":"Window Sills Chip & Repair","unit":"LF","v":[0,0,0,0,0,0]},"4Q":{"desc":"Post Pocket Detail","unit":"EA","v":[0,0,0,0,0,0]},"4R":{"desc":"Oxidized Shutter Fasteners","unit":"EA","v":[0,0,0,0,0,0]},"4S":{"desc":"Remove Delaminated Stucco Repairs","unit":"SF","v":[0,0,0,0,0,0]},"4T":{"desc":"Cementitious Waterproofing","unit":"SF","v":[0,0,0,0,0,0]},"4U":{"desc":"Wall Cracks - Rout & Apply Sto RFP","unit":"LF","v":[0,0,0,0,0,0]},"4V":{"desc":"Remove Screen from Screen Enclosed Units","unit":"LF","v":[0,0,0,0,0,0]}},"note":"Field measurements by MTD with the Engineer of Record, October 2026. Zero means no work of that type at that location to date. 4E and 4F are measured together. Prior Work = Bldg 100 quantities completed and measured before the October measurement (stucco spots 1 to 48, columns and beams)."}},"notes":["Pay App #1 is the deposit (mobilization, all four buildings). Pay App #2 is Bldg 100 mobilization balance and general conditions. Pay App #3 is the first application with measured quantities.","Qty / % to Date links to the field backup on the Bldg 100 to Bldg 400 sheets. Contract lines fill up to the contract quantity per building; quantities over contract bill on CO MTD2025-016-25 at the same unit prices.","4E and 4F are measured together on the backup; 4E fills to its contract quantity first, then 4F. Pay App #3 = total to date less Pay Apps #1 and #2.","PUBLIC TECHNICAL COPY: Price, invoice, paid-to-date, and scheduled dollar values excluded. This record must not be treated as a financial pay application."],"publicTechnicalOnly":true}</script>
+<script type="application/json" id="fieldBldg100">{"source":"CompanyCam report \u201cELEVATIONS BLDG 100\u201d, Miguel Graterol, Nov 11, 2026","count":49,"entries":[{"id":"cc100-01","b":"100","side":"top","p":0,"a0":179.5,"a1":184.5,"y0":0.4,"y1":3.6,"kind":"stucco","unit":"Un 101","sow":"4S","photos":[4,6],"note":"Gray stucco patch below the south ground-floor window, west wall of unit 101","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-02","b":"100","side":"top","p":0,"a0":193.5,"a1":196.5,"y0":0.9,"y1":2.6,"kind":"stucco","unit":"Un 101","sow":"4S","photos":[4,6],"note":"Small stucco patch below the north ground-floor window, west wall of unit 101","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-03","b":"100","side":"top","p":0,"a0":186.5,"a1":190.0,"y0":14.4,"y1":17.2,"kind":"stucco","unit":"Un 118","sow":"4S","photos":[5,6],"note":"Stucco patch between the 2nd-floor windows above unit 101 (unit 118)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-04","b":"100","side":"top","p":0,"a0":199.8,"a1":201.6,"y0":5.6,"y1":7.4,"kind":"stucco","unit":"Un 101","sow":"4S","photos":[3],"note":"Patch at the northwest corner next to the red alarm box","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-05","b":"100","side":"top","p":0,"a0":138.8,"a1":141.3,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 103","sow":"4E/4F","photos":[8],"note":"Slab-edge patch at the left column of balconies 103/102 (west)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-06","b":"100","side":"top","p":0,"a0":160.3,"a1":162.8,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 102","sow":"4E/4F","photos":[8],"note":"Slab-edge patch at the right column of balconies 103/102 (west)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-07","b":"100","side":"top","p":8.0,"a0":125.8,"a1":137.0,"y0":8.9,"y1":9.9,"kind":"band","unit":"Un 103","sow":"4S","photos":[9],"note":"Patched slab band between floors, recess at unit 103","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-08","b":"100","side":"top","p":8.0,"a0":114.0,"a1":125.8,"y0":8.9,"y1":9.9,"kind":"band","unit":"Un 104","sow":"4S","photos":[9],"note":"Patched slab band between floors, recess at unit 104","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-09","b":"100","side":"top","p":0,"a0":88.8,"a1":91.5,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 105","sow":"4E/4F","photos":[10],"note":"Slab-edge patch at the left column of balconies 105/104 (west)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-10","b":"100","side":"top","p":0,"a0":110.1,"a1":112.8,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 104","sow":"4E/4F","photos":[10],"note":"Slab-edge patch at the right column of balconies 105/104 (west)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-11","b":"100","side":"top","p":8.0,"a0":75.8,"a1":88.0,"y0":8.9,"y1":9.9,"kind":"band","unit":"Un 105","sow":"4S","photos":[11],"note":"Patched slab band between floors, recess at unit 105","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-12","b":"100","side":"top","p":8.0,"a0":64.0,"a1":75.8,"y0":8.9,"y1":9.9,"kind":"band","unit":"Un 106","sow":"4S","photos":[11],"note":"Patched slab band between floors, recess at unit 106","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-13","b":"100","side":"top","p":0,"a0":38.8,"a1":41.5,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 107","sow":"4E/4F","photos":[12,14,15],"note":"Slab-edge patch at the left column of balconies 107/106 (west)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-14","b":"100","side":"top","p":0,"a0":60.1,"a1":62.8,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 106","sow":"4E/4F","photos":[12,14,15],"note":"Slab-edge patch at the right column of balconies 107/106 (west)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-15","b":"100","side":"top","p":8.0,"a0":26.0,"a1":38.8,"y0":8.9,"y1":9.9,"kind":"band","unit":"Un 107","sow":"4S","photos":[13],"note":"Patched slab band between floors, recess at unit 107","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-16","b":"100","side":"top","p":8.0,"a0":26.0,"a1":27.6,"y0":3.0,"y1":9.0,"kind":"stucco","unit":"Un 107","sow":"4S","photos":[16],"note":"Vertical stucco patch at the inside corner next to unit 108","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-17","b":"100","side":"left","p":0,"a0":0.0,"a1":1.6,"y0":3.0,"y1":17.0,"kind":"stucco","unit":"Un 108","sow":"4S","photos":[17,18],"note":"Stucco patches along the southwest corner, both floors (units 108/125)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-18","b":"100","side":"left","p":0,"a0":11.0,"a1":13.0,"y0":10.0,"y1":12.5,"kind":"stucco","unit":"Un 108","sow":"4S","photos":[17],"note":"Stucco patch on the south wall of unit 108, between floors","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-19","b":"100","side":"left","p":0,"a0":12.8,"a1":15.2,"y0":8.5,"y1":10.3,"kind":"stucco","unit":"Un 108","sow":"4S","photos":[19],"note":"Stucco patch next to balcony 108 at slab level","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-20","b":"100","side":"left","p":-5.5,"a0":15.4,"a1":34.4,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 108","sow":"4E/4F","photos":[19],"note":"Slab-edge repairs along the front of end balcony 108","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-21","b":"100","side":"left","p":0,"a0":34.5,"a1":36.3,"y0":7.9,"y1":10.6,"kind":"stucco","unit":"Un 108","sow":"4S","photos":[20,21],"note":"Stucco patch beside the south entrance canopy (exit discharge)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-22","b":"100","side":"left","p":0,"a0":41.6,"a1":43.6,"y0":0.6,"y1":9.0,"kind":"stucco","unit":"Un 109","sow":"4S","photos":[23],"note":"Vertical stucco patch between the south entrance and porch 109 (exit discharge)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-23","b":"100","side":"left","p":-5.5,"a0":43.9,"a1":62.9,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 109","sow":"4E/4F","photos":[24,25],"note":"Slab-edge repairs along the front of end balcony 109","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-24","b":"100","side":"bottom","p":78.3,"a0":0.0,"a1":1.8,"y0":13.6,"y1":17.5,"kind":"stucco","unit":"Un 126","sow":"4S","photos":[26,27],"note":"Stucco patch at the southeast corner, 2nd floor (unit 126), next to the BLDG 100 sign","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-25","b":"100","side":"bottom","p":78.3,"a0":38.8,"a1":41.5,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 110","sow":"4E/4F","photos":[30,31],"note":"Slab-edge patch at the left column of balconies 110/111 (east)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-26","b":"100","side":"bottom","p":78.3,"a0":60.1,"a1":62.8,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 111","sow":"4E/4F","photos":[30,31],"note":"Slab-edge patch at the right column of balconies 110/111 (east)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-27","b":"100","side":"bottom","p":70.5,"a0":80.5,"a1":83.5,"y0":7.0,"y1":8.4,"kind":"stucco","unit":"Un 112","sow":"4S","photos":[32],"note":"Stucco patch above the ground-floor window arch, unit 112","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-28","b":"100","side":"bottom","p":78.3,"a0":88.8,"a1":91.5,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 112","sow":"4E/4F","photos":[34,35,36],"note":"Slab-edge patch at the left column of balconies 112/114 (east)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-29","b":"100","side":"bottom","p":78.3,"a0":110.1,"a1":112.8,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 114","sow":"4E/4F","photos":[34,35,36],"note":"Slab-edge patch at the right column of balconies 112/114 (east)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-30","b":"100","side":"bottom","p":78.3,"a0":138.8,"a1":150.8,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 115","sow":"4E/4F","photos":[42,43,44],"note":"Slab-edge repairs with primer along balcony 115 (east)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-31","b":"100","side":"bottom","p":78.3,"a0":150.8,"a1":162.8,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 116","sow":"4E/4F","photos":[42,43,44],"note":"Slab-edge repairs with primer along balcony 116 (east)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-32","b":"100","side":"bottom","p":70.5,"a0":173.5,"a1":175.6,"y0":13.0,"y1":17.4,"kind":"stucco","unit":"Un 132","sow":"4S","photos":[48],"note":"Stucco patch at the inside corner next to unit 117, 2nd floor (unit 132)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false},{"id":"cc100-33","b":"100","side":"right","p":207.1,"a0":15.4,"a1":34.4,"y0":8.5,"y1":9.8,"kind":"slab","unit":"Un 101","sow":"4S","photos":[1,2],"note":"Slab-edge patches along the front and corner of end balcony 101 (north)","source":"companycam","date":"2026-11-11","status":"Observed","qty":null,"inDraft":false}],"photoFolder":"photos/bldg100/"}</script>
 <script src="vendor/three/three.min.js"></script>
 <script src="vendor/three/OrbitControls.js"></script>
 <script src="vendor/three/BufferGeometryUtils.js"></script>
@@ -638,7 +778,7 @@ function buildSite(){CUR={b:'site',M:new THREE.Matrix4()};
 function finalize(){for(const k in BK){const [b,mat,fl]=k.split('|');const g=THREE.BufferGeometryUtils.mergeBufferGeometries(BK[k]);if(!g)continue;
  const m=new THREE.Mesh(g,matFor(b,mat));m.castShadow=!['screen','interior','corridor','stripe','asphalt','street','sidewalk','grass','pool','deck','bed'].includes(mat);m.receiveShadow=true;m.userData={b,mat,fl:+fl};scene.add(m);meshes.push(m);}}
 
-ORDER.slice(0,4).forEach(buildBlock);buildClub();buildSite();finalize();
+ORDER.slice(0,4).forEach(buildBlock);buildClub();buildSite();finalize();window.__matOf=matOf;
 
 /* etiquetas */
 function textSprite(txt,opt){opt=opt||{};const cv=document.createElement('canvas');const s=opt.size||64;const g=cv.getContext('2d');g.font=`600 ${s}px "IBM Plex Sans",sans-serif`;const w=Math.ceil(g.measureText(txt).width)+s*.9;cv.width=w;cv.height=s*1.6;const g2=cv.getContext('2d');
@@ -707,7 +847,7 @@ function applyVis(){if(!glOK)return;const elev=state.view==='elev';const xr=stat
  for(const o of markObjs){const m=o.m,st=statusOf(m);let v=state.marks&&(!elev||(m.b===state.b&&m.elev===state.elev))&&(!cut||m.f===1)&&(!state.only||st!=='');
   o.s.visible=v;if(o.bar)o.bar.visible=v;o.ring.visible=v&&st!=='';o.ring.material.map=st==='near'?(tech?BWT.near:tNear):(tech?BWT.conf:tConf);o.ring.material.needsUpdate=true;}
  for(const d of devObjs)d.visible=state.dev&&(xr||cut)&&(!cut||d.userData.fl===1);
- labelGroup.visible=!elev;
+ labelGroup.visible=!elev;if(window.BG&&window.BG.onVis)window.BG.onVis();
  const s=state.sel;selSprite.visible=!!s&&state.marks&&(!elev||(s.b===state.b&&s.elev===state.elev));if(s){const o=markObjs[s.id];selSprite.position.copy(o.p);}}
 
 /* ---------- Cámaras ---------- */
@@ -720,7 +860,7 @@ function focusB(b){if(b==='all'){flyTo(new THREE.Vector3(250,0,175),distAll(),ne
 function fitOrtho(){const B=BLD[state.b];const d=EDIR[state.elev];const [c,s]=rotOf(state.b);const ax=[c,-s],az=[s,c],p=[-d[1],d[0]];
  const ext=Math.abs(p[0]*ax[0]+p[1]*ax[1])*B.L+Math.abs(p[0]*az[0]+p[1]*az[1])*B.D+(state.b==='club'?10:14);
  const H=state.b==='club'?CLUB.TOP:G.TOP;const cy=H/2+.5;
- const w=host.clientWidth||800,h=host.clientHeight||500,asp=w/h;let vw=ext*1.3,vh=vw/asp;if(vh<H+14){vh=H+14;vw=vh*asp;}
+ const w=host.clientWidth||800,h=host.clientHeight||500,asp=w/h;let vw=ext*(asp<1?1.06:1.3),vh=vw/asp;if(vh<H+14){vh=H+14;vw=vh*asp;}
  Object.assign(ortho,{left:-vw/2,right:vw/2,top:vh/2,bottom:-vh/2,zoom:1});ortho.updateProjectionMatrix();
  ortho.position.set(B.c[0]+d[0]*700,cy,B.c[1]+d[1]*700);ctlO.target.set(B.c[0],cy,B.c[1]);ortho.lookAt(ctlO.target);ctlO.update();}
 function resize(){if(!glOK)return;const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();if(!state._init){state._init=1;cam.position.copy(ctl.target).add(new THREE.Vector3(-.33,.58,.74).normalize().multiplyScalar(distAll()));}if(state.view==='elev')fitOrtho();}
@@ -748,7 +888,7 @@ function updateLevels(){const B=BLD[state.b];const H=state.b==='club'?[[0,'Floor
 if(glOK){let down=null;const el=renderer.domElement;
  el.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];});
  el.addEventListener('pointerup',e=>{if(!down)return;const mv=Math.hypot(e.clientX-down[0],e.clientY-down[1]);down=null;if(mv>6)return;
-  const r=el.getBoundingClientRect();const v=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);raycaster.setFromCamera(v,state.view==='elev'?ortho:cam);
+  const r=el.getBoundingClientRect();const v=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);raycaster.setFromCamera(v,state.view==='elev'?ortho:cam);if(window.BG&&window.BG.pickHook&&window.BG.pickHook(raycaster,e))return;
   const objs=[];for(const o of markObjs){if(o.s.visible)objs.push(o.s);if(o.bar&&o.bar.visible)objs.push(o.bar);}
   let hit=raycaster.intersectObjects(objs,false)[0];
   if(!hit){// tolerancia: marca más cercana al rayo
@@ -769,7 +909,7 @@ function devSym(t,x,z){const s=1.1;switch(t){
  case 'PS':return `<rect x="${x-s*.8}" y="${z-s*.8}" width="${1.6*s}" height="${1.6*s}" fill="var(--danger)"/>`;
  case 'HS':return `<polygon points="${x},${z-s} ${x+s},${z} ${x},${z+s} ${x-s},${z}" fill="none" stroke="var(--danger)" stroke-width=".3"/>`;
  case 'EEL':return `<rect x="${x-.7}" y="${z-1.3}" width="1.4" height="2.6" fill="#2F9E44"/>`;}return '';}
-function markSvg(m,k){const st=statusOf(m),col=window.BarcelonaField?.colorFor(m.id)||CATS[m.cat].color;const x=m.X,z=m.Z;let s=`<g class="p-mark" data-id="${m.id}" role="button" tabindex="0" aria-label="${esc(m.code+': '+m.note)}">`;
+function markSvg(m,k){const st=statusOf(m),col=CATS[m.cat].color;const x=m.X,z=m.Z;let s=`<g class="p-mark" data-id="${m.id}" role="button" tabindex="0" aria-label="${esc(m.code+': '+m.note)}">`;
  if(m.X2!=null)s+=`<line x1="${x}" y1="${z}" x2="${m.X2}" y2="${m.Z2}" stroke="${col}" stroke-width="${1.2*k}" stroke-linecap="round"/>`;
  if(st)s+=`<circle cx="${x}" cy="${z}" r="${2.9*k}" fill="none" stroke="var(--${st==='conf'?'danger':'near'})" stroke-width="${.45*k}" stroke-dasharray="${1*k} ${.6*k}"/>`;
  if(state.sel&&state.sel.id===m.id)s+=`<circle cx="${x}" cy="${z}" r="${3.9*k}" fill="none" stroke="var(--ink)" stroke-width="${.5*k}"/>`;
@@ -790,6 +930,7 @@ function bldPlan(b,fl){const B=BLD[b],L=G.L,D=G.D;let s='';const [c,sn]=rotOf(b)
  for(const [ex,ez] of exitsOf(b)){s+=`<circle cx="${ex}" cy="${ez}" r="${state.r}" fill="color-mix(in srgb, var(--danger) 6%, transparent)" stroke="var(--danger)" stroke-width=".3" stroke-dasharray="1.4 .9"/>`;
   s+=`<rect x="${ex-.7}" y="${ez-1.5}" width="1.4" height="3" fill="#8A2222"/><text x="${ex+(ex>0?8.5:-8.5)}" y="${ez+1}" font-size="2.6" text-anchor="middle" class="p-txt" font-weight="600">Exit</text>`;}
  if(state.dev)for(const d of DEV)s+=devSym(d[0],d[1],d[2]);
+ if(window.BG&&window.BG.planExtra)s+=window.BG.planExtra(b,fl);
  if(state.marks)for(const m of MARKS)if(m.b===b&&m.f===fl&&(!state.only||statusOf(m)))s+=markSvg(m,1);
  // elevaciones por lado
  const sides=[[L/2,-7,0,-1],[L/2,D+7,0,1],[-12,9,-1,0],[L+12,9,1,0]];
@@ -815,7 +956,7 @@ function sitePlan(){let s=`<rect x="-20" y="-20" width="540" height="420" fill="
   const nm=b==='club'?'Club':b;s+=`<text x="${B.c[0]}" y="${B.c[1]+(b==='club'?2:3)}" font-size="${b==='club'?7:11}" text-anchor="middle" class="p-txt" font-weight="600">${nm}</text>`;
   if(b!=='club')s+=`<text x="${B.c[0]}" y="${B.c[1]+12}" font-size="6" text-anchor="middle" class="p-mut">Phase ${B.phase}</text>`;s+='</g>';
   for(const [ex,ez] of exitsOf(b)){const [wx,wz]=toWorld(b,ex,ez);s+=`<circle cx="${wx}" cy="${wz}" r="${state.r}" fill="none" stroke="var(--danger)" stroke-width=".6" stroke-dasharray="2 1.4" opacity=".7"/><circle cx="${wx}" cy="${wz}" r="1.6" fill="#8A2222"/>`;}}
- if(state.marks)for(const m of MARKS){const st=statusOf(m);if(state.only&&!st)continue;const [x,z]=toWorld(m.b,m.X2!=null?(m.X+m.X2)/2:m.X,m.Z2!=null?(m.Z+m.Z2)/2:m.Z);s+=`<g class="p-mark" data-id="${m.id}" role="button" tabindex="0" aria-label="${esc(m.b+' '+m.code+': '+m.note)}">${st?`<circle cx="${x}" cy="${z}" r="4" fill="none" stroke="var(--${st==='conf'?'danger':'near'})" stroke-width=".8"/>`:''}${state.sel&&state.sel.id===m.id?`<circle cx="${x}" cy="${z}" r="5.5" fill="none" stroke="var(--ink)" stroke-width=".9"/>`:''}<circle cx="${x}" cy="${z}" r="2" fill="${window.BarcelonaField?.colorFor(m.id)||CATS[m.cat].color}" stroke="var(--surface)" stroke-width=".5"/></g>`;}
+ if(state.marks)for(const m of MARKS){const st=statusOf(m);if(state.only&&!st)continue;const [x,z]=toWorld(m.b,m.X2!=null?(m.X+m.X2)/2:m.X,m.Z2!=null?(m.Z+m.Z2)/2:m.Z);s+=`<g class="p-mark" data-id="${m.id}" role="button" tabindex="0" aria-label="${esc(m.b+' '+m.code+': '+m.note)}">${st?`<circle cx="${x}" cy="${z}" r="4" fill="none" stroke="var(--${st==='conf'?'danger':'near'})" stroke-width=".8"/>`:''}${state.sel&&state.sel.id===m.id?`<circle cx="${x}" cy="${z}" r="5.5" fill="none" stroke="var(--ink)" stroke-width=".9"/>`:''}<circle cx="${x}" cy="${z}" r="2" fill="${CATS[m.cat].color}" stroke="var(--surface)" stroke-width=".5"/></g>`;}
  s+=northArrow(478,40,0,9)+scaleBar(36,292,100,'100′ (30.5 m)',2.4);
  return {vb:[-10,-8,520,382],s};}
 function renderPlan(){const r=state.b==='all'?sitePlan():state.b==='club'?clubPlan():bldPlan(state.b,state.floor);
@@ -830,7 +971,7 @@ function renderFicha(){const m=state.sel,el=$('#ficha');if(!m){el.innerHTML='<h2
  const al=st==='conf'?`<p class="alert conf">${fBoth(m.dist)} from an exit, within the selected distance. If this is overhead work, require falling-object protection.</p>`:st==='near'?`<p class="alert near">${fBoth(m.dist)} from an exit, less than 5′ beyond the selected limit.</p>`:`<p class="alert ok">${fBoth(m.dist)} from the nearest exit.</p>`;
  const fc=m.code==='SP'?'Hatch':m.code==='CK'?'CC':m.code;el.innerHTML=`<h2>Mark details</h2><div class="fcode cond" style="color:${col}">${esc(fc)}</div><p class="fmean">${esc(MEAN[m.code]||m.code)} · ${esc(m.note)}</p>
  <dl class="kv"><dt>Location</dt><dd>${where(m)}</dd><dt>Phase</dt><dd>${B.phase}</dd><dt>Elevation</dt><dd>${m.elev} · ${ENAME[m.elev]}</dd><dt>Height</dt><dd>${fFt(m.h)} (estimated)</dd><dt>Source</dt><dd>NV5 drawing ${m.b==='club'?'Bldg 200':'Bldg '+m.b}, sheet ${esc(m.sheet).replace(' y ',' and ')}</dd><dt>Data</dt><dd>${m.b==='club'?'Proportional position on the clubhouse from the aerial':'Plan position measured on the drawing'}</dd></dl>${al}
- <div class="row"><button class="btn" type="button" data-go="3d">View in 3D</button><button class="btn" type="button" data-go="plan">View in plan</button><button class="btn" type="button" data-go="elev">View in elevation</button><button class="btn" type="button" data-field-open="${m.id}">✎ Edit field record</button></div>`;}
+ <div class="row"><button class="btn" type="button" data-go="3d">View in 3D</button><button class="btn" type="button" data-go="plan">View in plan</button><button class="btn" type="button" data-go="elev">View in elevation</button></div>`;}
 $('#ficha').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b||!state.sel)return;const m=state.sel;state.b=m.b;
  if(b.dataset.go==='plan'){state.floor=m.b==='club'?1:m.f;setView('plan');}
  else if(b.dataset.go==='elev'){state.elev=m.elev;setView('elev');}
@@ -843,7 +984,7 @@ function renderConf(){const list=MARKS.filter(m=>statusOf(m)&&(state.b==='all'||
 $('#confList').addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)selectMark(MARKS[+b.dataset.id],true);});
 $('#rVal').textContent=fBoth(state.r);
 
-function selectMark(m,move){state.sel=m;renderFicha();window.dispatchEvent(new CustomEvent('barcelona-mark-selected',{detail:{id:m.id}}));
+function selectMark(m,move){state.sel=m;renderFicha();if(window.BG&&window.BG.onMark)window.BG.onMark(m);
  if(move){if(state.view==='3d'&&glOK){const o=markObjs[m.id];const v=dirW(m.b,m.n[0],m.n[1]);flyTo(o.p.clone(),80,new THREE.Vector3(v[0],.55,v[1]).normalize());}
   else if(state.view==='plan'){state.b=m.b;state.floor=m.f;}
   else if(state.view==='elev'){state.b=m.b;state.elev=m.elev;fitOrtho();}}
@@ -873,8 +1014,8 @@ function syncUI(){const v=state.view;
  else if(v==='plan'){$('#vtTitle').textContent=state.b==='all'?'Site plan':(state.b==='club'?'Plan · Clubhouse':`Plan · ${bn} · ${state.floor===1?'ground floor':'2nd floor'}`);$('#vtSub').textContent=state.b==='all'?'Tap a building to see its plan':'Dashed circle: selected distance from each exit';}
  else{$('#vtTitle').textContent=`Elevation ${state.elev} · ${ENAME[state.elev]} · ${bn}`;$('#vtSub').textContent='Orthographic view · heights estimated';}
  const ms=MARKS.filter(m=>state.b==='all'||m.b===state.b);const nc=ms.filter(m=>statusOf(m)==='conf').length;
- $('#summary').textContent=`${ms.length} marks · ${nc} within ${fFt(state.r)} of an exit${window.BarcelonaField?.summaryText()||''}`;
- if(v==='plan')renderPlan();applyVis();renderConf();}
+ $('#summary').textContent=`${ms.length} marks · ${nc} within ${fFt(state.r)} of an exit`;
+ if(v==='plan')renderPlan();applyVis();renderConf();if(window.BG&&window.BG.onSync)window.BG.onSync();}
 
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
 bchips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)selectB(b.dataset.b);});
@@ -895,17 +1036,10 @@ $('#rRad').addEventListener('input',e=>{state.r=+e.target.value;$('#rVal').textC
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(glOK&&!techOn)scene.background.set(cssVar('--scene'));});
 if(!glOK){host.innerHTML='<div class="nogl">This device could not open the 3D view. The plan is still available.</div>';setView('plan');}
 else{resize();syncUI();}
-window.BarcelonaViewer={
-  marks:MARKS,
-  get state(){return state;},
-  selectMark(id,move=false){const m=MARKS.find(x=>x.id===Number(id));if(m)selectMark(m,move);},
-  setView(v){if(['3d','plan','elev'].includes(v))setView(v);},
-  setBuilding(b){if(BLD[b])selectB(b);},
-  setElevation(e){state.elev=Number(e);if(state.view==='elev'&&glOK)fitOrtho();syncUI();},
-  refresh(){renderFicha();syncUI();if(glOK){for(const obj of markObjs){const col=window.BarcelonaField?.colorFor(obj.m.id)||CATS[obj.m.cat].color;obj.s.material.color.set(col);obj.s.material.emissive.set(col);}}}
-};
+window.BG=Object.assign(window.BG||{},{state,MARKS,BLD,G,CLUB,ENAME,EDIR,CATS,toWorld,dirW,rotOf,elevOf,units,matOf:window.__matOf,scene,renderer,ortho,cam,meshes,markObjs,applyVis,fitOrtho,focusB,selectB,setView,syncUI,renderPlan,renderFicha,statusOf,flyTo});
 })();
 </script>
-<script src="report-editor.js" defer></script>
+<script src="js/payapp.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
