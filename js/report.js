@@ -52,7 +52,7 @@
       this.wb('slab', ax, pc, d, a0, a1, top, y1, depth - .6, depth + .1);
       this.wb('slab', ax, pc, d, a0 - .1, a0 + .5, top, y1, 0, depth); this.wb('slab', ax, pc, d, a1 - .5, a1 + .1, top, y1, 0, depth);
       var n = Math.max(2, Math.round((a1 - a0) / 6));
-      for (var i = 0; i <= n; i++) { var a = a0 + (a1 - a0) * i / n; this.wb('alum', ax, pc, d, a - .15, a + .15, y0, top, depth - .3, depth); }
+      for (var i = 0; i <= n; i++) { var a = a0 + (a1 - a0) * i / n, w = a1 - a0, centers = w > 22 ? [a0 + w * .25, a0 + w * .75] : [(a0 + a1) / 2]; if (fl === 1 && centers.some(function(c){return Math.abs(a-c) < 1.6;})) continue; this.wb('alum', ax, pc, d, a - .15, a + .15, y0, top, depth - .3, depth); }
       this.wb('alum', ax, pc, d, a0, a1, top - .25, top, depth - .2, depth + .02);
       if (fl === 1) {
         var ww = a1 - a0, centers = ww > 22 ? [a0 + ww * .25, a0 + ww * .75] : [(a0 + a1) / 2];
