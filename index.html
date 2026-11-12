@@ -393,14 +393,14 @@ table.pt input.ch{border-color:var(--accent);background:var(--accent-soft)}
       <div class="pagehead"><h1>Reports</h1></div>
       <div class="sectionlabel" style="margin-top:0">Repair report by building · 36×24″</div>
       <div class="group">
-        <button class="listrow" type="button" data-rpt="100"><span class="fi pdf">PDF</span><span class="grow">Building 100<small>Elevations E-101, E-102 · balcony plan, details and photos E-103 to E-105</small></span></button>
+        <button class="listrow" type="button" data-rpt="100"><span class="fi pdf">PDF</span><span class="grow">Building 100<small>Elevations E-101/102 · unified register E-106 · ground floor E-107 · upper floor/details/photos E-103–105</small></span></button>
         <button class="listrow" type="button" data-rpt="200"><span class="fi pdf">PDF</span><span class="grow">Building 200<small>Elevations E-201, E-202 · balcony sheets when reported</small></span></button>
         <button class="listrow" type="button" data-rpt="300"><span class="fi pdf">PDF</span><span class="grow">Building 300<small>Elevations E-301, E-302 · balcony sheets when reported</small></span></button>
         <button class="listrow" type="button" data-rpt="400"><span class="fi pdf">PDF</span><span class="grow">Building 400<small>Elevations E-401, E-402 · balcony sheets when reported</small></span></button>
         <button class="listrow" type="button" data-rpt="club"><span class="fi pdf">PDF</span><span class="grow">Clubhouse<small>Elevations E-501</small></span></button>
         <button class="listrow" type="button" data-rpt="all"><span class="fi pdf" style="background:var(--ink)">ALL</span><span class="grow">Full report · all buildings<small>One set: cover, every building and the clubhouse</small></span></button>
       </div>
-      <p class="note">Same sheets as the master template “Elevations Balcony Repairs”: cover and index, the two elevation sheets of the building, and, when the building has balcony floor repairs, the 2nd-floor plan with the summary, the enlarged plans and the photo log. Every report regenerates from the repairs and CompanyCam photos in the app.</p>
+      <p class="note">Updated 36×24″ PDF: marked elevations, separate unified NV5/CompanyCam repair legend, ground-floor screened-lanai plan, and second-floor balcony plan, details and photo log when available. Lanai door positions are schematic pending field verification.</p>
       <div class="sectionlabel">Documents</div>
       <div class="group">
         <button class="listrow" type="button" data-doc="pdf"><span class="fi pdf">PDF</span><span class="grow">Typical Elevations · 36×24″<small>Concrete &amp; stucco repairs per NV5, with Bldg 100 field repairs</small></span></button>
@@ -739,15 +739,20 @@ function frustum(x0,x1,z0,z1,yb,yt,o,ins){
  gx('tile',3,mk(pos,uv));
  const T=Tp.map(p=>[p[0],yt,p[1]]);gx('rooftop',3,mk([...T[0],...T[3],...T[2],...T[0],...T[2],...T[1]]));
  const Bv=Bp.map(p=>[p[0],yb,p[1]]);gx('soffit',3,mk([...Bv[0],...Bv[1],...Bv[2],...Bv[0],...Bv[2],...Bv[3]]));}
+// First-floor screened lanais have exterior screen doors. Upper balconies are open.
+function lanaiDoorSpans(a0,a1){const w=a1-a0;return (w>22?[a0+w*.25,a0+w*.75]:[(a0+a1)/2]).map(c=>[c-1.5,c+1.5]);}
+function lanaiRuns(a0,a1,ds){let x=a0,r=[];ds.forEach(d=>{if(d[0]>x+.05)r.push([x,d[0]]);x=d[1];});if(a1>x+.05)r.push([x,a1]);return r;}
 function balc(ax,pc,dir,a0,a1,depth){
+ const doors=lanaiDoorSpans(a0,a1),runs=lanaiRuns(a0,a1,doors);
  for(const fl of [1,2]){const y0=(fl-1)*G.F2,y1=fl===1?G.F2:G.EAVE,top=y1-.7,sy0=y0+(fl===1?2.6:.3);
   wb('slab',fl,ax,pc,dir,a0,a1,top,y1,depth-.6,depth+.1);
   wb('slab',fl,ax,pc,dir,a0-.1,a0+.5,top,y1,0,depth);wb('slab',fl,ax,pc,dir,a1-.5,a1+.1,top,y1,0,depth);
-  wb('screen',fl,ax,pc,dir,a0,a1,sy0,top,depth-.08,depth-.02);
-  wb('screen',fl,ax,pc,dir,a0,a0+.06,sy0,top,0,depth);wb('screen',fl,ax,pc,dir,a1-.06,a1,sy0,top,0,depth);
-  const n=Math.max(2,Math.round((a1-a0)/6));for(let i=0;i<=n;i++){const a=a0+(a1-a0)*i/n;wb('alum',fl,ax,pc,dir,a-.15,a+.15,y0,top,depth-.3,depth);}
+  if(fl===1)runs.forEach(r=>wb('screen',fl,ax,pc,dir,r[0],r[1],sy0,top,depth-.08,depth-.02));
+  if(fl===1){wb('screen',fl,ax,pc,dir,a0,a0+.06,sy0,top,0,depth);wb('screen',fl,ax,pc,dir,a1-.06,a1,sy0,top,0,depth);}
+  const n=Math.max(2,Math.round((a1-a0)/6));for(let i=0;i<=n;i++){const a=a0+(a1-a0)*i/n;if(fl===1&&doors.some(d=>a>d[0]-.2&&a<d[1]+.2))continue;wb('alum',fl,ax,pc,dir,a-.15,a+.15,y0,top,depth-.3,depth);}
   wb('alum',fl,ax,pc,dir,a0,a1,top-.25,top,depth-.2,depth+.02);
-  if(fl===1){wb('kick',fl,ax,pc,dir,a0,a1,y0,sy0,depth-.12,depth);wb('kick',fl,ax,pc,dir,a0,a0+.1,y0,sy0,0,depth);wb('kick',fl,ax,pc,dir,a1-.1,a1,y0,sy0,0,depth);wb('alum',fl,ax,pc,dir,a0,a1,sy0-.1,sy0+.1,depth-.2,depth+.02);}
+  if(fl===1){runs.forEach(r=>{wb('kick',1,ax,pc,dir,r[0],r[1],y0,sy0,depth-.12,depth);wb('alum',1,ax,pc,dir,r[0],r[1],sy0-.1,sy0+.1,depth-.2,depth+.02);});wb('kick',1,ax,pc,dir,a0,a0+.1,y0,sy0,0,depth);wb('kick',1,ax,pc,dir,a1-.1,a1,y0,sy0,0,depth);
+   doors.forEach(d=>{wb('screen',1,ax,pc,dir,d[0]+.10,d[1]-.10,y0+.15,y0+6.85,depth-.08,depth-.02);wb('alum',1,ax,pc,dir,d[0]-.10,d[0]+.10,y0,top,depth-.25,depth);wb('alum',1,ax,pc,dir,d[1]-.10,d[1]+.10,y0,top,depth-.25,depth);wb('alum',1,ax,pc,dir,d[0],d[1],y0+6.85,y0+7.08,depth-.25,depth);});}
   else{const ry=y0+3.4;wb('trim',fl,ax,pc,dir,a0,a1,ry-.25,ry,depth-.25,depth+.05);wb('trim',fl,ax,pc,dir,a0,a1,y0+.15,y0+.35,depth-.25,depth+.05);
    for(let a=a0+.4;a<a1-.2;a+=.7)wb('trim',fl,ax,pc,dir,a-.06,a+.06,y0+.3,ry-.2,depth-.15,depth-.03);
    wb('trim',fl,ax,pc,dir,a0,a0+.12,y0+.3,ry,0,depth);wb('trim',fl,ax,pc,dir,a1-.12,a1,y0+.3,ry,0,depth);
@@ -1008,6 +1013,14 @@ function bldPlan(b,fl){const B=BLD[b],L=G.L,D=G.D;let s='';const [c,sn]=rotOf(b)
  const bal=(x0,x1,z0,z1)=>`<rect x="${x0}" y="${z0}" width="${x1-x0}" height="${z1-z0}" class="p-balc"/>`;
  for(const P of G.PAIRS)s+=bal(P-12,P,0,G.RT)+bal(P,P+12,0,G.RT)+bal(P-12,P,G.RB,D)+bal(P,P+12,G.RB,D);
  for(const [z0,z1] of G.EBZ)s+=bal(-G.EB,0,z0,z1)+bal(L,L+G.EB,z0,z1);
+  if(fl===1){
+   // Schematic exterior screen doors (actual placement/handing to be field-verified).
+   const doorSymbol=(x,z,isLong)=>isLong
+    ? `<g aria-label="Ground lanai door (schematic)"><line x1="${x-1.5}" y1="${z}" x2="${x+1.5}" y2="${z}" stroke="var(--accent)" stroke-width=".6"/><path d="M${x-1.5} ${z} A3 3 0 0 1 ${x+1.5} ${z-3}" fill="none" stroke="var(--accent)" stroke-width=".45"/></g>`
+    : `<g aria-label="Ground lanai door (schematic)"><line x1="${x}" y1="${z-1.5}" x2="${x}" y2="${z+1.5}" stroke="var(--accent)" stroke-width=".6"/><path d="M${x} ${z-1.5} A3 3 0 0 1 ${x-3} ${z+1.5}" fill="none" stroke="var(--accent)" stroke-width=".45"/></g>`;
+   for(const P of G.PAIRS)for(const x of [P-6,P+6])s+=doorSymbol(x,0,true)+doorSymbol(x,D,true);
+   for(const [z0,z1] of G.EBZ)for(const x of [-G.EB,L+G.EB])s+=doorSymbol(x,(z0+z1)/2,false);
+  }
  for(const u of units(b,fl))s+=`<rect x="${u.x0}" y="${u.z0}" width="${u.x1-u.x0}" height="${u.z1-u.z0}" class="p-unit"/><text x="${(u.x0+u.x1)/2}" y="${(u.z0+u.z1)/2+1.2}" font-size="3.4" text-anchor="middle" class="p-txt" font-weight="600">${u.n}</text>`;
  s+=`<rect x="0" y="${G.CT}" width="${L}" height="${G.CB-G.CT}" class="p-corr"/><text x="${L/2}" y="${G.CC+1}" font-size="2.4" text-anchor="middle" class="p-mut">Corridor · 5′-0″</text>`;
  for(const P of G.PAIRS)for(const z of [G.RT/2,(G.RB+D)/2])s+=`<line x1="${P}" y1="${z-3}" x2="${P}" y2="${z+3}" stroke="var(--muted)" stroke-width=".3"/>`;
@@ -1096,7 +1109,7 @@ function syncUI(){const v=state.view;
  $('#bXray').setAttribute('aria-pressed',state.xray);$('#bCut').setAttribute('aria-pressed',state.cut);
  const bn=state.b==='all'?'Whole site':BNAME[state.b];
  if(v==='3d'){$('#vtTitle').textContent='3D model · '+bn;$('#vtSub').textContent=state.xray?'X-ray: corridor, interior walls and devices':'Drag to orbit · pinch or scroll to zoom';}
- else if(v==='plan'){$('#vtTitle').textContent=state.b==='all'?'Site plan':(state.b==='club'?'Plan · Clubhouse':`Plan · ${bn} · ${state.floor===1?'ground floor':'2nd floor'}`);$('#vtSub').textContent=state.b==='all'?'Tap a building to see its plan':'Dashed circle: selected distance from each exit';}
+ else if(v==='plan'){$('#vtTitle').textContent=state.b==='all'?'Site plan':(state.b==='club'?'Plan · Clubhouse':`Plan · ${bn} · ${state.floor===1?'ground floor':'2nd floor'}`);$('#vtSub').textContent=state.b==='all'?'Tap a building to see its plan':(state.floor===1?'Ground floor: screened lanais with schematic exterior access doors · verify positions':'2nd floor: open balconies with railings · no exterior screen doors');}
  else{$('#vtTitle').textContent=`Elevation ${state.elev} · ${ENAME[state.elev]} · ${bn}`;$('#vtSub').textContent='Orthographic view · heights estimated';}
  const ms=MARKS.filter(m=>state.b==='all'||m.b===state.b);const nc=ms.filter(m=>statusOf(m)==='conf').length;
  $('#summary').textContent=`${ms.length} marks · ${nc} within ${fFt(state.r)} of an exit`;
