@@ -13,3 +13,10 @@
 .field-footer{border-top:1px solid var(--field-border);padding:10px 17px calc(env(safe-area-inset-bottom,0px) + 10px);background:var(--surface);color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:10px}.field-highlight{font-weight:700;color:var(--field-red)}
 @media(max-width:760px){.field-sheet{top:auto;left:0;right:0;bottom:0;width:100%;height:min(93dvh,930px);border-radius:22px 22px 0 0;transform:translateY(110%);transition:transform .36s cubic-bezier(.22,1,.36,1)}.field-sheet.visible{transform:translateY(0)}.field-heading{padding-top:20px}.field-heading:before{content:"";display:block;width:34px;height:4px;border-radius:99px;background:var(--line);position:absolute;top:8px;left:calc(50% - 17px)}.field-content{padding-bottom:18px}.top>a.report-link{display:none}.field-open{order:10;flex:1}.field-tabs{margin-top:8px}.field-card{padding:12px}}
 @media(prefers-reduced-motion:reduce){.field-sheet,.field-veil,.field-toast{transition:none!important}}
+/* Accessible reading size in field records. Preserve the mobile sheet geometry and scroll behavior. */
+.field-card h3{font-size:17px;line-height:1.35}
+.field-card h4,.field-label{font-size:14px;line-height:1.4}
+.field-card p,.field-card .field-detail,.field-suggestion,.field-sow div,.field-bullet{font-size:14px;line-height:1.5}
+.field-kpis small,.field-bullet small,.field-footer{font-size:12.5px;line-height:1.4}
+.field-btn{font-size:14px}
+.field-heading p{font-size:14px}

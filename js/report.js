@@ -52,9 +52,20 @@
       this.wb('slab', ax, pc, d, a0, a1, top, y1, depth - .6, depth + .1);
       this.wb('slab', ax, pc, d, a0 - .1, a0 + .5, top, y1, 0, depth); this.wb('slab', ax, pc, d, a1 - .5, a1 + .1, top, y1, 0, depth);
       var n = Math.max(2, Math.round((a1 - a0) / 6));
-      for (var i = 0; i <= n; i++) { var a = a0 + (a1 - a0) * i / n; this.wb('alum', ax, pc, d, a - .15, a + .15, y0, top, depth - .3, depth); }
+      for (var i = 0; i <= n; i++) { var a = a0 + (a1 - a0) * i / n, w = a1 - a0, centers = w > 22 ? [a0 + w * .25, a0 + w * .75] : [(a0 + a1) / 2]; if (fl === 1 && centers.some(function(c){return Math.abs(a-c) < 1.6;})) continue; this.wb('alum', ax, pc, d, a - .15, a + .15, y0, top, depth - .3, depth); }
       this.wb('alum', ax, pc, d, a0, a1, top - .25, top, depth - .2, depth + .02);
-      if (fl === 1) { this.wb('kick', ax, pc, d, a0, a1, y0, sy0, depth - .12, depth); this.wb('alum', ax, pc, d, a0, a1, sy0 - .1, sy0 + .1, depth - .2, depth + .02); }
+      if (fl === 1) {
+        var ww = a1 - a0, centers = ww > 22 ? [a0 + ww * .25, a0 + ww * .75] : [(a0 + a1) / 2];
+        var ds = centers.map(function (v) { return [v - 1.5, v + 1.5]; }), prev = a0;
+        ds.forEach(function (d0) {
+          if (d0[0] > prev) { this.wb('kick', ax, pc, d, prev, d0[0], y0, sy0, depth - .12, depth); this.wb('alum', ax, pc, d, prev, d0[0], sy0 - .1, sy0 + .1, depth - .2, depth + .02); }
+          this.wb('lanaiDoor', ax, pc, d, d0[0], d0[1], y0 + .12, y0 + 7, depth - .14, depth + .06);
+          this.wb('alum', ax, pc, d, d0[0] - .1, d0[0] + .1, y0, top, depth - .25, depth);
+          this.wb('alum', ax, pc, d, d0[1] - .1, d0[1] + .1, y0, top, depth - .25, depth);
+          prev = d0[1];
+        }, this);
+        if (a1 > prev) { this.wb('kick', ax, pc, d, prev, a1, y0, sy0, depth - .12, depth); this.wb('alum', ax, pc, d, prev, a1, sy0 - .1, sy0 + .1, depth - .2, depth + .02); }
+      }
       else {
         var ry = y0 + 3.4; this.wb('rail', ax, pc, d, a0, a1, ry - .25, ry, depth - .25, depth + .05); this.wb('rail', ax, pc, d, a0, a1, y0 + .15, y0 + .35, depth - .25, depth + .05);
         for (var aa = a0 + .4; aa < a1 - .2; aa += .7) this.wb('picket', ax, pc, d, aa - .06, aa + .06, y0 + .3, ry - .2, depth - .15, depth - .03);
@@ -112,7 +123,7 @@
     else { a = srt([projU(side, Lb, Db, 0, z0 - o), projU(side, Lb, Db, 0, z1 + o)]); t = srt([projU(side, Lb, Db, 0, z0 + ins), projU(side, Lb, Db, 0, z1 - ins)]); near = side === 'left' ? x0 - o : Lb - (x1 + o); }
     return { k: 'roof', poly: [[a[0], yb], [t[0], yt], [t[1], yt], [a[1], yb]], near: near };
   }
-  var PRIO = { wall: 0, band: 1, glass: 2, door: 2, trim: 1.5, mullion: 3, shutter: 3, brick: 3, lattice: 3, slab: 1, alum: 4, kick: 4, rail: 5, picket: 5, step: 1, canopy: 6, awning: 6, bracket: 5, roof: 0 };
+  var PRIO = { wall: 0, band: 1, glass: 2, door: 2, lanaiDoor: 6, trim: 1.5, mullion: 3, shutter: 3, brick: 3, lattice: 3, slab: 1, alum: 4, kick: 4, rail: 5, picket: 5, step: 1, canopy: 6, awning: 6, bracket: 5, roof: 0 };
 
   /* ---------- report ---------- */
   function build(o) {
@@ -144,26 +155,26 @@
       var lwid = 170, lh = lwid * 108 / 203;
       if (o.logo) try { doc.addImage(o.logo, 'PNG', (x0 + x1) / 2 - lwid / 2, Y(y - 16), lwid, lh); } catch (e) {}
       y -= 16 + lh + 18;
-      [['MTD Painting & Construction Corp.', 'B', 11], ['CGC 1534015', 'R', 9.5], ['PH: 833-350-9300', 'R', 9.5], ['info@MTDcgc.com', 'R', 9.5], ['12296 Wiles Rd, Coral Springs, FL 33076', 'R', 8.5], ['10600 Chevrolet Way, Suite 220,', 'R', 8.5], ['Estero, FL 33928', 'R', 8.5]].forEach(function (r) { T((x0 + x1) / 2, y, r[0], r[2], r[1], 'c'); y -= r[2] + 4; });
+      [['MTD Painting & Construction Corp.', 'B', 12.5], ['CGC 1534015', 'R', 11], ['PH: 833-350-9300', 'R', 11], ['info@MTDcgc.com', 'R', 11], ['12296 Wiles Rd, Coral Springs, FL 33076', 'R', 10], ['10600 Chevrolet Way, Suite 220,', 'R', 10], ['Estero, FL 33928', 'R', 10]].forEach(function (r) { T((x0 + x1) / 2, y, r[0], r[2], r[1], 'c'); y -= r[2] + 4; });
       y -= 8; sep(y);
       y -= 20; T(x0 + pad, y, 'Project', 8.5, 'R', 'l', GRAY); y -= 18;
       T(x0 + pad, y, 'Barcelona Gardens', 15, 'B'); y -= 17; T(x0 + pad, y, 'Condominium', 15, 'B'); y -= 16;
       T(x0 + pad, y, '101 E McNab Rd,', 10); y -= 13; T(x0 + pad, y, 'Pompano Beach, FL 33060', 10); y -= 14; sep(y);
       y -= 20; T(x0 + pad, y, 'Sheet title', 8.5, 'R', 'l', GRAY); y -= 18;
-      wrap(info.title, x1 - x0 - 2 * pad, 14, 'B').forEach(function (l) { T(x0 + pad, y, l, 14, 'B'); y -= 17; });
-      (info.sub || []).forEach(function (ln) { wrap(ln, x1 - x0 - 2 * pad, 9.5).forEach(function (l2) { T(x0 + pad, y, l2, 9.5); y -= 12.5; }); });
+      wrap(info.title, x1 - x0 - 2 * pad, 16, 'B').forEach(function (l) { T(x0 + pad, y, l, 16, 'B'); y -= 20; });
+      (info.sub || []).forEach(function (ln) { wrap(ln, x1 - x0 - 2 * pad, 11).forEach(function (l2) { T(x0 + pad, y, l2, 11); y -= 15; }); });
       y -= 6; sep(y);
       if (info.key) { y -= 18; T(x0 + pad, y, 'Key plan', 8.5, 'R', 'l', GRAY); var kh = 210; keyPlan(info.key[0], info.key[1], x0 + 6, y - kh - 4, x1 - x0 - 12, kh); y -= kh + 10; sep(y); }
       y -= 18; T(x0 + pad, y, 'Legend', 8.5, 'R', 'l', GRAY); y -= 18;
       (info.legend || legendCallouts)(x0 + pad, y); y -= info.legendH || 70; sep(y);
       y -= 18; T(x0 + pad, y, 'Notes', 8.5, 'R', 'l', GRAY); y -= 14;
-      (info.notes || []).forEach(function (n, i) { var ls = wrap(n, x1 - x0 - 2 * pad - 14, 8.5); T(x0 + pad, y, (i + 1) + '.', 8.5, 'B'); ls.forEach(function (l) { T(x0 + pad + 14, y, l, 8.5); y -= 11; }); y -= 3; });
+      (info.notes || []).forEach(function (n, i) { var ls = wrap(n, x1 - x0 - 2 * pad - 18, 10.5); T(x0 + pad, y, (i + 1) + '.', 10.5, 'B'); ls.forEach(function (l) { T(x0 + pad + 18, y, l, 10.5); y -= 14; }); y -= 4; });
       var yb = bot + 120; sep(yb + 4 * 30);
-      [['MTD Job No.', '2025-016-12'], ['Date', dstr], ['Scale', info.scale || 'As noted'], ['Basis', info.basis || 'NV5 drawings']].forEach(function (f, i) { var yy = yb + (3 - i) * 30; sep(yy); T(x0 + pad, yy + 18, f[0], 8, 'R', 'l', GRAY); T(x0 + pad, yy + 6, f[1], 10, 'B'); });
+      [['MTD Job No.', '2025-016-12'], ['Date', dstr], ['Scale', info.scale || 'As noted'], ['Basis', info.basis || 'NV5 drawings']].forEach(function (f, i) { var yy = yb + (3 - i) * 30; sep(yy); T(x0 + pad, yy + 18, f[0], 9.5, 'R', 'l', GRAY); T(x0 + pad, yy + 6, f[1], 11.5, 'B'); });
       T(x0 + pad, bot + 98, 'Sheet', 8.5, 'R', 'l', GRAY); T((x0 + x1) / 2, bot + 42, info.no, 40, 'B', 'c'); T((x0 + x1) / 2, bot + 18, page + ' of ' + total, 9.5, 'R', 'c', GRAY);
     }
     function legendCallouts(x, y, size, step) {
-      size = size || 9; step = step || 17; var r = 8;
+      size = size || 10.5; step = step || 20; var r = 8;
       fill(255); stroke(0); lw(1); circle(x + r, y, r, true, true); T(x + 2 * r + 7, y - 3.4, 'Repair', size);
       fill(0); circle(x + r, y - step, r, true, true); T(x + 2 * r + 7, y - step - 3.4, fft(RAD) + ' or less from an exit', size);
       fill(255); dash([2.4, 1.8]); circle(x + r, y - 2 * step, r, true, true); dash(); T(x + 2 * r + 7, y - 2 * step - 3.4, 'Between ' + fft(RAD) + ' and ' + fft(RAD + 5) + ' from an exit', size);
@@ -212,7 +223,8 @@
         if (w < .05 || h < .05) return;
         lw({ wall: 1.1, band: .6, slab: .6 }[k] || .45); stroke(0); fill(255); rect(x, y, w, h, true, true);
         if (k === 'shutter' && it.faceon && w > 2) { lw(.3); line(x + 1.5, y + h * .18, x + w - 1.5, y + h * .18); line(x + 1.5, y + h * .82, x + w - 1.5, y + h * .82); line(x + 1.5, y + h * .18, x + w - 1.5, y + h * .82); }
-        else if (k === 'glass' && it.faceon && w > 4) { lw(.25); stroke(GRAY); line(x + w * .2, y + h * .35, x + w * .35, y + h * .6); line(x + w * .28, y + h * .3, x + w * .46, y + h * .58); }
+        else if (k === 'lanaiDoor' && it.faceon) { lw(1); stroke(0); line(x + w * .1, y + h * .1, x + w * .9, y + h * .9); circle(x + w * .8, y + h * .5, 1.5, false, true); }
+         else if (k === 'glass' && it.faceon && w > 4) { lw(.25); stroke(GRAY); line(x + w * .2, y + h * .35, x + w * .35, y + h * .6); line(x + w * .28, y + h * .3, x + w * .46, y + h * .58); }
         else if (k === 'door' && it.faceon) { lw(.35); rect(x + w * .15, y + h * .55, w * .7, h * .35, false, true); rect(x + w * .15, y + h * .08, w * .7, h * .38, false, true); circle(x + w * .82, y + h * .5, Math.max(.8, w * .04), false, true); }
         else if (k === 'lattice' && it.faceon) {
           lw(.35);
@@ -235,7 +247,7 @@
         ua.sort(function (a, c) { return a - c; });
         var p0 = P(ua[0], fe.y0), p1 = P(ua[1], fe.y1);
         fill([219, 219, 219]); stroke(0); lw(.6); rect(p0[0], p0[1], p1[0] - p0[0], p1[1] - p0[1], true, true); hatch(p0[0], p0[1], p1[0] - p0[0], p1[1] - p0[1], GRAY, 4);
-        T((p0[0] + p1[0]) / 2, p0[1] - 9, flab(fe), 7.5, 'B', 'c', [128, 26, 13]);
+        T((p0[0] + p1[0]) / 2, p0[1] - 12, flab(fe), 11, 'B', 'c', [128, 26, 13]);
       });
       var pts = [];
       marks.forEach(function (m) {
@@ -278,19 +290,19 @@
     function scaleBar(x, y, s, feet, label) { var seg = feet / 4; for (var i = 0; i < 4; i++) { fill(i % 2 ? 255 : 0); stroke(0); lw(.5); rect(x + i * seg * s, y, seg * s, 5, true, true); } T(x, y - 12, '0', 9); T(x + feet * s, y - 12, label, 9, 'R', 'c'); }
     function markTable(rows, x, yTop, colW, yBottom, ncols) {
       var widths = [32, 52, null, 72, 74]; widths[2] = colW - 230; var heads = ['No.', 'Code', 'Location and description', 'Floor', 'To exit'], col = 0, cx = x, y;
-      function header(cx2, yy) { fill(LIGHT); rect(cx2, yy - 18, colW, 18, true, false); var xx = cx2; widths.forEach(function (wd, i) { T(xx + 5, yy - 12.5, heads[i], 9.5, 'B'); xx += wd; }); return yy - 18; }
+      function header(cx2, yy) { fill(LIGHT); rect(cx2, yy - 18, colW, 18, true, false); var xx = cx2; widths.forEach(function (wd, i) { T(xx + 5, yy - 12.5, heads[i], 11, 'B'); xx += wd; }); return yy - 18; }
       y = header(cx, yTop);
       for (var i = 0; i < rows.length; i++) {
         var n = rows[i][0], m = rows[i][1], fw = m.note.split(' ')[0].replace(',', '').toLowerCase(), mw = (MEAN[m.code] || '').toLowerCase().split(' ');
         var desc = (m.code === 'SP' || (m.code !== 'B' && mw.indexOf(fw) >= 0)) ? m.note : (MEAN[m.code] || m.code) + '. ' + m.note;
-        var ls = wrap(desc, widths[2] - 10, 9.5), rh = 13 * ls.length + 8;
+        var ls = wrap(desc, widths[2] - 10, 10.5), rh = 14 * ls.length + 9;
         if (y - rh < yBottom) { col++; if (col >= ncols) break; cx = x + col * (colW + 30); y = header(cx, yTop); }
         var st = statusOf(m), xx = cx;
         if (st === 'conf') { fill(0); circle(xx + 13, y - 10, 8, true, false); T(xx + 13, y - 13.6, n, 9.5, 'B', 'c', 255); }
         else { fill(255); stroke(0); lw(1); if (st === 'near') dash([2.2, 1.6]); circle(xx + 13, y - 10, 8, true, true); dash(); T(xx + 13, y - 13.6, n, 9.5, 'B', 'c'); }
-        xx += widths[0]; T(xx + 5, y - 13.6, DISP[m.code] || m.code, 10, 'B'); xx += widths[1];
-        ls.forEach(function (l, k) { T(xx + 5, y - 13.6 - k * 13, l, 9.5); }); xx += widths[2];
-        T(xx + 5, y - 13.6, m.f === 1 ? 'Ground' : '2nd', 9.5); xx += widths[3]; T(xx + 5, y - 13.6, fft(m.dist), 10, st === 'conf' ? 'B' : 'R');
+        xx += widths[0]; T(xx + 5, y - 14, DISP[m.code] || m.code, 11, 'B'); xx += widths[1];
+        ls.forEach(function (l, k) { T(xx + 5, y - 14 - k * 14, l, 10.5); }); xx += widths[2];
+        T(xx + 5, y - 14, m.f === 1 ? 'Ground' : '2nd', 10.5); xx += widths[3]; T(xx + 5, y - 14, fft(m.dist), 11, st === 'conf' ? 'B' : 'R');
         y -= rh; stroke(LIGHT); lw(.6); line(cx, y, cx + colW, y);
       }
       return y;
@@ -318,36 +330,118 @@
         marks.forEach(function (m) { rows.push([numbering[m.id], m]); });
       });
       rows.sort(function (a, c) { return a[0] - c[0]; });
-      var tx, ty0, twid, ncol;
-      var fl = field.filter(function (fe) { return ordered.indexOf(fe.side) >= 0; });
-      if (kind === 'long') { tx = 48; ty0 = top - 2 * (blockH + gap) + 6; twid = (MAINR - 48 - 30) / 2; ncol = fl.length ? 1 : 2; }
-      else { tx = 1830; ty0 = top; twid = MAINR - 1830; ncol = 1; }
-      T(tx, ty0 - 4, 'Repairs on this sheet', 15, 'B');
-      var ylast = rows.length ? markTable(rows, tx, ty0 - 16, twid, 40, ncol) : ty0 - 30;
-      if (!rows.length) T(tx, ty0 - 30, 'No repairs marked on these elevations.', 11);
-      if (fl.length) {
-        var fx = kind === 'long' ? tx + twid + 30 : tx, fy = kind === 'long' ? ty0 : ylast - 30, reps = {};
-        fl.forEach(function (fe) { if (fe.report) reps[fe.report] = 1; });
-        T(fx, fy - 4, 'Field repairs seen in photos · CompanyCam' + (Object.keys(reps).length === 1 && /Nov 11, 2026/.test(Object.keys(reps)[0]) ? ' Nov 11, 2026' : ''), 13, 'B');
-        T(fx, fy - 18, 'Hatched areas on the elevations. Locations read from photos, approximate.', 9, 'R', 'l', GRAY);
-        var yy = fy - 34; fill(LIGHT); rect(fx, yy - 16, twid, 16, true, false);
-        [[5, 'No.'], [40, 'Location'], [100, 'Description'], [twid - 60, 'Photos']].forEach(function (h) { T(fx + h[0], yy - 11.5, h[1], 9.5, 'B'); }); yy -= 16;
-        fl.forEach(function (fe) {
-          var ls = wrap(fe.note || fe.notes || '', twid - 170, 9), rh = 12 * ls.length + 6; if (yy - rh < 40) return;
-          T(fx + 5, yy - 12, o.label(fe), 9.5, 'B'); T(fx + 40, yy - 12, fe.unit || '', 9.5);
-          ls.forEach(function (l, k) { T(fx + 100, yy - 12 - k * 12, l, 9); });
-          T(fx + twid - 60, yy - 12, (fe.photos || []).filter(function (r) { return typeof r === 'number'; }).join(', '), 9);
-          yy -= rh; stroke(LIGHT); lw(.6); line(fx, yy, fx + twid, yy);
-        });
+      // Elevations display callouts ONLY; full NV5 / CompanyCam register follows.
+      if (b !== 'club') {
+        T(50, 174, 'MARKED ELEVATIONS  ·  Full repair legend and register on sheet E-' + b[0] + '06', 17, 'B');
+        T(50, 149, 'Locations from CompanyCam are approximate; verify in the field.', 12, 'R', 'l', GRAY);
       }
       var name = b === 'club' ? 'Clubhouse' : 'Building ' + b, es = ordered.map(function (sd) { return sideElev(b, sd) + ' ' + ENAME[sideElev(b, sd)]; }).join(' and ');
       var sub = ['Phase ' + BLD[b].phase + ' · ' + (kind === 'long' ? 'long faces' : (b === 'club' ? 'faces with repairs' : 'end faces'))];
       if (b === 'club') sub.push('Dimensions from the aerial; the NV5 clubhouse drawing is not to scale. Entry location estimated.');
-      var hasField = b === '100' || fl.length;
+      var hasField = b === '100' || field.length;
       titleBlock({ no: no, title: name + ' · Elevations ' + es, sub: sub, key: [b, ordered], scale: s === 9 ? '1/8″ = 1′-0″' : '1/4″ = 1′-0″', basis: 'NV5 ' + BLD[b].permit, notes: NOTES_E(BLD[b].permit),
-        legend: function (x, y) { legendCallouts(x, y, 9); if (hasField) { fill([219, 219, 219]); stroke(0); lw(.6); rect(x, y - 2 * 17 - 22, 16, 10, true, true); T(x + 23, y - 2 * 17 - 21.4, 'Field repair seen in photos (F#)', 9); } }, legendH: hasField ? 70 : 52 });
+        legend: function (x, y) { if (b === 'club') legendCallouts(x, y, 10.5, 20); else { T(x, y - 2, 'Repair ID, code and description', 10.5, 'B'); T(x, y - 21, 'See register E-' + b[0] + '06', 10.5); } }, legendH: b === 'club' ? 70 : 48 });
     }
 
+
+    /* ---------- unified NV5 + CompanyCam register (separate from marked elevations) ---------- */
+    function registerRows(b) {
+      var nv5 = o.marks.filter(function(m){return m.b === b;}).map(function(m){
+        return { id: String(BLD[b].num[m.id] || m.id + 1), source: 'NV5', floor: m.f,
+          elev: sideElev(b, sideOfMark(m)), code: DISP[m.code] || m.code,
+          desc: m.note || (MEAN[m.code] || ''), photos: '—', stage: 'Shown on NV5' };
+      });
+      var field = o.entries.filter(function(e){return e.b === b;}).map(function(e){
+        var floor = e.patches && e.patches.length ? 2 : (Number(e.y0) >= F2 - .1 ? 2 : 1);
+        return { id: o.label(e), source: 'CompanyCam', floor: floor, elev: sideElev(b, e.side),
+          code: e.sow || e.code || e.kind || 'Field', desc: (e.unit ? e.unit + ' · ' : '') + (e.note || e.notes || 'Observed repair'),
+          photos: (e.photos || []).map(function(p){return String(p).replace(/^bal:/,'');}).join(', '),
+          stage: e.stage || e.status || 'Observed' };
+      });
+      return nv5.concat(field).sort(function(a,c){return a.floor-c.floor || a.elev-c.elev || String(a.id).localeCompare(String(c.id),'en',{numeric:true});});
+    }
+    function unifiedRegister(b,no,pg) {
+      newPage();
+      var rows = registerRows(b), PER = 28, chunk = rows.slice(pg * PER, pg * PER + PER);
+      var x0 = 48, right = MAINR - 4, tableW = right - x0;
+      var y = H - 72, codeCol = [0, 730, 1450];
+      T(48, y, 'Building ' + b + '  ·  UNIFIED REPAIR LEGEND & REGISTER' + (pg ? ' (continued)' : ''), 26, 'B');
+      y -= 34;
+      T(48, y, 'NV5 marks + CompanyCam field observations · Ground and 2nd floor · Mark references correspond to the elevation sheets.', 13, 'R', 'l', GRAY);
+      y -= 34;
+      if (pg === 0) {
+        T(48, y, 'LEGEND — REPAIR CODES / DESCRIPTIONS', 16, 'B'); y -= 28;
+        var codes = Object.keys(MEAN).sort(), groups = Math.ceil(codes.length / 3);
+        codes.forEach(function(code,i) {
+          var colx = x0 + codeCol[Math.floor(i/groups)], row = i % groups;
+          T(colx, y - row * 22, (DISP[code] || code) + '  —  ' + MEAN[code], 12.5);
+        });
+        y -= (groups * 22 + 25);
+        T(48, y, 'REPAIR REGISTER — ONE CONSOLIDATED TABLE', 16, 'B'); y -= 24;
+      } else {
+        T(48, y, 'REPAIR REGISTER — CONTINUED', 16, 'B'); y -= 26;
+      }
+      var widths = [90, 140, 105, 105, 130, 1000, 225, tableW - 1795];
+      var heads = ['Mark ID', 'Source', 'Floor', 'Elevation', 'Code/SOW', 'Location / Description', 'Photos', 'Status / Stage'];
+      fill(LIGHT);rect(x0,y-28,tableW,28,true,false);
+      var xx=x0;heads.forEach(function(h,i){T(xx+6,y-19,h,12,'B');xx+=widths[i];});y-=28;
+      chunk.forEach(function(row,ri) {
+        var desc = wrap(row.desc,widths[5]-14,12.5), stage = wrap(row.stage,widths[7]-14,12.5), photos = wrap(row.photos,widths[6]-14,12.5);
+        var h = Math.max(29,Math.max(desc.length,stage.length,photos.length)*17+10);
+        var cells = [row.id,row.source,row.floor===1?'Ground':'2nd',row.elev+' · '+ENAME[row.elev],row.code,null,null,null];
+        if(ri%2===1){fill([247,247,247]);rect(x0,y-h,tableW,h,true,false);}
+        xx=x0;
+        cells.forEach(function(v,i){
+          if(i===5)desc.forEach(function(line,k){T(xx+6,y-19-k*17,line,12.5);});
+          else if(i===6)photos.forEach(function(line,k){T(xx+6,y-19-k*17,line,12.5);});
+          else if(i===7)stage.forEach(function(line,k){T(xx+6,y-19-k*17,line,12.5);});
+          else T(xx+6,y-19,v,i===0?13:12.5,i===0?'B':'R','l',i===0?ORANGE:0);
+          xx+=widths[i];
+        });
+        y-=h;stroke(LIGHT);lw(.5);line(x0,y,right,y);
+      });
+      y-=22;
+      T(48,Math.max(84,y),'Sheet covers '+chunk.length+' of '+rows.length+' records · NV5 and CompanyCam entries remain separate sources. No measured quantities inferred.',12,'R','l',GRAY);
+      titleBlock({no:no+(pg?'.'+(pg+1):''),title:'Building '+b+' · Unified repair legend and register',
+        sub:['All elevations · Both floors · NV5 + CompanyCam'],key:[b,['top','bottom','left','right']],
+        scale:'NTS',basis:'NV5 '+BLD[b].permit+' + CompanyCam',notes:NOTES_E(BLD[b].permit),
+        legend:function(x,yy){T(x,yy,'NV5: documented drawing mark',10.5);T(x,yy-20,'CompanyCam: field observation',10.5);T(x,yy-40,'Locations subject to verification',10.5);},legendH:66});
+    }
+    /* ---------- ground-floor plan (screened lanais, exterior access only) ---------- */
+    function groundFloorPlan(b,no) {
+      newPage();
+      var flip=planFrame(b),sc=9, left=(MAINR- L*sc)/2+20,top=H-205;
+      function P(X,Z){return [left+(flip?L-X:X)*sc, top-(flip?D-Z:Z)*sc];}
+      function R(x0,x1,z0,z1,fillIt){var a=P(x0,z0),c=P(x1,z1),x=Math.min(a[0],c[0]),y=Math.min(a[1],c[1]),w=Math.abs(c[0]-a[0]),h=Math.abs(c[1]-a[1]);rect(x,y,w,h,fillIt,true);return[x,y,w,h];}
+      T(48,H-62,'Building '+b+' · GROUND FLOOR / SCREENED LANAIS',27,'B');
+      T(48,H-88,'First-floor units and schematic exterior screen-door openings. Door locations and swing directions are NOT field-verified.',13,'R','l',GRAY);
+      stroke(0);lw(.75);fill([242,242,242]);
+      BLDunits(b,1).forEach(function(u){var p=R(u.x0,u.x1,u.z0,u.z1,true),c=P((u.x0+u.x1)/2,(u.z0+u.z1)/2);T(c[0],c[1]+3,u.n,15,'B','c');});
+      fill([238,238,238]);R(0,L,CT,CB,true);var pc=P(L/2,CC);T(pc[0],pc[1]-4,'CORRIDOR · 5′-0″',10.5,'B','c');
+      var doors=0;
+      function drawDoor(X,Z,vertical){var p=P(X,Z),a=p[0],y=p[1];fill(255);stroke(PATCHS);lw(1.4);circle(a,y,9,true,true);T(a,y-4,'D',11.5,'B','c',ORANGE);doors++;}
+      function Lanai(x0,x1,z0,z1){fill([248,239,227]);var p=R(x0,x1,z0,z1,true),c=P((x0+x1)/2,(z0+z1)/2);T(c[0],c[1]-3,'LANAI',11,'B','c');}
+      PAIRS.forEach(function(pp){
+        [[pp-12,pp],[pp,pp+12]].forEach(function(xx){
+          Lanai(xx[0],xx[1],0,RT);Lanai(xx[0],xx[1],RB,D);
+          drawDoor((xx[0]+xx[1])/2,0,false);drawDoor((xx[0]+xx[1])/2,D,false);
+        });
+      });
+      EBZ.forEach(function(z){Lanai(-EB,0,z[0],z[1]);Lanai(L,L+EB,z[0],z[1]);drawDoor(-EB,(z[0]+z[1])/2,true);drawDoor(L+EB,(z[0]+z[1])/2,true);});
+      var near=o.marks.filter(function(m){return m.b===b&&m.f===1;});
+      near.forEach(function(m){var c=P(m.X,m.Z);fill(255);stroke(0);lw(.8);circle(c[0],c[1],8,true,true);T(c[0],c[1]-3,String(BLD[b].num[m.id]||'?'),10.5,'B','c');});
+      var lower=o.entries.filter(function(e){return e.b===b&&!e.patches&&Number(e.y0)<F2-.1;});
+      lower.forEach(function(e){var x=(e.side==='left'?0:e.side==='right'?L:(e.a0+e.a1)/2),z=(e.side==='top'?0:e.side==='bottom'?D:(e.a0+e.a1)/2),c=P(x,z);
+        stroke(PATCHS);lw(1.5);line(c[0]-7,c[1]-7,c[0]+7,c[1]+7);T(c[0]+12,c[1]+2,o.label(e),10,'B','l',ORANGE);
+      });
+      T(48,340,'GROUND FLOOR · '+doors+' SCHEMATIC LANAI SCREEN-ACCESS DOORS',18,'B');
+      T(48,310,'D = exterior screen access door on ground floor ONLY. No exterior screen-access doors are drawn on the 2nd-floor balconies.',14);
+      T(48,282,'Door centers and handing are placeholders until field-verified; do not fabricate, permit, or price door locations from this schematic.',12,'R','l',GRAY);
+      T(48,255,'Ground-floor NV5 marks and CompanyCam observations appear on this plan and in the unified register E-'+b[0]+'06.',12,'R','l',GRAY);
+      titleBlock({no:no,title:'Building '+b+' · Ground-floor plan · Screened lanais',sub:['Schematic exterior lanai access doors'],
+        key:[b,['top','bottom']],scale:'1/8″ = 1′-0″',basis:'NV5 '+BLD[b].permit+' + field direction',
+        notes:NOTES_E(BLD[b].permit),legend:function(x,y){fill(255);stroke(PATCHS);lw(1.1);circle(x+8,y,8,true,true);T(x+8,y-3,'D',10,'B','c',ORANGE);T(x+25,y-3,'Ground lanai screen door',10.5);T(x,y-24,'Position / swing to verify',10.5);},legendH:52});
+    }
     /* ---------- balcony sheets (E-x03 / x04 / x05) ---------- */
     function belowOf(u) { var m = { '25': '08', '24': '07', '23': '06', '22': '05', '21': '04', '20': '03', '19': '02', '18': '01', '26': '09', '27': '10', '28': '11', '29': '12', '30': '14', '31': '15', '32': '16', '33': '17' }; return u[0] + (m[u.slice(1)] || u.slice(1)); }
     function planFrame(b) { var r = rot(b), nv = [r[1], -r[0]]; return nv[0] > .5 || nv[1] > .5; }
@@ -368,7 +462,7 @@
       var nside = sideElev(b, 'top'), sside = sideElev(b, 'bottom');
       T(48, H - 82, data.planSub || ('Top view. ' + ENAME[nside] + ' face (Elevation ' + nside + ') at the ' + (flip ? 'top' : 'top') + '; highlighted balconies have floor repairs documented in CompanyCam.'), 11, 'R', 'l', GRAY);
       stroke(0); lw(1); fill(238);
-      BLDunits(b, 2).forEach(function (u) { var r = R(u.x0, u.x1, u.z0, u.z1, true, true); var c = P((u.x0 + u.x1) / 2, (u.z0 + u.z1) / 2); T(c[0], c[1] + 2, u.n, 14, 'B', 'c'); T(c[0], c[1] - 12, '(unit ' + belowOf(u.n) + ' below)', 7.5, 'R', 'c', GRAY); });
+      BLDunits(b, 2).forEach(function (u) { var r = R(u.x0, u.x1, u.z0, u.z1, true, true); var c = P((u.x0 + u.x1) / 2, (u.z0 + u.z1) / 2); T(c[0], c[1] + 2, u.n, 14, 'B', 'c'); T(c[0], c[1] - 14, '(unit ' + belowOf(u.n) + ' below)', 10, 'R', 'c', GRAY); });
       fill(238); var cr = R(0, L, CT, CB, true, false); stroke(GRAY); dash([5, 4]); lw(.7); var a1 = P(0, CT), a2 = P(L, CT), a3 = P(0, CB), a4 = P(L, CB); line(a1[0], a1[1], a2[0], a2[1]); line(a3[0], a3[1], a4[0], a4[1]); dash(); var cm = P(L / 2, CC); T(cm[0], cm[1] - 3, 'CORRIDOR (approx.)', 9, 'R', 'c', GRAY);
       var rep = {}; list.forEach(function (e) { rep[e.unit.replace('Un ', '')] = e; });
       PAIRS.forEach(function (Pp) {
@@ -378,7 +472,7 @@
             var un = cell ? cell.n : '', e = rep[un];
             stroke(0); lw(.9); fill(255); var r = R(xx[0], xx[1], zz[1], zz[2], true, true);
             if (e) { fill(PATCHF); rect(r[0], r[1], r[2], r[3], true, false); hatch(r[0], r[1], r[2], r[3], PATCHS, 7); stroke(PATCHS); lw(1.2); rect(r[0], r[1], r[2], r[3], false, true); }
-            T(r[0] + r[2] / 2, r[1] + r[3] / 2 - 3, un, 8.5, 'R', 'c', e ? ORANGE : GRAY);
+            T(r[0] + r[2] / 2, r[1] + r[3] / 2 - 4, un, 11, 'R', 'c', e ? ORANGE : GRAY);
             if (e) {
               var outside = (zz[0] === 'top') === flip, ly = outside ? r[1] - 32 : r[1] + r[3] + 22;
               stroke(PATCHS); lw(1); fill(255); rf(); doc.roundedRect(r[0] + r[2] / 2 - 26, Y(ly + 14), 52, 18, 3, 3, 'FD'); T(r[0] + r[2] / 2, ly + 1, e.code, 9, 'B', 'c', ORANGE);
@@ -404,26 +498,26 @@
       T(48, bottomY, '2nd-floor plan · Building ' + b, 20, 'B'); T(48 + tw('2nd-floor plan · Building ' + b, 20, 'B') + 14, bottomY + 1, 'Scale 1/8″ = 1′-0″', 11, 'R', 'l', GRAY); stroke(0); lw(1.4); line(48, bottomY - 8, 48 + tw('2nd-floor plan · Building ' + b, 20, 'B'), bottomY - 8);
       scaleBar(MAINR - 50 * s - 20, bottomY + 2, s, 50, '50′');
       // summary table
-      var ty = bottomY - 50; T(48, ty, 'Balcony floor repairs · summary', 13, 'B'); ty -= 14;
-      var cols = [['ID', 70], ['Balcony', 66], ['Face', 50], ['Below', 50], ['Patches', 58], ['Area (approx.)', 92], ['Last stage documented', 300], ['Date', 140], ['NV5 reference', 290], ['Photos', 160], ['Detail', 60]], cw = cols.reduce(function (a, c) { return a + c[1]; }, 0);
-      fill(LIGHT); rect(48, ty - 18, cw, 18, true, false); var xx = 48; cols.forEach(function (c) { T(xx + 6, ty - 12.5, c[0], 9, 'B'); xx += c[1]; }); ty -= 18;
+      var ty = bottomY - 50; T(48, ty, 'Balcony floor repairs · summary', 17, 'B'); ty -= 22;
+      var cols = [['ID', 80], ['Balcony', 90], ['Face', 70], ['Below', 72], ['Patches', 80], ['Area (approx.)', 115], ['Last stage documented', 360], ['Date', 188], ['NV5 reference', 365], ['Photos', 195], ['Detail', 70]], cw = cols.reduce(function (a, c) { return a + c[1]; }, 0);
+      fill(LIGHT); rect(48, ty - 24, cw, 24, true, false); var xx = 48; cols.forEach(function (c) { T(xx + 6, ty - 17, c[0], 11.5, 'B'); xx += c[1]; }); ty -= 24;
       var total = 0;
       list.forEach(function (e) {
-        var stl = wrap(e.stage || e.status || '', 290, 9), rh = Math.max(1, stl.length) * 12 + 8, cells = [e.code, e.unit.replace('Un ', ''), ENAME[sideElev(b, e.side)], e.below || '', e.patches ? e.patches.length : '', e.area ? Math.round(e.area) + ' sq ft' : '', null, fmtDate(e.time), e.nv5 || 'Not marked on NV5 sheets (field-identified)', photoNums(e), sheetNos.detail];
+        var stl = wrap(e.stage || e.status || '', cols[6][1] - 12, 12), refLines = wrap(e.nv5 || 'Not marked on NV5 sheets (field-identified)', cols[8][1] - 12, 12), photoLines = wrap(photoNums(e), cols[9][1] - 12, 12), rh = Math.max(1, stl.length, refLines.length, photoLines.length) * 17 + 8, cells = [e.code, e.unit.replace('Un ', ''), ENAME[sideElev(b, e.side)], e.below || '', e.patches ? e.patches.length : '', e.area ? Math.round(e.area) + ' sq ft' : '', null, fmtDate(e.time), e.nv5 || 'Not marked on NV5 sheets (field-identified)', photoNums(e), sheetNos.detail];
         xx = 48; total += e.area || 0;
         cells.forEach(function (v, i) {
-          if (i === 6) stl.forEach(function (l, k) { T(xx + 6, ty - 13 - k * 12, l, 9); });
-          else if (i === 8) wrap(v, cols[8][1] - 10, 9).forEach(function (l, k) { T(xx + 6, ty - 13 - k * 12, l, 9); });
-          else T(xx + 6, ty - 13, v, i === 0 || i === 1 ? 9 : 9, i < 2 ? 'B' : 'R', 'l', i === 0 ? ORANGE : 0);
+          if (i === 6) stl.forEach(function (l, k) { T(xx + 6, ty - 16 - k * 17, l, 12); });
+          else if (i === 8 || i === 9) (i === 8 ? refLines : photoLines).forEach(function (l, k) { T(xx + 6, ty - 16 - k * 17, l, 12); });
+          else T(xx + 6, ty - 16, v, 12, i < 2 ? 'B' : 'R', 'l', i === 0 ? ORANGE : 0);
           xx += cols[i][1];
         });
         ty -= rh; stroke(LIGHT); lw(.6); line(48, ty, 48 + cw, ty);
       });
-      T(48 + 70 + 66 + 50 + 50 + 6, ty - 14, 'Total', 9, 'B'); T(48 + 70 + 66 + 50 + 50 + 58 + 6, ty - 14, Math.round(total) + ' sq ft', 9, 'B'); ty -= 40;
+      T(48 + 80 + 90 + 70 + 72 + 6, ty - 18, 'Total', 12, 'B'); T(48 + 80 + 90 + 70 + 72 + 80 + 6, ty - 18, Math.round(total) + ' sq ft', 12, 'B'); ty -= 46;
       var seq = data.sequence || autoSequence(list), ver = data.verify || autoVerify(list);
-      T(48, ty, 'Sequence documented in photos', 12, 'B'); T(1100, ty, 'To verify', 12, 'B');
-      var y1 = ty - 18; seq.forEach(function (t, i) { wrap((i + 1) + '. ' + t, 1000, 9.5).forEach(function (l) { T(48, y1, l, 9.5); y1 -= 13; }); });
-      var y2 = ty - 18; ver.forEach(function (t) { wrap('• ' + t, 1000, 9.5).forEach(function (l) { T(1100, y2, l, 9.5); y2 -= 13; }); });
+      T(48, ty, 'Sequence documented in photos', 15, 'B'); T(1100, ty, 'To verify', 15, 'B');
+      var y1 = ty - 18; seq.forEach(function (t, i) { wrap((i + 1) + '. ' + t, 1000, 11.5).forEach(function (l) { T(48, y1, l, 11.5); y1 -= 16; }); });
+      var y2 = ty - 18; ver.forEach(function (t) { wrap('• ' + t, 1000, 11.5).forEach(function (l) { T(1100, y2, l, 11.5); y2 -= 16; }); });
       titleBlock({ no: no, title: 'Building ' + b + ' · Balcony floor repairs · Plan', sub: ['Phase ' + BLD[b].phase + ' · 2nd-floor key plan'], key: [b, ['top', 'bottom']], scale: '1/8″ = 1′-0″', basis: 'NV5 ' + BLD[b].permit + ' + CompanyCam', notes: NOTES_B, legend: balcLegend, legendH: 60 });
     }
     function fmtDate(t) { if (!t) return ''; var d = new Date(t); if (isNaN(d)) return String(t); var mo = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getMonth()], h = d.getHours(), mi = String(d.getMinutes()).padStart(2, '0'); return mo + ' ' + d.getDate() + ', ' + d.getFullYear() + ' ' + ((h + 11) % 12 + 1) + ':' + mi + ' ' + (h < 12 ? 'AM' : 'PM'); }
@@ -441,19 +535,19 @@
           var face = ENAME[sideElev(b, e.side)];
           T(px + cw2 + 12, ptop, 'Balcony ' + e.unit.replace('Un ', '') + ' · ' + face + ' face · above unit ' + (e.below || ''), 13, 'B');
           stroke(0); lw(.8); line(px, ptop - 8, px + inner, ptop - 8);
-          T(px, ptop - 26, 'Enlarged plan (top view) · Scale 1/2″ = 1′-0″', 9, 'R', 'l', GRAY);
+          T(px, ptop - 29, 'Enlarged plan (top view) · Scale 1/2″ = 1′-0″', 11.5, 'R', 'l', GRAY);
           var s36 = 36, gx = px + 145, gtop = ptop - 110;
           function Pd(dx, dy) { return [gx + dx * s36, gtop - dy * s36]; }
-          // building wall (top) with sliding door
-          T(gx + 216, gtop + 40, 'BUILDING WALL', 8, 'B', 'c'); T(gx + 216, gtop + 30, 'SLIDING GLASS DOOR', 7, 'R', 'c', GRAY);
-          fill(255); stroke(0); lw(.8); rect(gx - 24, gtop, 456 + 24, 24, true, true); hatch(gx - 24, gtop, 128 + 24, 24, [70, 70, 70], 5); hatch(gx + 128 + 210, gtop, 456 - 128 - 210 + 24, 24, [70, 70, 70], 5);
-          fill(255); rect(gx + 128, gtop + 2, 210, 20, true, true); line(gx + 128, gtop + 12, gx + 338, gtop + 12); line(gx + 200, gtop + 8, gx + 240, gtop + 8);
+          // solid building wall (second-floor balcony; door removed per field clarification)
+          T(gx + 216, gtop + 43, 'EXTERIOR BUILDING WALL', 11, 'B', 'c'); T(gx + 216, gtop + 29, 'NO ACCESS DOOR SHOWN · 2ND FLOOR', 10, 'R', 'c', GRAY);
+          fill(255); stroke(0); lw(.8); rect(gx - 24, gtop, 456 + 24, 24, true, true); hatch(gx - 24, gtop, 456 + 24, 24, [70, 70, 70], 5);
+          // No sliding-glass opening is drawn at this second-floor balcony. Verify any windows in the field.
           // slab
           fill(246); stroke(0); lw(.8); rect(gx, gtop - 288, 432, 288, true, true);
-          // side wall with storage door (left)
+          // side wall (second-floor, no storage-access door assumed)
           fill(255); rect(gx - 24, gtop - 288, 24, 288, true, true); hatch(gx - 24, gtop - 36, 24, 36, [70, 70, 70], 5); hatch(gx - 24, gtop - 288, 24, 158, [70, 70, 70], 5);
-          stroke(GRAY); lw(.6); dash([3, 3]); var arc = []; for (var t = 0; t <= 20; t++) { var an = Math.PI / 2 * t / 20; arc.push([gx + 90 * Math.sin(an), gtop - 36 - 90 + 90 * Math.cos(an)]); } poly(arc, false, true); dash(); stroke(0); lw(.8); line(gx, gtop - 126, gx + 90, gtop - 126);
-          doc.setFont('R', 'normal'); doc.setFontSize(7); doc.setTextColor(107, 107, 107); doc.text('SIDE WALL · STORAGE DOOR', gx - 30, Y(gtop - 230), { angle: 90 }); doc.text('DIVIDER RAILING', gx + 446, Y(gtop - 190), { angle: 90 });
+          stroke(0); lw(.8); // No diagrammatic swing arc or door leaf on the upper-floor side wall.
+          doc.setFont('R', 'normal'); doc.setFontSize(7); doc.setTextColor(107, 107, 107); doc.text('SIDE WALL · NO DOOR SHOWN', gx - 30, Y(gtop - 230), { angle: 90 }); doc.text('DIVIDER RAILING', gx + 446, Y(gtop - 190), { angle: 90 });
           // divider railing (right) and front railing (bottom)
           stroke(0); lw(.8); line(gx + 432, gtop, gx + 432, gtop - 288); line(gx + 437, gtop, gx + 437, gtop - 288); for (var yy = gtop - 6; yy > gtop - 288; yy -= 9) line(gx + 432, yy, gx + 437, yy);
           line(gx, gtop - 288, gx + 432, gtop - 288); line(gx, gtop - 294, gx + 437, gtop - 294); for (var xx = gx + 6; xx < gx + 432; xx += 9) line(xx, gtop - 288, xx, gtop - 294);
@@ -470,11 +564,11 @@
             fill(255); stroke(PATCHS); lw(.8); rect(x0 + w / 2 - 11, y0 + h / 2 - 7, 22, 13, true, true); T(x0 + w / 2, y0 + h / 2 - 3, p.id, 8.5, 'B', 'c', ORANGE);
           });
           // table
-          var ty = gtop - 400, cols = [['Patch', 54], ['Size (approx.)', 116], ['Area', 72], ['Description', inner - 242]];
-          fill(LIGHT); rect(px, ty - 18, inner, 18, true, false); var x2 = px; cols.forEach(function (c) { T(x2 + 5, ty - 12.5, c[0], 9, 'B'); x2 += c[1]; }); ty -= 18;
-          (e.patches || []).forEach(function (p) { x2 = px; [p.id, p.size, p.area + ' sq ft', p.desc].forEach(function (v, i) { T(x2 + 5, ty - 13, v, 9, i === 0 ? 'B' : 'R'); x2 += cols[i][1]; }); ty -= 19; stroke(LIGHT); lw(.6); line(px, ty, px + inner, ty); });
-          T(px + 5, ty - 13, 'Total', 9, 'B'); T(px + 54 + 116 + 5, ty - 13, (e.area || 0) + ' sq ft', 9, 'B'); ty -= 32;
-          [['Stage', (e.stage || '') + (e.time ? ' (' + fmtDate(e.time) + ')' : '')], ['NV5', e.nv5 || 'Not marked on NV5 sheets (field-identified)'], ['Photos', photoNums(e)]].forEach(function (r) { T(px, ty, r[0], 9, 'B'); wrap(r[1], inner - 60, 9).forEach(function (l) { T(px + 60, ty, l, 9); ty -= 12; }); ty -= 3; });
+          var ty = gtop - 400, cols = [['Patch', 65], ['Size (approx.)', 145], ['Area', 85], ['Description', inner - 295]];
+          fill(LIGHT); rect(px, ty - 22, inner, 22, true, false); var x2 = px; cols.forEach(function (c) { T(x2 + 5, ty - 16, c[0], 11.5, 'B'); x2 += c[1]; }); ty -= 22;
+          (e.patches || []).forEach(function (p) { x2 = px; var descLines = wrap(p.desc || '', cols[3][1] - 12, 11.5), rowH = Math.max(1, descLines.length) * 16 + 7; [p.id, p.size, p.area + ' sq ft'].forEach(function (v, i) { T(x2 + 5, ty - 16, v, 11.5, i === 0 ? 'B' : 'R'); x2 += cols[i][1]; }); descLines.forEach(function (l, i) { T(x2 + 5, ty - 16 - i * 16, l, 11.5); }); ty -= rowH; stroke(LIGHT); lw(.6); line(px, ty, px + inner, ty); });
+          T(px + 5, ty - 16, 'Total', 11.5, 'B'); T(px + 65 + 145 + 5, ty - 16, (e.area || 0) + ' sq ft', 11.5, 'B'); ty -= 38;
+          [['Stage', (e.stage || '') + (e.time ? ' (' + fmtDate(e.time) + ')' : '')], ['NV5', e.nv5 || 'Not marked on NV5 sheets (field-identified)'], ['Photos', photoNums(e)]].forEach(function (r) { T(px, ty, r[0], 11.5, 'B'); wrap(r[1], inner - 76, 11).forEach(function (l) { T(px + 76, ty, l, 11); ty -= 16; }); ty -= 5; });
         });
         titleBlock({ no: no + (pg ? '.' + (pg + 1) : ''), title: 'Building ' + b + ' · Balcony floor repairs · Details', sub: ['Enlarged plans (top view) ' + list[0].code + ' to ' + list[list.length - 1].code], key: [b, ['top', 'bottom']], scale: '1/2″ = 1′-0″', basis: 'CompanyCam ' + (list[0].reportShort || '“BALCONIES”'), notes: NOTES_B,
           legend: function (x, y) { fill(PATCHF); stroke(PATCHS); lw(.8); rect(x, y - 5, 18, 11, true, true); hatch(x, y - 5, 18, 11, PATCHS, 4); T(x + 26, y - 3.4, 'Repair area (saw-cut, demo, patch)', 9); stroke(0); fill(255); rect(x, y - 22, 18, 11, true, true); hatch(x, y - 22, 18, 11, [70, 70, 70], 4); T(x + 26, y - 20.4, 'Wall (cut)', 9); line(x, y - 34, x + 18, y - 34); for (var q = 0; q < 18; q += 4) line(x + q, y - 34, x + q, y - 38); T(x + 26, y - 37.4, 'Railing', 9); }, legendH: 56 });
@@ -491,8 +585,8 @@
           stroke(PATCHS); lw(1.2); fill(255); rf(); doc.roundedRect(70, Y(rtop - 18), 58, 22, 4, 4, 'FD'); T(99, rtop - 33, e.code, 11, 'B', 'c', ORANGE);
           var iy = rtop - 64;
           T(66, iy, 'Balcony ' + e.unit.replace('Un ', ''), 13, 'B'); iy -= 15; T(66, iy, ENAME[sideElev(b, e.side)] + ' face · above unit ' + (e.below || ''), 9); iy -= 18;
-          T(66, iy, 'Last stage documented', 7, 'R', 'l', GRAY); iy -= 12; wrap(e.stage || '', 230, 9).forEach(function (l) { T(66, iy, l, 9); iy -= 12; }); iy -= 22;
-          T(66, iy, fmtDate(e.time), 9, 'B'); iy -= 18; T(66, iy, 'Area ≈ ' + Math.round(e.area || 0) + ' sq ft · ' + (e.patches || []).length + ' patches', 8.5); iy -= 14; T(66, iy, 'Plan: ' + plan, 8.5);
+          T(66, iy, 'Last stage documented', 10.5, 'R', 'l', GRAY); iy -= 15; wrap(e.stage || '', 230, 11).forEach(function (l) { T(66, iy, l, 11); iy -= 15; }); iy -= 16;
+          T(66, iy, fmtDate(e.time), 11, 'B'); iy -= 19; T(66, iy, 'Area ≈ ' + Math.round(e.area || 0) + ' sq ft · ' + (e.patches || []).length + ' patches', 10.5); iy -= 16; T(66, iy, 'Plan: ' + plan, 10.5);
           var x = 330, ph = 200;
           (e.photos || []).forEach(function (r) {
             var meta = (e.photoMeta || {})[r] || {}, img = o.photos[r], w = img ? Math.round(ph * img.w / img.h) : (meta.w ? meta.w * ph / 205 : 150);
@@ -500,7 +594,7 @@
             if (img) try { doc.addImage(img.data, 'JPEG', x, Y(rtop - 14), w, ph); } catch (er) {}
             stroke(0); lw(.8); rect(x, rtop - 14 - ph, w, ph, false, true);
             fill(255); rect(x + 6, rtop - 14 - 18, 24, 14, true, false); T(x + 18, rtop - 14 - 14, String(r).replace(/^bal:/, ''), 8, 'B', 'c');
-            T(x, rtop - 14 - ph - 10, meta.time || fmtDate(e.time), 7.5); T(x, rtop - 14 - ph - 20, meta.stage || '', 7.5, 'B');
+            T(x, rtop - 14 - ph - 12, meta.time || fmtDate(e.time), 10); T(x, rtop - 14 - ph - 25, meta.stage || '', 10, 'B');
             x += w + 13;
           });
         });
@@ -559,6 +653,11 @@
       var nm = function (ss) { return ss.map(function (sd) { return sideElev(b, sd) + ' ' + ENAME[sideElev(b, sd)]; }).join(' and '); };
       plan.push({ t: 'elev', b: b, sides: longS, s: 9, no: 'E-' + n + '01', kind: 'long', title: 'Building ' + b + ' · elevations ' + nm(longS) });
       plan.push({ t: 'elev', b: b, sides: endS, s: 18, no: 'E-' + n + '02', kind: 'end', title: 'Building ' + b + ' · elevations ' + nm(endS) });
+      // Keep E-x01..E-x05 stable; new sheets E-x06 (register) & E-x07 (ground).
+      var totalRows = o.marks.filter(function(m){return m.b === b;}).length + o.entries.filter(function(e){return e.b === b;}).length;
+      for (var ri = 0; ri < Math.max(1, Math.ceil(totalRows / 28)); ri++)
+        plan.push({t:'register', b:b, pg:ri, no:'E-'+n+'06', skip:ri>0, title:'Building '+b+' · Unified repair register'});
+      plan.push({t:'gplan', b:b, no:'E-'+n+'07', title:'Building '+b+' · Ground-floor plan · Screened lanais'});
       var bal = o.entries.filter(function (e) { return e.b === b && e.patches && e.patches.length; }).sort(function (a, c) { return a.code < c.code ? -1 : 1; });
       if (bal.length) {
         var dp = Math.ceil(bal.length / 6), lp = Math.ceil(bal.filter(function (e) { return (e.photos || []).length; }).length / 6) || 0;
@@ -583,6 +682,8 @@
     var clubNum = {}; o.marks.filter(function (m) { return m.b === 'club'; }).forEach(function (m, i) { clubNum[m.id] = i + 1; });
     plan.forEach(function (p) {
       if (p.t === 'elev') { elevationSheet(p.b, p.sides, p.s, p.no, p.b === 'club' ? clubNum : BLD[p.b].num, p.kind); return; }
+      if (p.t === 'register') { unifiedRegister(p.b,p.no,p.pg); return; }
+      if (p.t === 'gplan') { groundFloorPlan(p.b,p.no); return; }
       var n = p.b[0], nos = { detail: 'E-' + n + '04', elev: { top: 'E-' + n + '01', bottom: 'E-' + n + '01' } };
       if (p.t === 'bplan') balconyPlan(p.b, p.list, p.no, nos);
       if (p.t === 'bdet' && !p.skip) balconyDetails(p.b, p.list, p.no);

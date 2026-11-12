@@ -291,7 +291,7 @@
       if (opts.logo) { try { doc.addImage(opts.logo, 'PNG', W - 130, 22, 96, 51); } catch (e) {} }
       doc.setTextColor(32, 69, 121); doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text('MTD PAINTING & CONSTRUCTION', 36, 40);
       doc.setTextColor(20); doc.setFontSize(10.5); doc.text(st.project, 36, 56);
-      doc.setTextColor(208, 32, 42); doc.setFontSize(9.5); doc.text(sub, 36, 70);
+      doc.setTextColor(208, 32, 42); doc.setFontSize(11); doc.text(sub, 36, 70);
       doc.setTextColor(20); doc.setFont('helvetica', 'normal'); doc.text(T.t4, 36, 83);
     }
     var heads = ['Item #', 'Description of Work', 'Unit', 'Contract Qty', 'Unit Price', 'Scheduled Value', 'Qty / % to Date'];
@@ -310,19 +310,19 @@
     var curCol = 7 + N - 1;
     header(T.t3);
     doc.autoTable({ head: [heads], body: body, startY: 94, margin: { left: 30, right: 30, top: 94 }, theme: 'grid',
-      styles: { fontSize: 6.6, cellPadding: 2, lineColor: [150, 150, 150], lineWidth: 0.3, halign: 'center', valign: 'middle', textColor: 20 },
+      styles: { fontSize: 8.4, cellPadding: 2.6, lineColor: [150, 150, 150], lineWidth: 0.3, halign: 'center', valign: 'middle', textColor: 20 },
       headStyles: { fillColor: [32, 69, 121], textColor: 255, fontStyle: 'bold' },
       columnStyles: { 1: { halign: 'left', cellWidth: 230 } },
       didParseCell: function (d) { if (d.section === 'body' && d.column.index === curCol && d.cell.colSpan === 1) d.cell.styles.fontStyle = 'bold'; },
-      didDrawPage: function () { header(T.t3); doc.setFontSize(8); doc.setTextColor(120); doc.text('Page ' + doc.internal.getNumberOfPages(), W - 60, H - 16); } });
+      didDrawPage: function () { header(T.t3); doc.setFontSize(10); doc.setTextColor(120); doc.text('Page ' + doc.internal.getNumberOfPages(), W - 60, H - 16); } });
     var y = doc.lastAutoTable.finalY + 16;
-    doc.setFontSize(7.5); doc.setTextColor(40);
-    st.notes.forEach(function (t, k) { var ln = doc.splitTextToSize(k === 2 ? t.replace(/Pay App #\d+ = total.*$/, 'Pay App #' + N + ' = total to date less prior pay apps.') : t, W - 80); doc.text(ln, 40, y); y += ln.length * 9 + 2; });
+    doc.setFontSize(10); doc.setTextColor(40);
+    st.notes.forEach(function (t, k) { var ln = doc.splitTextToSize(k === 2 ? t.replace(/Pay App #\d+ = total.*$/, 'Pay App #' + N + ' = total to date less prior pay apps.') : t, W - 80); if (y + ln.length * 13 > H - 75) { doc.addPage(); header(T.t3); doc.setFontSize(10); doc.setTextColor(40); y = 118; } doc.text(ln, 40, y); y += ln.length * 13 + 4; });
     sig(y + 30);
     function sig(yy) {
       if (yy > H - 40) { doc.addPage(); header(T.t3); yy = 140; }
       doc.setDrawColor(60); doc.line(40, yy, 320, yy); doc.line(W / 2 + 40, yy, W / 2 + 320, yy);
-      doc.setFontSize(8.5); doc.text('Engineer of Record - Name, Signature and Date', 40, yy + 12); doc.text("MTD's Representative - Name, Signature and Date", W / 2 + 40, yy + 12);
+      doc.setFontSize(10); doc.text('Engineer of Record - Name, Signature and Date', 40, yy + 12); doc.text("MTD's Representative - Name, Signature and Date", W / 2 + 40, yy + 12);
     }
     BLDGS.forEach(function (b) {
       var s = st.sheets[b]; doc.addPage(); header('Bldg ' + b + ' - Field Quantities by Unit');
@@ -333,11 +333,12 @@
       bd.push([{ content: 'Unit Price Items - field measured', colSpan: h.length, styles: { fillColor: [242, 245, 250], textColor: [32, 69, 121], fontStyle: 'bold' } }]);
       UNIT_ITEMS.forEach(function (code) { var it = s.items[code]; bd.push([code, it.desc, it.unit].concat(it.v.map(qty), [qty(sum(it.v))])); });
       doc.autoTable({ head: [h], body: bd, startY: 94, margin: { left: 30, right: 30 }, theme: 'grid',
-        styles: { fontSize: 7, cellPadding: 2.4, lineColor: [150, 150, 150], lineWidth: 0.3, halign: 'center', textColor: 20 },
+        styles: { fontSize: 8.6, cellPadding: 2.8, lineColor: [150, 150, 150], lineWidth: 0.3, halign: 'center', textColor: 20 },
         headStyles: { fillColor: [32, 69, 121], textColor: 255, fontStyle: 'bold' }, columnStyles: { 1: { halign: 'left', cellWidth: 190 } },
         didParseCell: function (d) { if (d.section === 'body' && d.column.index === h.length - 1) d.cell.styles.fontStyle = 'bold'; } });
-      var yy = doc.lastAutoTable.finalY + 14; doc.setFontSize(7.5); var ln = doc.splitTextToSize(s.note || '', W - 80); doc.text(ln, 40, yy);
-      sig(yy + ln.length * 9 + 34);
+      var yy = doc.lastAutoTable.finalY + 16; doc.setFontSize(10); var ln = doc.splitTextToSize(s.note || '', W - 80);
+      if (yy + ln.length * 13 > H - 75) { doc.addPage(); header('Bldg ' + b + ' - Field Quantities by Unit'); doc.setFontSize(10); yy = 118; }
+      doc.text(ln, 40, yy); sig(yy + ln.length * 13 + 34);
     });
     return doc;
   }
